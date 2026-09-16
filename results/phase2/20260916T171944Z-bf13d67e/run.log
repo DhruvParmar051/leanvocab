@@ -1,0 +1,52 @@
+2026-09-16T22:49:44+0530 INFO    leanvocab.utils.seeding: Seeded python,numpy with seed=0
+2026-09-16T22:49:44+0530 INFO    __main__: Run 20260916T171944Z-bf13d67e, config sha256=bf13d67ec7d524c181c46ed0ab01a31bc48eac4f10a1bfab614fd4af5d3fa092
+2026-09-16T22:49:45+0530 INFO    __main__: Training subset: 1050802 docs, 5.00 GB from 20 shards
+2026-09-16T22:51:09+0530 INFO    leanvocab.tokenizers.alphabet: Alphabet: 10859 distinct chars, keeping 1000 (99.99634% of occurrences)
+2026-09-16T22:51:09+0530 INFO    __main__: Character alphabet ready in 84s
+2026-09-16T22:52:32+0530 INFO    leanvocab.tokenizers.alphabet: Built Unigram training text cache data/cache/unigram-aadc526ec9af0c94 (1050802 docs)
+2026-09-16T22:52:32+0530 INFO    __main__: Unigram training text ready in 83s
+2026-09-16T22:52:32+0530 INFO    __main__: Training bpe-8k (byte_level_bpe, vocab=8000)
+2026-09-16T22:55:42+0530 INFO    __main__: Trained bpe-8k in 190s
+2026-09-16T22:55:43+0530 INFO    __main__: bpe-8k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T22:55:43+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bpe-8k (vocab=8000)
+2026-09-16T22:55:43+0530 INFO    __main__: Training bpe-16k (byte_level_bpe, vocab=16000)
+2026-09-16T22:58:49+0530 INFO    __main__: Trained bpe-16k in 186s
+2026-09-16T22:58:50+0530 INFO    __main__: bpe-16k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T22:58:50+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bpe-16k (vocab=16000)
+2026-09-16T22:58:50+0530 INFO    __main__: Training bpe-32k (byte_level_bpe, vocab=32000)
+2026-09-16T23:01:54+0530 INFO    __main__: Trained bpe-32k in 184s
+2026-09-16T23:01:55+0530 INFO    __main__: bpe-32k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T23:01:55+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bpe-32k (vocab=32000)
+2026-09-16T23:01:55+0530 INFO    __main__: Training uni-8k (unigram_byte_fallback, vocab=8000)
+2026-09-16T23:11:34+0530 INFO    __main__: Trained uni-8k in 579s
+2026-09-16T23:11:35+0530 INFO    __main__: uni-8k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T23:11:35+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/uni-8k (vocab=8000)
+2026-09-16T23:11:35+0530 INFO    __main__: Training uni-16k (unigram_byte_fallback, vocab=16000)
+2026-09-16T23:20:28+0530 INFO    __main__: Trained uni-16k in 533s
+2026-09-16T23:20:29+0530 INFO    __main__: uni-16k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T23:20:29+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/uni-16k (vocab=16000)
+2026-09-16T23:20:29+0530 INFO    __main__: Training uni-32k (unigram_byte_fallback, vocab=32000)
+2026-09-16T23:28:27+0530 INFO    __main__: Trained uni-32k in 478s
+2026-09-16T23:28:29+0530 INFO    __main__: uni-32k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T23:28:29+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/uni-32k (vocab=32000)
+2026-09-16T23:28:29+0530 INFO    __main__: Training wp-8k (wordpiece, vocab=8000)
+2026-09-16T23:30:47+0530 INFO    __main__: Trained wp-8k in 138s
+2026-09-16T23:30:48+0530 INFO    __main__: wp-8k round-trip (ignore_whitespace): 1979/2000 matched, 21 unk-skipped, 0 mismatched
+2026-09-16T23:30:48+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/wp-8k (vocab=8000)
+2026-09-16T23:30:48+0530 INFO    __main__: Training wp-16k (wordpiece, vocab=16000)
+2026-09-16T23:33:08+0530 INFO    __main__: Trained wp-16k in 140s
+2026-09-16T23:33:09+0530 INFO    __main__: wp-16k round-trip (ignore_whitespace): 1979/2000 matched, 21 unk-skipped, 0 mismatched
+2026-09-16T23:33:10+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/wp-16k (vocab=16000)
+2026-09-16T23:33:10+0530 INFO    __main__: Training wp-32k (wordpiece, vocab=32000)
+2026-09-16T23:35:31+0530 INFO    __main__: Trained wp-32k in 141s
+2026-09-16T23:35:32+0530 INFO    __main__: wp-32k round-trip (ignore_whitespace): 1979/2000 matched, 21 unk-skipped, 0 mismatched
+2026-09-16T23:35:32+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/wp-32k (vocab=32000)
+2026-09-16T23:35:34+0530 INFO    __main__: bert-orig round-trip (ignore_whitespace): 1967/2000 matched, 33 unk-skipped, 0 mismatched
+2026-09-16T23:35:34+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bert-orig (vocab=30522)
+2026-09-16T23:35:34+0530 INFO    __main__: Counting bert-orig token frequencies on the subset
+2026-09-16T23:38:51+0530 INFO    __main__: Counted 1056413693 tokens in 197s
+2026-09-16T23:38:53+0530 INFO    __main__: bert-trim-8k round-trip (ignore_whitespace): 1967/2000 matched, 33 unk-skipped, 0 mismatched
+2026-09-16T23:38:53+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bert-trim-8k (vocab=8000)
+2026-09-16T23:38:54+0530 INFO    __main__: bert-trim-16k round-trip (ignore_whitespace): 1967/2000 matched, 33 unk-skipped, 0 mismatched
+2026-09-16T23:38:54+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bert-trim-16k (vocab=16000)
+2026-09-16T23:38:55+0530 INFO    leanvocab.utils.registry: Wrote metrics to /Users/dhruvparmar/Project/leanvocab/results/phase2/20260916T171944Z-bf13d67e/metrics.json

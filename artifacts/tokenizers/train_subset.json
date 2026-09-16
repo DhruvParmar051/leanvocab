@@ -1,0 +1,108 @@
+{
+  "doc_ids_sha256": "05dd90b0ece48684179c116e45bdd7307a433f8ae40b11726037cee001dc7b9d",
+  "docs": 1050802,
+  "shards": [
+    {
+      "docs": 52597,
+      "path": "shards/train-00000.parquet",
+      "sha256": "cc4c234de541ac64c446b4826a3f56a21d682a18a4808c2ac9e2ab1d70e04604"
+    },
+    {
+      "docs": 53994,
+      "path": "shards/train-00001.parquet",
+      "sha256": "8e23f4028cdeb1763011d5a3600515abc14b547aecf60838abb408440a28b886"
+    },
+    {
+      "docs": 54074,
+      "path": "shards/train-00002.parquet",
+      "sha256": "d2a93eca1408e63bedb7580b82127ecfbfde858c313b36afb570c68fde3dbe4c"
+    },
+    {
+      "docs": 53989,
+      "path": "shards/train-00003.parquet",
+      "sha256": "0ea68ebf3188b767502771343eaeecc74baec004f7688092943852cccdb70f7c"
+    },
+    {
+      "docs": 54768,
+      "path": "shards/train-00004.parquet",
+      "sha256": "eedadc0d57fbbde3bcc3bef2c0c340004f4d86685012dc3a555dfaf22652e548"
+    },
+    {
+      "docs": 54511,
+      "path": "shards/train-00005.parquet",
+      "sha256": "96c896d8642461507f2a046e6f105e1d0573acc47af092eed67ff18f6a92321d"
+    },
+    {
+      "docs": 52408,
+      "path": "shards/train-00006.parquet",
+      "sha256": "f7c73fea7479470330269ba0f7b18bed36bb15a80fbcaa828730ca86aeddc261"
+    },
+    {
+      "docs": 52876,
+      "path": "shards/train-00007.parquet",
+      "sha256": "7bdc4df4fa4851e400c5542f0d0141e8eff255a600f60c6967c55e7834928815"
+    },
+    {
+      "docs": 52875,
+      "path": "shards/train-00008.parquet",
+      "sha256": "f95efe2fabc74b63c289960086362b2c16f6320cab91a11d4bf756642a9f487b"
+    },
+    {
+      "docs": 53886,
+      "path": "shards/train-00009.parquet",
+      "sha256": "525438a7ac09ef3a74e86cef21c3320272142cdb1dc0333e1588ec8909c68539"
+    },
+    {
+      "docs": 53151,
+      "path": "shards/train-00010.parquet",
+      "sha256": "87ecc005a837707eda40039ceefaea82ac8b7b3840e90b34a8e87a1b5049604c"
+    },
+    {
+      "docs": 53974,
+      "path": "shards/train-00011.parquet",
+      "sha256": "6d6e36dfecdebc7b6de13f172e41949f0b85a49a8b0ffb60bb6ed065e944774b"
+    },
+    {
+      "docs": 53164,
+      "path": "shards/train-00012.parquet",
+      "sha256": "f3e5e6f12de3fa6babaf02576053d82ae3596f5466045811f54a077d2881a5f8"
+    },
+    {
+      "docs": 53186,
+      "path": "shards/train-00013.parquet",
+      "sha256": "ca855fcf99594b256828b6c9ff121539cf50355d805e94251385f5c3b3ffeeb2"
+    },
+    {
+      "docs": 54152,
+      "path": "shards/train-00014.parquet",
+      "sha256": "c46ded5ce182cda84ad9816614cd0d456061796e69c0ed4f9855cab559842121"
+    },
+    {
+      "docs": 54843,
+      "path": "shards/train-00015.parquet",
+      "sha256": "86d2837b3695bcbff98ed0b905298af3fe195d02ae16ad64f5c2b92da56da1b8"
+    },
+    {
+      "docs": 54347,
+      "path": "shards/train-00016.parquet",
+      "sha256": "2a7013e084c84c04188716c7e4a6f3de6e441814d4fefe5e2047a0b173f35157"
+    },
+    {
+      "docs": 54063,
+      "path": "shards/train-00017.parquet",
+      "sha256": "adac463b01e5d20325406ac17da0f66a19681ce805df21b1b849a5d13c42c3c6"
+    },
+    {
+      "docs": 55313,
+      "path": "shards/train-00018.parquet",
+      "sha256": "b00b7e3000c05b82906c4f52f605624fc8092151be68c3dcb717090f78abc311"
+    },
+    {
+      "docs": 28631,
+      "path": "shards/train-00019.parquet",
+      "sha256": "a2569409e2883f54a4eab0dcdd7261a88fdc19411e8c5fa9d0b2fb26f847e71d"
+    }
+  ],
+  "subset_bytes_target": 5000000000,
+  "text_bytes": 5000030912
+}

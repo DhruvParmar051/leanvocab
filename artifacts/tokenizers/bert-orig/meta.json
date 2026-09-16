@@ -1,0 +1,29 @@
+{
+  "algorithm": "wordpiece_pretrained",
+  "config_sha256": "bf13d67ec7d524c181c46ed0ab01a31bc48eac4f10a1bfab614fd4af5d3fa092",
+  "id": "bert-orig",
+  "roundtrip": {
+    "docs": 2000,
+    "matched": 1967,
+    "mismatch_examples": [],
+    "mismatched": 0,
+    "mode": "ignore_whitespace",
+    "passed": true,
+    "unk_docs_skipped": 33
+  },
+  "source_repo": "google-bert/bert-base-uncased",
+  "source_revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+  "special_tokens": [
+    "[PAD]",
+    "[UNK]",
+    "[CLS]",
+    "[SEP]",
+    "[MASK]"
+  ],
+  "subset_doc_ids_sha256": "05dd90b0ece48684179c116e45bdd7307a433f8ae40b11726037cee001dc7b9d",
+  "subset_text_bytes": 5000030912,
+  "tokenizer_sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+  "tokenizers_version": "0.23.2",
+  "train_sec": 0.0,
+  "vocab_size": 30522
+}

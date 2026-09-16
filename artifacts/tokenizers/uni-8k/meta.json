@@ -1,0 +1,34 @@
+{
+  "algorithm": "unigram_byte_fallback",
+  "char_alphabet": {
+    "coverage": 0.9999634490215487,
+    "distinct_chars_in_subset": 10859,
+    "sha256": "05e7297e1039d3c0f583d9d40c9ea3d4eaf58207a9797c3012bca8968c800b75",
+    "size": 1000
+  },
+  "config_sha256": "bf13d67ec7d524c181c46ed0ab01a31bc48eac4f10a1bfab614fd4af5d3fa092",
+  "id": "uni-8k",
+  "roundtrip": {
+    "docs": 2000,
+    "matched": 2000,
+    "mismatch_examples": [],
+    "mismatched": 0,
+    "mode": "exact",
+    "passed": true,
+    "unk_docs_skipped": 0
+  },
+  "special_tokens": [
+    "[PAD]",
+    "[UNK]",
+    "[CLS]",
+    "[SEP]",
+    "[MASK]"
+  ],
+  "subset_doc_ids_sha256": "05dd90b0ece48684179c116e45bdd7307a433f8ae40b11726037cee001dc7b9d",
+  "subset_text_bytes": 5000030912,
+  "tokenizer_sha256": "6f9414a43fdb81edcc41c2be75282cb58d47f71ba98037ee63b3c9958048363e",
+  "tokenizers_version": "0.23.2",
+  "train_sec": 578.9,
+  "vocab_size": 8000,
+  "vocab_size_target": 8000
+}

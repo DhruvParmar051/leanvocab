@@ -1,0 +1,28 @@
+{
+  "algorithm": "byte_level_bpe",
+  "config_sha256": "bf13d67ec7d524c181c46ed0ab01a31bc48eac4f10a1bfab614fd4af5d3fa092",
+  "id": "bpe-16k",
+  "roundtrip": {
+    "docs": 2000,
+    "matched": 2000,
+    "mismatch_examples": [],
+    "mismatched": 0,
+    "mode": "exact",
+    "passed": true,
+    "unk_docs_skipped": 0
+  },
+  "special_tokens": [
+    "[PAD]",
+    "[UNK]",
+    "[CLS]",
+    "[SEP]",
+    "[MASK]"
+  ],
+  "subset_doc_ids_sha256": "05dd90b0ece48684179c116e45bdd7307a433f8ae40b11726037cee001dc7b9d",
+  "subset_text_bytes": 5000030912,
+  "tokenizer_sha256": "25099cdd24c41579a130abb49b43c7318c882d9d0d389dc72a7f01e9fce08001",
+  "tokenizers_version": "0.23.2",
+  "train_sec": 185.6,
+  "vocab_size": 16000,
+  "vocab_size_target": 16000
+}
