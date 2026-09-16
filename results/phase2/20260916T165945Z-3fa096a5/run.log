@@ -1,0 +1,18 @@
+2026-09-16T22:29:45+0530 INFO    leanvocab.utils.seeding: Seeded python,numpy with seed=0
+2026-09-16T22:29:45+0530 INFO    __main__: Run 20260916T165945Z-3fa096a5, config sha256=3fa096a5bf64bbc2c2503a811f4d8c2eeecc9eff764cc93b753c06a78b7bc904
+2026-09-16T22:29:45+0530 INFO    __main__: Training subset: 1050802 docs, 5.00 GB from 20 shards
+2026-09-16T22:31:12+0530 INFO    leanvocab.tokenizers.common: Alphabet: 10859 distinct characters, keeping 1000
+2026-09-16T22:31:12+0530 INFO    __main__: Computed WordPiece alphabet in 86s
+2026-09-16T22:31:12+0530 INFO    __main__: Training bpe-8k (byte_level_bpe, vocab=8000)
+2026-09-16T22:34:14+0530 INFO    __main__: Trained bpe-8k in 182s
+2026-09-16T22:34:16+0530 INFO    __main__: bpe-8k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T22:34:16+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bpe-8k (vocab=8000)
+2026-09-16T22:34:16+0530 INFO    __main__: Training bpe-16k (byte_level_bpe, vocab=16000)
+2026-09-16T22:37:11+0530 INFO    __main__: Trained bpe-16k in 175s
+2026-09-16T22:37:12+0530 INFO    __main__: bpe-16k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T22:37:12+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bpe-16k (vocab=16000)
+2026-09-16T22:37:12+0530 INFO    __main__: Training bpe-32k (byte_level_bpe, vocab=32000)
+2026-09-16T22:40:13+0530 INFO    __main__: Trained bpe-32k in 181s
+2026-09-16T22:40:14+0530 INFO    __main__: bpe-32k round-trip (exact): 2000/2000 matched, 0 unk-skipped, 0 mismatched
+2026-09-16T22:40:14+0530 INFO    leanvocab.tokenizers.common: Saved artifacts/tokenizers/bpe-32k (vocab=32000)
+2026-09-16T22:40:14+0530 INFO    __main__: Training uni-8k (unigram_byte_fallback, vocab=8000)

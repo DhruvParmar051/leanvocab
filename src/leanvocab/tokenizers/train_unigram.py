@@ -4,6 +4,10 @@ HF's UnigramTrainer does not create byte pieces, so we train ``vocab_size - 256`
 append ``<0x00>``..``<0xFF>`` afterwards (as SentencePiece does within its vocab budget), then
 rebuild the model with ``byte_fallback=True``. The total vocab is exactly ``vocab_size``.
 
+``batches`` must already be normalized and restricted to the shared character alphabet
+(``alphabet.build_unigram_cache``): the trainer needs every training character in the vocab,
+so the normalizer is attached only after training.
+
 The trainer's parallel EM is not bit-reproducible: scores vary by ~1e-4 between runs (the
 piece set was identical, and segmentation of 3k held-out docs unchanged, in our checks).
 Scores are rounded to ``score_decimals`` and ids are assigned by (length, piece), which
@@ -40,7 +44,6 @@ def train_unigram(
     if vocab_size <= N_BYTE_PIECES + len(cfg.special_tokens):
         raise ValueError(f"vocab_size {vocab_size} too small for byte fallback")
     tok = Tokenizer(models.Unigram())
-    tok.normalizer = build_normalizer(cfg.normalizer)
     # "never": no space is invented before the first word, so decoding is lossless
     # (mirrors byte-level BPE with add_prefix_space=False).
     tok.pre_tokenizer = pre_tokenizers.Metaspace(
@@ -79,6 +82,7 @@ def train_unigram(
         pieces.append((piece, min_score - BYTE_PIECE_SCORE_MARGIN))
 
     tok.model = models.Unigram(pieces, unk_id=model_state["unk_id"], byte_fallback=True)
+    tok.normalizer = build_normalizer(cfg.normalizer)
     tok.decoder = decoders.Sequence(
         [decoders.Replace(METASPACE, " "), decoders.ByteFallback(), decoders.Fuse()]
     )

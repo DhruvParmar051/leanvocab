@@ -5,6 +5,10 @@ subset_bytes: 5000000000
 batch_docs: 1000
 roundtrip_docs: 2000          # held-out docs used for the round-trip exit check
 out_dir: artifacts/tokenizers
+cache_dir: data/cache
+# Characters shared by WordPiece (initial alphabet) and Unigram (training text is restricted
+# to them; others fall back to bytes). Top-N by count, ties by code point.
+char_alphabet_size: 1000
 
 special_tokens: ["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"]
 unk_token: "[UNK]"
@@ -32,7 +36,6 @@ unigram:
 wordpiece:
   vocab_sizes: [8000, 16000, 32000]
   min_frequency: 2
-  limit_alphabet: 1000        # chosen by us (count desc, code point) and passed as initial_alphabet
 
 bert:
   repo: google-bert/bert-base-uncased

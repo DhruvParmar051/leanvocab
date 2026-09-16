@@ -21,9 +21,7 @@ def train_wordpiece(
     n: int,
     alphabet: list[str],
 ) -> Tokenizer:
-    """Train WordPiece with a fixed, precomputed alphabet (see ``compute_alphabet``)."""
-    if len(alphabet) != family.limit_alphabet:
-        raise ValueError(f"Alphabet has {len(alphabet)} chars, expected {family.limit_alphabet}")
+    """Train WordPiece with a fixed, precomputed alphabet (see ``alphabet.py``)."""
     tok = Tokenizer(
         models.WordPiece(
             unk_token=cfg.unk_token,

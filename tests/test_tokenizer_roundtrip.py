@@ -7,15 +7,24 @@ import random
 from pathlib import Path
 
 import numpy as np
+import pyarrow as pa
+import pyarrow.parquet as pq
 import pytest
 from tokenizers import Tokenizer, models
 
+from leanvocab.tokenizers.alphabet import (
+    CharAlphabet,
+    build_unigram_cache,
+    rank_chars,
+    rare_char_pattern,
+    select_alphabet,
+)
 from leanvocab.tokenizers.common import (
     Phase2Config,
-    WordPieceConfig,
     attach_post_processor,
     build_normalizer,
     check_specials,
+    iter_subset_batches,
     load_tokenizer,
 )
 from leanvocab.tokenizers.roundtrip import roundtrip_report
@@ -71,8 +80,11 @@ def _alphabet(docs: list[str], cfg: Phase2Config) -> list[str]:
     return sorted({c for d in docs for c in norm.normalize_str(d) if not c.isspace()})
 
 
-def _wp_family(alphabet: list[str], cfg: Phase2Config) -> WordPieceConfig:
-    return cfg.wordpiece.model_copy(update={"limit_alphabet": len(alphabet)})
+def _unigram_text(docs: list[str], cfg: Phase2Config, chars: list[str]) -> list[str]:
+    """What build_unigram_cache produces: normalized text restricted to ``chars``."""
+    norm = build_normalizer(cfg.normalizer)
+    pattern = rare_char_pattern(chars)
+    return [pattern.sub(" ", norm.normalize_str(d)) for d in docs]
 
 
 @pytest.fixture(scope="module")
@@ -81,8 +93,10 @@ def trained(cfg: Phase2Config) -> dict[str, Tokenizer]:
     alpha = _alphabet(docs, cfg)
     toks = {
         "bpe": train_bpe(cfg, cfg.bpe, VOCAB, _batches(docs), len(docs)),
-        "uni": train_unigram(cfg, cfg.unigram, VOCAB, _batches(docs), len(docs)),
-        "wp": train_wordpiece(cfg, _wp_family(alpha, cfg), VOCAB, _batches(docs), len(docs), alpha),
+        "uni": train_unigram(
+            cfg, cfg.unigram, VOCAB, _batches(_unigram_text(docs, cfg, alpha)), len(docs)
+        ),
+        "wp": train_wordpiece(cfg, cfg.wordpiece, VOCAB, _batches(docs), len(docs), alpha),
     }
     for tok in toks.values():
         attach_post_processor(tok, cfg)
@@ -163,23 +177,11 @@ def test_trim_keeps_specials_chars_then_frequency() -> None:
         select_trimmed_vocab(vocab, counts, specials, 10)
 
 
-@pytest.mark.skipif(not ARTIFACTS.is_dir(), reason="Phase 2 artifacts not built")
-@pytest.mark.parametrize(
-    "tok_dir", sorted(p for p in ARTIFACTS.glob("*") if p.is_dir()) if ARTIFACTS.is_dir() else []
-)
-def test_saved_tokenizers_roundtrip(tok_dir: Path, cfg: Phase2Config) -> None:
-    tok, meta = load_tokenizer(tok_dir)
-    assert meta["roundtrip"]["passed"]
-    mode = meta["roundtrip"]["mode"]
-    report = roundtrip_report(tok, TRICKY, mode, cfg.unk_token)
-    assert report["passed"], report["mismatch_examples"]
-    assert tok.get_vocab_size() == meta["vocab_size"]
-
-
 def test_bpe_and_unigram_training_is_deterministic(cfg: Phase2Config) -> None:
     docs = _corpus()
+    uni_text = _unigram_text(docs, cfg, _alphabet(docs, cfg))
     for build in (
-        lambda: train_unigram(cfg, cfg.unigram, VOCAB, _batches(docs), len(docs)),
+        lambda: train_unigram(cfg, cfg.unigram, VOCAB, _batches(uni_text), len(docs)),
         lambda: train_bpe(cfg, cfg.bpe, VOCAB, _batches(docs), len(docs)),
     ):
         assert build().to_str() == build().to_str()
@@ -202,14 +204,59 @@ def test_wordpiece_ids_depend_only_on_token_set(cfg: Phase2Config) -> None:
     assert sorted(vocab, key=vocab.__getitem__)[5:] == ["a", "b", "##a", "##b", "ab", "##ab", "abc"]
 
 
-def test_compute_alphabet_breaks_ties_by_codepoint(tmp_path: Path, cfg: Phase2Config) -> None:
-    import pyarrow as pa
-    import pyarrow.parquet as pq
-
-    from leanvocab.tokenizers.common import compute_alphabet
-
+def test_alphabet_ranking_breaks_ties_by_codepoint(tmp_path: Path, cfg: Phase2Config) -> None:
     pq.write_table(pa.table({"text": ["ccc bb aa zz", "IGNORED"]}), tmp_path / "s.parquet")
     subset = {"shards": [{"path": "s.parquet", "docs": 1}]}
-    got = compute_alphabet(tmp_path, subset, cfg.normalizer, 3)
-    assert [e["char"] for e in got] == ["c", "a", "b"]
-    assert [e["count"] for e in got] == [3, 2, 2]
+    ranked = rank_chars(tmp_path, subset, cfg.normalizer)
+    assert ranked == [("c", 3), ("a", 2), ("b", 2), ("z", 2)]
+    alphabet = select_alphabet(ranked, 3)
+    assert alphabet.chars == ["c", "a", "b"]
+    assert alphabet.coverage == pytest.approx(7 / 9) and alphabet.distinct == 4
+
+
+def test_unigram_trains_when_corpus_has_more_chars_than_vocab(cfg: Phase2Config) -> None:
+    # 1500 distinct rare CJK characters cannot all fit a 600-piece vocab; restricting the
+    # training text to the shared alphabet must make training succeed, and byte fallback
+    # must still round-trip the rare characters exactly.
+    docs = _corpus()
+    rare = [chr(0x4E00 + i) for i in range(1500)]
+    noisy = [d + " " + rare[i % 1500] + rare[(i * 7) % 1500] for i, d in enumerate(docs)]
+    alpha = _alphabet(docs, cfg)
+    tok = train_unigram(
+        cfg, cfg.unigram, VOCAB, _batches(_unigram_text(noisy, cfg, alpha)), len(noisy)
+    )
+    attach_post_processor(tok, cfg)
+    tok.encode_special_tokens = True
+    assert tok.get_vocab_size() == VOCAB
+    report = roundtrip_report(tok, noisy[:50] + ["".join(rare[:40])], "exact", cfg.unk_token)
+    assert report["passed"], report["mismatch_examples"]
+
+
+def test_unigram_cache_is_normalized_and_filtered(tmp_path: Path, cfg: Phase2Config) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    pq.write_table(pa.table({"text": ["Café ☃ X", "b", "unused"]}), data / "train-00000.parquet")
+    subset = {
+        "doc_ids_sha256": "x",
+        "docs": 2,
+        "shards": [{"path": "train-00000.parquet", "docs": 2}],
+    }
+    alphabet = CharAlphabet(chars=["c", "a", "f", "e", "x", "b"], coverage=1.0, distinct=7)
+    root, spec = build_unigram_cache(tmp_path / "cache", data, subset, cfg.normalizer, alphabet)
+    texts = [t for batch in iter_subset_batches(root, spec, 10) for t in batch]
+    assert texts == ["cafe   x", "b"]
+    again = build_unigram_cache(tmp_path / "cache", data, subset, cfg.normalizer, alphabet)
+    assert again[0] == root
+
+
+@pytest.mark.skipif(not ARTIFACTS.is_dir(), reason="Phase 2 artifacts not built")
+@pytest.mark.parametrize(
+    "tok_dir", sorted(p for p in ARTIFACTS.glob("*") if p.is_dir()) if ARTIFACTS.is_dir() else []
+)
+def test_saved_tokenizers_roundtrip(tok_dir: Path, cfg: Phase2Config) -> None:
+    tok, meta = load_tokenizer(tok_dir)
+    assert meta["roundtrip"]["passed"]
+    mode = meta["roundtrip"]["mode"]
+    report = roundtrip_report(tok, TRICKY, mode, cfg.unk_token)
+    assert report["passed"], report["mismatch_examples"]
+    assert tok.get_vocab_size() == meta["vocab_size"]

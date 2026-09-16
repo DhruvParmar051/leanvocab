@@ -10,22 +10,26 @@ import argparse
 import json
 import logging
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from importlib import metadata
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 from tokenizers import Tokenizer
 
+from leanvocab.tokenizers.alphabet import (
+    CharAlphabet,
+    build_unigram_cache,
+    load_or_compute_alphabet,
+)
 from leanvocab.tokenizers.common import (
     SUBSET_FILE,
     Phase2Config,
     RoundtripMode,
     attach_post_processor,
     check_specials,
-    compute_alphabet,
     iter_heldout,
     iter_subset_batches,
     save_tokenizer,
@@ -44,7 +48,8 @@ from leanvocab.utils.seeding import seed_everything
 logger = logging.getLogger(__name__)
 
 BERT_ORIG_ID = "bert-orig"
-ALPHABET_FILE = "wordpiece_alphabet.json"
+
+Source = Literal["raw", "unigram_cache"]
 
 
 @dataclass(frozen=True)
@@ -53,7 +58,10 @@ class TrainSpec:
     algorithm: str
     vocab_size: int
     roundtrip: RoundtripMode
-    train: Callable[..., Tokenizer]
+    source: Source
+    uses_alphabet: bool
+    # (batches, n_docs, alphabet) -> Tokenizer
+    train: Callable[[Iterator[list[str]], int, CharAlphabet | None], Tokenizer]
 
 
 def _k(v: int) -> str:
@@ -62,7 +70,37 @@ def _k(v: int) -> str:
     return f"{v // 1000}k"
 
 
-def trained_specs(cfg: Phase2Config, alphabet: list[str] | None = None) -> list[TrainSpec]:
+def _need(alphabet: CharAlphabet | None) -> list[str]:
+    if alphabet is None:
+        raise ValueError("This tokenizer requires the shared character alphabet")
+    return alphabet.chars
+
+
+Trainer = Callable[[Iterator[list[str]], int, CharAlphabet | None], Tokenizer]
+
+
+def _bpe_trainer(cfg: Phase2Config, v: int) -> Trainer:
+    def train(b: Iterator[list[str]], n: int, a: CharAlphabet | None) -> Tokenizer:
+        return train_bpe(cfg, cfg.bpe, v, b, n)
+
+    return train
+
+
+def _unigram_trainer(cfg: Phase2Config, v: int) -> Trainer:
+    def train(b: Iterator[list[str]], n: int, a: CharAlphabet | None) -> Tokenizer:
+        return train_unigram(cfg, cfg.unigram, v, b, n)
+
+    return train
+
+
+def _wordpiece_trainer(cfg: Phase2Config, v: int) -> Trainer:
+    def train(b: Iterator[list[str]], n: int, a: CharAlphabet | None) -> Tokenizer:
+        return train_wordpiece(cfg, cfg.wordpiece, v, b, n, _need(a))
+
+    return train
+
+
+def trained_specs(cfg: Phase2Config) -> list[TrainSpec]:
     specs: list[TrainSpec] = []
     for v in cfg.bpe.vocab_sizes:
         specs.append(
@@ -71,7 +109,9 @@ def trained_specs(cfg: Phase2Config, alphabet: list[str] | None = None) -> list[
                 "byte_level_bpe",
                 v,
                 "exact",
-                lambda b, n, v=v: train_bpe(cfg, cfg.bpe, v, b, n),
+                "raw",
+                False,
+                _bpe_trainer(cfg, v),
             )
         )
     for v in cfg.unigram.vocab_sizes:
@@ -81,7 +121,9 @@ def trained_specs(cfg: Phase2Config, alphabet: list[str] | None = None) -> list[
                 "unigram_byte_fallback",
                 v,
                 "exact",
-                lambda b, n, v=v: train_unigram(cfg, cfg.unigram, v, b, n),
+                "unigram_cache",
+                True,
+                _unigram_trainer(cfg, v),
             )
         )
     for v in cfg.wordpiece.vocab_sizes:
@@ -91,34 +133,18 @@ def trained_specs(cfg: Phase2Config, alphabet: list[str] | None = None) -> list[
                 "wordpiece",
                 v,
                 "ignore_whitespace",
-                lambda b, n, v=v: train_wordpiece(cfg, cfg.wordpiece, v, b, n, _need(alphabet)),
+                "raw",
+                True,
+                _wordpiece_trainer(cfg, v),
             )
         )
     return specs
 
 
-def _need(alphabet: list[str] | None) -> list[str]:
+def _alphabet_or_fail(alphabet: CharAlphabet | None) -> CharAlphabet:
     if alphabet is None:
-        raise ValueError("WordPiece training requires the precomputed alphabet")
+        raise RuntimeError("Character alphabet was not computed")
     return alphabet
-
-
-def _load_or_compute_alphabet(cfg: Phase2Config, subset: dict[str, Any]) -> list[str]:
-    path = cfg.out_dir / ALPHABET_FILE
-    if path.exists():
-        stored = json.loads(path.read_text())
-        if stored["subset_doc_ids_sha256"] != subset["doc_ids_sha256"]:
-            raise ValueError(f"{path} was computed on a different subset")
-        entries = stored["alphabet"]
-    else:
-        start = time.monotonic()
-        entries = compute_alphabet(
-            cfg.data_dir, subset, cfg.normalizer, cfg.wordpiece.limit_alphabet
-        )
-        logger.info("Computed WordPiece alphabet in %.0fs", time.monotonic() - start)
-        payload = {"subset_doc_ids_sha256": subset["doc_ids_sha256"], "alphabet": entries}
-        path.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
-    return [e["char"] for e in entries]
 
 
 def all_ids(cfg: Phase2Config) -> list[str]:
@@ -204,16 +230,32 @@ def run(cfg: Phase2Config) -> dict[str, Any]:
     }
     results: list[dict[str, Any]] = []
 
-    alphabet = None
-    if any(t.startswith("wp-") for t in wanted):
-        alphabet = _load_or_compute_alphabet(cfg, subset)
-
-    for spec in trained_specs(cfg, alphabet):
-        if spec.tok_id not in wanted:
-            continue
-        logger.info("Training %s (%s, vocab=%d)", spec.tok_id, spec.algorithm, spec.vocab_size)
+    specs = [s for s in trained_specs(cfg) if s.tok_id in wanted]
+    alphabet: CharAlphabet | None = None
+    if any(s.uses_alphabet for s in specs):
         start = time.monotonic()
-        tok = spec.train(iter_subset_batches(cfg.data_dir, subset, cfg.batch_docs), subset["docs"])
+        alphabet = load_or_compute_alphabet(
+            cfg.out_dir, cfg.data_dir, subset, cfg.normalizer, cfg.char_alphabet_size
+        )
+        logger.info("Character alphabet ready in %.0fs", time.monotonic() - start)
+    cache: tuple[Path, dict[str, Any]] | None = None
+    if any(s.source == "unigram_cache" for s in specs):
+        start = time.monotonic()
+        cache = build_unigram_cache(
+            cfg.cache_dir, cfg.data_dir, subset, cfg.normalizer, _alphabet_or_fail(alphabet)
+        )
+        logger.info("Unigram training text ready in %.0fs", time.monotonic() - start)
+
+    for spec in specs:
+        logger.info("Training %s (%s, vocab=%d)", spec.tok_id, spec.algorithm, spec.vocab_size)
+        if spec.source == "unigram_cache":
+            if cache is None:
+                raise RuntimeError("Unigram cache was not built")
+            batches = iter_subset_batches(cache[0], cache[1], cfg.batch_docs)
+        else:
+            batches = iter_subset_batches(cfg.data_dir, subset, cfg.batch_docs)
+        start = time.monotonic()
+        tok = spec.train(batches, subset["docs"], alphabet)
         train_sec = time.monotonic() - start
         attach_post_processor(tok, cfg)
         logger.info("Trained %s in %.0fs", spec.tok_id, train_sec)
@@ -223,6 +265,14 @@ def run(cfg: Phase2Config) -> dict[str, Any]:
             "vocab_size_target": spec.vocab_size,
             "train_sec": round(train_sec, 1),
         }
+        if spec.uses_alphabet:
+            a = _alphabet_or_fail(alphabet)
+            meta["char_alphabet"] = {
+                "size": len(a.chars),
+                "sha256": a.sha256,
+                "coverage": a.coverage,
+                "distinct_chars_in_subset": a.distinct,
+            }
         results.append(
             _finish(cfg, tok, spec.tok_id, meta, spec.roundtrip, heldout, spec.vocab_size)
         )
