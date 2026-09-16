@@ -27,11 +27,12 @@ unigram:
   shrinking_factor: 0.75
   n_sub_iterations: 2
   max_piece_length: 16
+  score_decimals: 4           # parallel EM gives ~1e-4 run-to-run noise; see train_unigram.py
 
 wordpiece:
   vocab_sizes: [8000, 16000, 32000]
   min_frequency: 2
-  limit_alphabet: 1000
+  limit_alphabet: 1000        # chosen by us (count desc, code point) and passed as initial_alphabet
 
 bert:
   repo: google-bert/bert-base-uncased

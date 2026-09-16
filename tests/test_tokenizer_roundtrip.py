@@ -2,23 +2,26 @@
 
 from __future__ import annotations
 
+import json
 import random
 from pathlib import Path
 
 import numpy as np
 import pytest
-from tokenizers import Tokenizer
+from tokenizers import Tokenizer, models
 
 from tokstudy.tokenizers.common import (
     Phase2Config,
+    WordPieceConfig,
     attach_post_processor,
+    build_normalizer,
     check_specials,
     load_tokenizer,
 )
 from tokstudy.tokenizers.roundtrip import roundtrip_report
 from tokstudy.tokenizers.train_bpe import train_bpe
 from tokstudy.tokenizers.train_unigram import train_unigram
-from tokstudy.tokenizers.train_wordpiece import train_wordpiece
+from tokstudy.tokenizers.train_wordpiece import canonicalize_ids, train_wordpiece
 from tokstudy.tokenizers.trim_bert import select_trimmed_vocab
 from tokstudy.utils.config import load_config
 
@@ -63,13 +66,23 @@ def _batches(docs: list[str], size: int = 50):
         yield docs[i : i + size]
 
 
+def _alphabet(docs: list[str], cfg: Phase2Config) -> list[str]:
+    norm = build_normalizer(cfg.normalizer)
+    return sorted({c for d in docs for c in norm.normalize_str(d) if not c.isspace()})
+
+
+def _wp_family(alphabet: list[str], cfg: Phase2Config) -> WordPieceConfig:
+    return cfg.wordpiece.model_copy(update={"limit_alphabet": len(alphabet)})
+
+
 @pytest.fixture(scope="module")
 def trained(cfg: Phase2Config) -> dict[str, Tokenizer]:
     docs = _corpus()
+    alpha = _alphabet(docs, cfg)
     toks = {
         "bpe": train_bpe(cfg, cfg.bpe, VOCAB, _batches(docs), len(docs)),
         "uni": train_unigram(cfg, cfg.unigram, VOCAB, _batches(docs), len(docs)),
-        "wp": train_wordpiece(cfg, cfg.wordpiece, VOCAB, _batches(docs), len(docs)),
+        "wp": train_wordpiece(cfg, _wp_family(alpha, cfg), VOCAB, _batches(docs), len(docs), alpha),
     }
     for tok in toks.values():
         attach_post_processor(tok, cfg)
@@ -161,3 +174,42 @@ def test_saved_tokenizers_roundtrip(tok_dir: Path, cfg: Phase2Config) -> None:
     report = roundtrip_report(tok, TRICKY, mode, cfg.unk_token)
     assert report["passed"], report["mismatch_examples"]
     assert tok.get_vocab_size() == meta["vocab_size"]
+
+
+def test_bpe_and_unigram_training_is_deterministic(cfg: Phase2Config) -> None:
+    docs = _corpus()
+    for build in (
+        lambda: train_unigram(cfg, cfg.unigram, VOCAB, _batches(docs), len(docs)),
+        lambda: train_bpe(cfg, cfg.bpe, VOCAB, _batches(docs), len(docs)),
+    ):
+        assert build().to_str() == build().to_str()
+
+
+def test_wordpiece_ids_depend_only_on_token_set(cfg: Phase2Config) -> None:
+    # WordPiece tie-breaking can change the *set* on this tie-heavy synthetic corpus (on real
+    # text two runs gave identical sets); ids must be a pure function of the set.
+    tokens = ["##b", "ab", "a", "##a", "b", "abc", "##ab"]
+    rng = random.Random(0)
+    outputs = set()
+    for _ in range(5):
+        rng.shuffle(tokens)
+        vocab = {t: i for i, t in enumerate(cfg.special_tokens + tokens)}
+        tok = Tokenizer(models.WordPiece(vocab, unk_token=cfg.unk_token))
+        tok.add_special_tokens(cfg.special_tokens)
+        outputs.add(json.dumps(canonicalize_ids(tok, cfg).get_vocab(), sort_keys=True))
+    assert len(outputs) == 1
+    vocab = json.loads(outputs.pop())
+    assert sorted(vocab, key=vocab.__getitem__)[5:] == ["a", "b", "##a", "##b", "ab", "##ab", "abc"]
+
+
+def test_compute_alphabet_breaks_ties_by_codepoint(tmp_path: Path, cfg: Phase2Config) -> None:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    from tokstudy.tokenizers.common import compute_alphabet
+
+    pq.write_table(pa.table({"text": ["ccc bb aa zz", "IGNORED"]}), tmp_path / "s.parquet")
+    subset = {"shards": [{"path": "s.parquet", "docs": 1}]}
+    got = compute_alphabet(tmp_path, subset, cfg.normalizer, 3)
+    assert [e["char"] for e in got] == ["c", "a", "b"]
+    assert [e["count"] for e in got] == [3, 2, 2]

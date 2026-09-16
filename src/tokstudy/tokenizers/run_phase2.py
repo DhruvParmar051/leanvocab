@@ -25,6 +25,7 @@ from tokstudy.tokenizers.common import (
     RoundtripMode,
     attach_post_processor,
     check_specials,
+    compute_alphabet,
     iter_heldout,
     iter_subset_batches,
     save_tokenizer,
@@ -43,6 +44,7 @@ from tokstudy.utils.seeding import seed_everything
 logger = logging.getLogger(__name__)
 
 BERT_ORIG_ID = "bert-orig"
+ALPHABET_FILE = "wordpiece_alphabet.json"
 
 
 @dataclass(frozen=True)
@@ -60,7 +62,7 @@ def _k(v: int) -> str:
     return f"{v // 1000}k"
 
 
-def trained_specs(cfg: Phase2Config) -> list[TrainSpec]:
+def trained_specs(cfg: Phase2Config, alphabet: list[str] | None = None) -> list[TrainSpec]:
     specs: list[TrainSpec] = []
     for v in cfg.bpe.vocab_sizes:
         specs.append(
@@ -89,10 +91,34 @@ def trained_specs(cfg: Phase2Config) -> list[TrainSpec]:
                 "wordpiece",
                 v,
                 "ignore_whitespace",
-                lambda b, n, v=v: train_wordpiece(cfg, cfg.wordpiece, v, b, n),
+                lambda b, n, v=v: train_wordpiece(cfg, cfg.wordpiece, v, b, n, _need(alphabet)),
             )
         )
     return specs
+
+
+def _need(alphabet: list[str] | None) -> list[str]:
+    if alphabet is None:
+        raise ValueError("WordPiece training requires the precomputed alphabet")
+    return alphabet
+
+
+def _load_or_compute_alphabet(cfg: Phase2Config, subset: dict[str, Any]) -> list[str]:
+    path = cfg.out_dir / ALPHABET_FILE
+    if path.exists():
+        stored = json.loads(path.read_text())
+        if stored["subset_doc_ids_sha256"] != subset["doc_ids_sha256"]:
+            raise ValueError(f"{path} was computed on a different subset")
+        entries = stored["alphabet"]
+    else:
+        start = time.monotonic()
+        entries = compute_alphabet(
+            cfg.data_dir, subset, cfg.normalizer, cfg.wordpiece.limit_alphabet
+        )
+        logger.info("Computed WordPiece alphabet in %.0fs", time.monotonic() - start)
+        payload = {"subset_doc_ids_sha256": subset["doc_ids_sha256"], "alphabet": entries}
+        path.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
+    return [e["char"] for e in entries]
 
 
 def all_ids(cfg: Phase2Config) -> list[str]:
@@ -178,7 +204,11 @@ def run(cfg: Phase2Config) -> dict[str, Any]:
     }
     results: list[dict[str, Any]] = []
 
-    for spec in trained_specs(cfg):
+    alphabet = None
+    if any(t.startswith("wp-") for t in wanted):
+        alphabet = _load_or_compute_alphabet(cfg, subset)
+
+    for spec in trained_specs(cfg, alphabet):
         if spec.tok_id not in wanted:
             continue
         logger.info("Training %s (%s, vocab=%d)", spec.tok_id, spec.algorithm, spec.vocab_size)

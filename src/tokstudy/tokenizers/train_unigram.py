@@ -3,6 +3,12 @@
 HF's UnigramTrainer does not create byte pieces, so we train ``vocab_size - 256`` pieces and
 append ``<0x00>``..``<0xFF>`` afterwards (as SentencePiece does within its vocab budget), then
 rebuild the model with ``byte_fallback=True``. The total vocab is exactly ``vocab_size``.
+
+The trainer's parallel EM is not bit-reproducible: scores vary by ~1e-4 between runs (the
+piece set was identical, and segmentation of 3k held-out docs unchanged, in our checks).
+Scores are rounded to ``score_decimals`` and ids are assigned by (length, piece), which
+depends only on the piece set; Viterbi segmentation uses scores, not ids. The saved
+artifact is the reference.
 """
 
 from __future__ import annotations
@@ -56,8 +62,16 @@ def train_unigram(
     trained = len(pieces)
     if trained != vocab_size - N_BYTE_PIECES:
         raise ValueError(f"Unigram trainer produced {trained} pieces, expected {vocab_size - 256}")
+    specials = [(p, s) for p, s in pieces if p in cfg.special_tokens]
+    if [p for p, _ in specials] != cfg.special_tokens:
+        raise ValueError("Unigram trainer did not place special tokens first, in order")
+    learned = sorted(
+        ((p, round(s, family.score_decimals)) for p, s in pieces if p not in cfg.special_tokens),
+        key=lambda ps: (len(ps[0]), ps[0]),
+    )
+    pieces = specials + learned
     existing = {p for p, _ in pieces}
-    min_score = min(s for p, s in pieces if p not in cfg.special_tokens)
+    min_score = min(s for _, s in learned)
     for b in range(N_BYTE_PIECES):
         piece = byte_piece(b)
         if piece in existing:

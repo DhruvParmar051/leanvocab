@@ -5,7 +5,9 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+from collections import Counter
 from collections.abc import Iterator
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import Any, Literal
 
@@ -39,6 +41,9 @@ class UnigramConfig(StrictConfig):
     shrinking_factor: float = Field(gt=0.0, lt=1.0)
     n_sub_iterations: int = Field(ge=1)
     max_piece_length: int = Field(ge=1)
+    score_decimals: int = Field(
+        ge=1, description="Scores are rounded so float noise from parallel EM cannot reorder ids"
+    )
 
 
 class WordPieceConfig(StrictConfig):
@@ -169,6 +174,36 @@ def iter_subset_batches(
             parquet.close()
         if remaining != 0:
             raise ValueError(f"{shard['path']} ended {remaining} docs short of the subset spec")
+
+
+def _count_shard_chars(args: tuple[Path, int, NormalizerConfig]) -> Counter[str]:
+    path, n_docs, norm_cfg = args
+    normalizer = build_normalizer(norm_cfg)
+    texts = pq.read_table(path, columns=["text"]).column("text").to_pylist()[:n_docs]
+    counts: Counter[str] = Counter()
+    for text in texts:
+        counts.update(normalizer.normalize_str(text))
+    return counts
+
+
+def compute_alphabet(
+    data_dir: Path, subset: dict[str, Any], norm_cfg: NormalizerConfig, limit: int
+) -> list[dict[str, Any]]:
+    """Top-``limit`` non-whitespace characters of the normalized subset.
+
+    Ties are broken by code point, making the choice deterministic (HF's own
+    ``limit_alphabet`` cut breaks ties in hash-map order).
+    """
+    jobs = [(data_dir / s["path"], int(s["docs"]), norm_cfg) for s in subset["shards"]]
+    total: Counter[str] = Counter()
+    with ProcessPoolExecutor() as pool:
+        for counts in pool.map(_count_shard_chars, jobs):
+            total.update(counts)
+    ranked = sorted(
+        ((c, n) for c, n in total.items() if not c.isspace()), key=lambda cn: (-cn[1], ord(cn[0]))
+    )
+    logger.info("Alphabet: %d distinct characters, keeping %d", len(ranked), limit)
+    return [{"char": c, "count": n} for c, n in ranked[:limit]]
 
 
 def iter_heldout(data_dir: Path, limit: int) -> list[str]:
