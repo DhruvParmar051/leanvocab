@@ -1,6 +1,6 @@
 import unicodedata
 
-from tokstudy.data.normalize import nfc
+from leanvocab.data.normalize import nfc
 
 
 def test_decomposed_accent_is_composed() -> None:

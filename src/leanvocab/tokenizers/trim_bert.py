@@ -19,8 +19,8 @@ from typing import Any
 import numpy as np
 from tokenizers import Tokenizer, models
 
-from tokstudy.tokenizers.common import Phase2Config, attach_post_processor
-from tokstudy.tokenizers.train_wordpiece import CONTINUATION_PREFIX, MAX_INPUT_CHARS_PER_WORD
+from leanvocab.tokenizers.common import Phase2Config, attach_post_processor
+from leanvocab.tokenizers.train_wordpiece import CONTINUATION_PREFIX, MAX_INPUT_CHARS_PER_WORD
 
 logger = logging.getLogger(__name__)
 

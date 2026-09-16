@@ -14,12 +14,12 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from tokstudy.utils.config import config_hash
+from leanvocab.utils.config import config_hash
 
 logger = logging.getLogger(__name__)
 
 TRACKED_PACKAGES: tuple[str, ...] = (
-    "tokstudy",
+    "leanvocab",
     "numpy",
     "pyarrow",
     "datasets",

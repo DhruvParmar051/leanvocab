@@ -7,10 +7,10 @@ from pathlib import Path
 import pyarrow.parquet as pq
 import pytest
 
+from leanvocab.data.dedup import ExactDeduper
+from leanvocab.data.prepare import prepare
+from leanvocab.data.split import heldout_key, is_heldout_candidate
 from tests.conftest import fake_docs, make_config
-from tokstudy.data.dedup import ExactDeduper
-from tokstudy.data.prepare import prepare
-from tokstudy.data.split import heldout_key, is_heldout_candidate
 
 
 def _read_ids(root: Path, rel: str) -> list[str]:

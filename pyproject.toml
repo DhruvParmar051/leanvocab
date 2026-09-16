@@ -1,5 +1,5 @@
 [project]
-name = "tokstudy"
+name = "leanvocab"
 version = "0.1.0"
 description = "Controlled study of small-vocabulary English tokenizers for sentence-embedding encoders"
 authors = [
@@ -46,5 +46,5 @@ addopts = "-q"
 
 [[tool.mypy.overrides]]
 # `tokenizers` trainer constructors ship without annotations.
-module = "tokstudy.tokenizers.*"
+module = "leanvocab.tokenizers.*"
 disallow_untyped_calls = false

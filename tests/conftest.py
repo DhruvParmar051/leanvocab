@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from tokstudy.data.schema import DataPrepConfig, Document, SourceConfig
+from leanvocab.data.schema import DataPrepConfig, Document, SourceConfig
 
 
 def make_config(out_dir: Path, **overrides: object) -> DataPrepConfig:

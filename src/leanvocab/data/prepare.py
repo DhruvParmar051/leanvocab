@@ -1,7 +1,7 @@
 """Phase 1: stream, NFC-normalize, exact-dedup, split held-out, and shard the corpus.
 
 Usage:
-    uv run python -m tokstudy.data.prepare --config configs/data/fineweb_edu_2b.yaml
+    uv run python -m leanvocab.data.prepare --config configs/data/fineweb_edu_2b.yaml
 """
 
 from __future__ import annotations
@@ -17,15 +17,15 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from tokstudy.data.dedup import ExactDeduper
-from tokstudy.data.normalize import nfc
-from tokstudy.data.schema import DataPrepConfig, Document
-from tokstudy.data.shard import ParquetOptions, ShardWriter, empty_rows, write_rows
-from tokstudy.data.split import heldout_key, is_heldout_candidate
-from tokstudy.utils.config import config_hash, load_config
-from tokstudy.utils.logging import setup_logging
-from tokstudy.utils.registry import RunContext, write_metrics
-from tokstudy.utils.seeding import seed_everything
+from leanvocab.data.dedup import ExactDeduper
+from leanvocab.data.normalize import nfc
+from leanvocab.data.schema import DataPrepConfig, Document
+from leanvocab.data.shard import ParquetOptions, ShardWriter, empty_rows, write_rows
+from leanvocab.data.split import heldout_key, is_heldout_candidate
+from leanvocab.utils.config import config_hash, load_config
+from leanvocab.utils.logging import setup_logging
+from leanvocab.utils.registry import RunContext, write_metrics
+from leanvocab.utils.seeding import seed_everything
 
 logger = logging.getLogger(__name__)
 
@@ -228,7 +228,7 @@ def main() -> None:
     seed_everything(cfg.seed)
     logger.info("Run %s, config sha256=%s", ctx.run_id, ctx.config_sha256)
 
-    from tokstudy.data.download import HubParquetSource
+    from leanvocab.data.download import HubParquetSource
 
     source = HubParquetSource(cfg.source, cfg.raw_dir)
     with closing(source.__iter__()) as docs:

@@ -6,7 +6,7 @@ from collections.abc import Iterator
 
 from tokenizers import Tokenizer, decoders, models, pre_tokenizers, trainers
 
-from tokstudy.tokenizers.common import BpeConfig, Phase2Config, build_normalizer
+from leanvocab.tokenizers.common import BpeConfig, Phase2Config, build_normalizer
 
 
 def train_bpe(

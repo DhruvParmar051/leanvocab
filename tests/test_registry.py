@@ -6,10 +6,10 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
+from leanvocab.data.schema import DataPrepConfig
+from leanvocab.utils.config import config_hash, load_config
+from leanvocab.utils.registry import RunContext, write_metrics
 from tests.conftest import make_config
-from tokstudy.data.schema import DataPrepConfig
-from tokstudy.utils.config import config_hash, load_config
-from tokstudy.utils.registry import RunContext, write_metrics
 
 REPO = Path(__file__).resolve().parents[1]
 

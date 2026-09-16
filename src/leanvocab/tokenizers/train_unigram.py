@@ -18,7 +18,7 @@ from collections.abc import Iterator
 
 from tokenizers import Tokenizer, decoders, models, pre_tokenizers, trainers
 
-from tokstudy.tokenizers.common import Phase2Config, UnigramConfig, build_normalizer
+from leanvocab.tokenizers.common import Phase2Config, UnigramConfig, build_normalizer
 
 N_BYTE_PIECES = 256
 METASPACE = "▁"

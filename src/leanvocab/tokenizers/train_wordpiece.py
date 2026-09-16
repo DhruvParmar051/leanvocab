@@ -6,7 +6,7 @@ from collections.abc import Iterator
 
 from tokenizers import Tokenizer, decoders, models, pre_tokenizers, trainers
 
-from tokstudy.tokenizers.common import Phase2Config, WordPieceConfig, build_normalizer
+from leanvocab.tokenizers.common import Phase2Config, WordPieceConfig, build_normalizer
 
 CONTINUATION_PREFIX = "##"
 # BERT's value; longer words map to [UNK].

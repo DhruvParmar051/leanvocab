@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 from tokenizers import Tokenizer, models
 
-from tokstudy.tokenizers.common import (
+from leanvocab.tokenizers.common import (
     Phase2Config,
     WordPieceConfig,
     attach_post_processor,
@@ -18,12 +18,12 @@ from tokstudy.tokenizers.common import (
     check_specials,
     load_tokenizer,
 )
-from tokstudy.tokenizers.roundtrip import roundtrip_report
-from tokstudy.tokenizers.train_bpe import train_bpe
-from tokstudy.tokenizers.train_unigram import train_unigram
-from tokstudy.tokenizers.train_wordpiece import canonicalize_ids, train_wordpiece
-from tokstudy.tokenizers.trim_bert import select_trimmed_vocab
-from tokstudy.utils.config import load_config
+from leanvocab.tokenizers.roundtrip import roundtrip_report
+from leanvocab.tokenizers.train_bpe import train_bpe
+from leanvocab.tokenizers.train_unigram import train_unigram
+from leanvocab.tokenizers.train_wordpiece import canonicalize_ids, train_wordpiece
+from leanvocab.tokenizers.trim_bert import select_trimmed_vocab
+from leanvocab.utils.config import load_config
 
 REPO = Path(__file__).resolve().parents[1]
 ARTIFACTS = REPO / "artifacts" / "tokenizers"
@@ -206,7 +206,7 @@ def test_compute_alphabet_breaks_ties_by_codepoint(tmp_path: Path, cfg: Phase2Co
     import pyarrow as pa
     import pyarrow.parquet as pq
 
-    from tokstudy.tokenizers.common import compute_alphabet
+    from leanvocab.tokenizers.common import compute_alphabet
 
     pq.write_table(pa.table({"text": ["ccc bb aa zz", "IGNORED"]}), tmp_path / "s.parquet")
     subset = {"shards": [{"path": "s.parquet", "docs": 1}]}

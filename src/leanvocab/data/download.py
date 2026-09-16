@@ -16,8 +16,8 @@ from typing import Any
 
 import pyarrow.parquet as pq
 
-from tokstudy.data.schema import Document, SourceConfig
-from tokstudy.data.shard import sha256_file
+from leanvocab.data.schema import Document, SourceConfig
+from leanvocab.data.shard import sha256_file
 
 logger = logging.getLogger(__name__)
 

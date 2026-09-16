@@ -13,7 +13,7 @@ from typing import Any
 
 from tokenizers import Tokenizer
 
-from tokstudy.tokenizers.common import RoundtripMode
+from leanvocab.tokenizers.common import RoundtripMode
 
 MAX_REPORTED_MISMATCHES = 5
 MISMATCH_SNIPPET_CHARS = 200

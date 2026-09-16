@@ -1,7 +1,7 @@
 """Phase 2: train every tokenizer on the same text subset, check round-trips, save.
 
 Usage:
-    uv run python -m tokstudy.tokenizers.run_phase2 --config configs/tokenizer/phase2.yaml
+    uv run python -m leanvocab.tokenizers.run_phase2 --config configs/tokenizer/phase2.yaml
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ from typing import Any
 import numpy as np
 from tokenizers import Tokenizer
 
-from tokstudy.tokenizers.common import (
+from leanvocab.tokenizers.common import (
     SUBSET_FILE,
     Phase2Config,
     RoundtripMode,
@@ -31,15 +31,15 @@ from tokstudy.tokenizers.common import (
     save_tokenizer,
     select_subset,
 )
-from tokstudy.tokenizers.roundtrip import roundtrip_report
-from tokstudy.tokenizers.train_bpe import train_bpe
-from tokstudy.tokenizers.train_unigram import train_unigram
-from tokstudy.tokenizers.train_wordpiece import train_wordpiece
-from tokstudy.tokenizers.trim_bert import build_trimmed, count_token_frequencies, load_bert_orig
-from tokstudy.utils.config import config_hash, load_config
-from tokstudy.utils.logging import setup_logging
-from tokstudy.utils.registry import RunContext, write_metrics
-from tokstudy.utils.seeding import seed_everything
+from leanvocab.tokenizers.roundtrip import roundtrip_report
+from leanvocab.tokenizers.train_bpe import train_bpe
+from leanvocab.tokenizers.train_unigram import train_unigram
+from leanvocab.tokenizers.train_wordpiece import train_wordpiece
+from leanvocab.tokenizers.trim_bert import build_trimmed, count_token_frequencies, load_bert_orig
+from leanvocab.utils.config import config_hash, load_config
+from leanvocab.utils.logging import setup_logging
+from leanvocab.utils.registry import RunContext, write_metrics
+from leanvocab.utils.seeding import seed_everything
 
 logger = logging.getLogger(__name__)
 

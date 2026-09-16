@@ -15,7 +15,7 @@ import pyarrow.parquet as pq
 from pydantic import Field
 from tokenizers import Tokenizer, normalizers, processors
 
-from tokstudy.utils.config import StrictConfig
+from leanvocab.utils.config import StrictConfig
 
 logger = logging.getLogger(__name__)
 

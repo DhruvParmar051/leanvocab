@@ -7,7 +7,7 @@ from pathlib import Path
 
 from pydantic import Field, model_validator
 
-from tokstudy.utils.config import StrictConfig
+from leanvocab.utils.config import StrictConfig
 
 
 class SourceConfig(StrictConfig):
