@@ -71,3 +71,9 @@ Rule applied: drop any candidate whose mean document length exceeds 1.35× bert-
 - **16k:** ranked bpe-16k, wp-16k, uni-16k; dropped by gate: none.
 
 Always in Phase 4 regardless: the control `bert-orig`, Baseline A (factorized 30,522×128 embeddings) and Baseline B (`bert-trim-*` at the finalist sizes). 32k tokenizers have more parameters than the control and are reference points only.
+
+## Decision (2026-09-16)
+
+Finalists for Phase 4: **bert-orig** (control), **bpe-8k**, **bpe-16k**. Also run regardless:
+Baseline A (bert-orig vocab with factorized 30,522×128 embeddings) and Baseline B
+(bert-trim-8k, bert-trim-16k). Six pretraining arms in total.
