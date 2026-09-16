@@ -11,7 +11,8 @@ import json
 import logging
 import stat
 import time
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
+from contextlib import closing
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -52,8 +53,15 @@ def _check_clean_output(out_dir: Path) -> None:
         )
 
 
-def prepare(cfg: DataPrepConfig, docs: Iterable[Document]) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Run the pipeline over ``docs``. Returns (manifest, timing/throughput stats)."""
+def prepare(
+    cfg: DataPrepConfig,
+    docs: Iterable[Document],
+    source_provenance: Callable[[], dict[str, Any]] | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Run the pipeline over ``docs``. Returns (manifest, timing/throughput stats).
+
+    ``source_provenance`` is called after reading and its result is stored in the manifest.
+    """
     out_dir = cfg.out_dir
     _check_clean_output(out_dir)
     shards_dir = out_dir / SHARDS_DIR
@@ -116,7 +124,10 @@ def prepare(cfg: DataPrepConfig, docs: Iterable[Document]) -> tuple[dict[str, An
     shard_entries = train.entries
     manifest: dict[str, Any] = {
         "config_sha256": config_hash(cfg),
-        "source": cfg.source.model_dump(mode="json"),
+        "source": {
+            **cfg.source.model_dump(mode="json"),
+            **(source_provenance() if source_provenance else {}),
+        },
         "normalization": "NFC",
         "dedup": "exact, blake2b-128 over NFC UTF-8 bytes, applied before held-out split",
         "stop_reason": stop_reason,
@@ -198,12 +209,8 @@ def _write_heldout(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
-    parser.add_argument(
-        "--max-docs", type=int, default=None, help="Override max_docs (dry runs)"
-    )
-    parser.add_argument(
-        "--out-dir", type=Path, default=None, help="Override out_dir (dry runs)"
-    )
+    parser.add_argument("--max-docs", type=int, default=None, help="Override max_docs (dry runs)")
+    parser.add_argument("--out-dir", type=Path, default=None, help="Override out_dir (dry runs)")
     args = parser.parse_args()
 
     cfg = load_config(args.config, DataPrepConfig)
@@ -221,9 +228,12 @@ def main() -> None:
     seed_everything(cfg.seed)
     logger.info("Run %s, config sha256=%s", ctx.run_id, ctx.config_sha256)
 
-    from tokstudy.data.download import iter_documents
+    from tokstudy.data.download import HubParquetSource
 
-    manifest, timing = prepare(cfg, iter_documents(cfg.source))
+    source = HubParquetSource(cfg.source, cfg.raw_dir)
+    with closing(source.__iter__()) as docs:
+        manifest, timing = prepare(cfg, docs, source.provenance)
+    timing["fetch_sec"] = {f["path"]: f["fetch_sec"] for f in source.files_used}
     metrics = {
         "manifest_path": str(cfg.out_dir / MANIFEST_NAME),
         "read": manifest["read"],

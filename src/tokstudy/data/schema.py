@@ -15,6 +15,8 @@ class SourceConfig(StrictConfig):
     name: str
     split: str
     revision: str = Field(min_length=40, max_length=40, description="Pinned dataset commit SHA")
+    file_prefix: str = Field(description="Repo directory whose parquet files form the config")
+    read_batch_rows: int = Field(gt=0)
     text_field: str
     id_field: str
     url_field: str
@@ -34,6 +36,7 @@ class DataPrepConfig(StrictConfig):
     parquet_compression_level: int
     log_every_docs: int = Field(gt=0)
     out_dir: Path
+    raw_dir: Path = Field(description="Local cache of downloaded source parquet files")
 
     @model_validator(mode="after")
     def _heldout_fits(self) -> DataPrepConfig:

@@ -4,6 +4,8 @@ source:
   name: sample-10BT
   split: train
   revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9  # resolved 2026-09-16
+  file_prefix: sample/10BT/   # files backing the sample-10BT config
+  read_batch_rows: 4096
   text_field: text
   id_field: id
   url_field: url
@@ -21,3 +23,4 @@ parquet_compression: zstd
 parquet_compression_level: 3
 log_every_docs: 100000
 out_dir: data
+raw_dir: data/raw
