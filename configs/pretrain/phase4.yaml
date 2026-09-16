@@ -1,0 +1,63 @@
+# Phase 4: controlled MLM pretraining. Every arm sees the same 2 GB of text (one pass),
+# with the same effective batch size in bytes, optimizer, schedule, masking and seed.
+seed: 0
+tf32: true                    # MLX default on Apple GPUs; ~1.9x faster matmul, ~1e-3 rel. error
+data_dir: data
+tokenizer_dir: artifacts/tokenizers
+pretok_dir: data/pretok
+checkpoint_dir: data/checkpoints
+special_tokens: ["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"]
+
+budget_bytes: 2000000000      # decision 2026-09-16
+seq_len: 256
+# 256 bert-orig sequences x 254 tokens x 4.726 bytes/token (Phase 3); other arms get the
+# number of sequences that carries the same bytes.
+batch_bytes: 307300
+max_micro_batch_seqs: 128     # gradient accumulation above this
+pretok_batch_docs: 1000
+log_every_steps: 50
+checkpoint_every_steps: 500
+keep_checkpoints: 2
+
+model:                        # MiniLM-L6 shape; embeddings tied to the MLM output layer
+  hidden_size: 384
+  num_layers: 6
+  num_heads: 12
+  intermediate_size: 1536
+  max_position_embeddings: 256
+  type_vocab_size: 2
+  hidden_dropout: 0.1
+  layer_norm_eps: 1.0e-12
+  initializer_range: 0.02
+
+optim:                        # fixed a priori (RoBERTa-style), identical for all arms
+  learning_rate: 5.0e-4
+  warmup_fraction: 0.06
+  beta1: 0.9
+  beta2: 0.98
+  eps: 1.0e-6
+  weight_decay: 0.01
+  grad_clip: 1.0
+
+mlm:
+  mask_prob: 0.15
+  replace_mask: 0.8
+  replace_random: 0.1
+
+eval:                         # held-out bits per byte with fixed masks
+  heldout_bytes: 10000000
+  batch_seqs: 128
+  every_steps: 500
+  seed: 1234
+
+dry_run:                      # decision 2026-09-16: 10 minutes per arm
+  minutes: 10
+  timing_skip_steps: 5        # exclude compilation from the per-step timing
+
+arms:
+  - {id: bert-orig, tokenizer: bert-orig}
+  - {id: bpe-8k, tokenizer: bpe-8k}
+  - {id: bpe-16k, tokenizer: bpe-16k}
+  - {id: factorized-bert-orig, tokenizer: bert-orig, embedding_dim: 128}   # Baseline A
+  - {id: bert-trim-8k, tokenizer: bert-trim-8k}                            # Baseline B
+  - {id: bert-trim-16k, tokenizer: bert-trim-16k}                          # Baseline B
