@@ -1,0 +1,94 @@
+{
+  "metrics": {
+    "dedup": {
+      "docs_checked": 1928426,
+      "duplicate_bytes_removed": 65706394,
+      "duplicate_rate": 0.007367666687754676,
+      "duplicates_removed": 14208
+    },
+    "heldout": {
+      "budget_bytes": 50000000,
+      "candidates": 13333,
+      "discarded_bytes": 12846274,
+      "discarded_candidates": 2803,
+      "docs": 10530,
+      "file_bytes": 19163304,
+      "frozen": true,
+      "path": "heldout/heldout.parquet",
+      "sha256": "917a57c8cad252edcc5dc45730e405ca7c5e870f7611a4f914894dc4abe5856d",
+      "text_bytes": 49995608,
+      "token_count_gpt2": 10880513
+    },
+    "manifest_path": "data/manifest.json",
+    "read": {
+      "docs": 1928426,
+      "docs_changed_by_nfc": 0,
+      "text_bytes": 9204022967,
+      "token_count_gpt2": 1998375178
+    },
+    "timing": {
+      "bytes_per_gpt2_token": 4.605753248102044,
+      "docs_per_sec": 1205.5851391684503,
+      "elapsed_sec": 1599.5767842079804,
+      "fetch_sec": {
+        "sample/10BT/000_00000.parquet": 0.0,
+        "sample/10BT/001_00000.parquet": 723.9,
+        "sample/10BT/002_00000.parquet": 790.5
+      },
+      "processing_mb_per_sec": 108.0578828208176,
+      "processing_sec": 85.17678420798029,
+      "read_mb_per_sec": 5.754036353782985
+    },
+    "train": {
+      "docs": 1900885,
+      "num_shards": 36,
+      "text_bytes": 9075474691,
+      "token_count_gpt2": 1970484211
+    }
+  },
+  "provenance": {
+    "config": {
+      "heldout_bytes": 50000000,
+      "heldout_fraction": 0.007,
+      "log_every_docs": 100000,
+      "max_docs": null,
+      "out_dir": "data",
+      "parquet_compression": "zstd",
+      "parquet_compression_level": 3,
+      "raw_dir": "data/raw",
+      "row_group_rows": 8192,
+      "seed": 0,
+      "shard_bytes": 256000000,
+      "source": {
+        "disable_xet": true,
+        "file_prefix": "sample/10BT/",
+        "id_field": "id",
+        "name": "sample-10BT",
+        "path": "HuggingFaceFW/fineweb-edu",
+        "read_batch_rows": 4096,
+        "revision": "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9",
+        "split": "train",
+        "text_field": "text",
+        "token_count_field": "token_count",
+        "url_field": "url"
+      },
+      "target_text_bytes": 9204000000
+    },
+    "config_sha256": "a2cf0298f01aa8c86be3a8c350229c280313258eba959b90fa88a4100136228d",
+    "git_dirty": false,
+    "git_sha": "d07fcc271d1f81b078b96b34ec73883f7b48d060",
+    "libraries": {
+      "datasets": "5.0.1",
+      "huggingface-hub": "1.31.0",
+      "numpy": "2.4.6",
+      "pyarrow": "25.0.1",
+      "pydantic": "2.13.5",
+      "tokstudy": "0.1.0"
+    },
+    "phase": "phase1",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.15",
+    "run_id": "20260916T153541Z-a2cf0298",
+    "seed": 0
+  }
+}

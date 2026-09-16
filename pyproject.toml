@@ -13,6 +13,7 @@ dependencies = [
     "pyarrow==25.0.1",
     "pydantic==2.13.5",
     "pyyaml==6.0.3",
+    "tokenizers==0.23.2",
 ]
 
 [dependency-groups]
@@ -42,3 +43,8 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+
+[[tool.mypy.overrides]]
+# `tokenizers` trainer constructors ship without annotations.
+module = "tokstudy.tokenizers.*"
+disallow_untyped_calls = false

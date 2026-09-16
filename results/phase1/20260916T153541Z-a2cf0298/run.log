@@ -1,0 +1,81 @@
+2026-09-16T21:05:41+0530 INFO    tokstudy.utils.seeding: Seeded python,numpy with seed=0
+2026-09-16T21:05:41+0530 INFO    __main__: Run 20260916T153541Z-a2cf0298, config sha256=a2cf0298f01aa8c86be3a8c350229c280313258eba959b90fa88a4100136228d
+2026-09-16T21:05:42+0530 INFO    tokstudy.data.download: Hub transfer backend: http
+2026-09-16T21:05:42+0530 INFO    httpx: HTTP Request: GET https://huggingface.co/api/datasets/HuggingFaceFW/fineweb-edu/tree/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample%2F10BT?recursive=false&expand=true "HTTP/1.1 200 OK"
+2026-09-16T21:05:42+0530 INFO    tokstudy.data.download: Source has 14 parquet files
+2026-09-16T21:05:42+0530 INFO    tokstudy.data.download: Fetching sample/10BT/000_00000.parquet (2.15 GB)
+2026-09-16T21:05:43+0530 INFO    tokstudy.data.download: Fetched sample/10BT/000_00000.parquet (2.15 GB) in 0s, sha256 verified
+2026-09-16T21:05:46+0530 INFO    tokstudy.data.shard: Wrote train-00000.parquet: 52597 docs, 256.0 MB text
+2026-09-16T21:05:47+0530 INFO    __main__: Read 100000 docs, 0.48 GB (5.2% of target), 107.5 MB/s
+2026-09-16T21:05:48+0530 INFO    tokstudy.data.shard: Wrote train-00001.parquet: 53994 docs, 256.0 MB text
+2026-09-16T21:05:50+0530 INFO    tokstudy.data.shard: Wrote train-00002.parquet: 54074 docs, 256.0 MB text
+2026-09-16T21:05:51+0530 INFO    __main__: Read 200000 docs, 0.95 GB (10.4% of target), 105.8 MB/s
+2026-09-16T21:05:53+0530 INFO    tokstudy.data.shard: Wrote train-00003.parquet: 53989 docs, 256.0 MB text
+2026-09-16T21:05:55+0530 INFO    tokstudy.data.shard: Wrote train-00004.parquet: 54768 docs, 256.0 MB text
+2026-09-16T21:05:55+0530 INFO    __main__: Read 300000 docs, 1.42 GB (15.5% of target), 105.9 MB/s
+2026-09-16T21:05:57+0530 INFO    tokstudy.data.shard: Wrote train-00005.parquet: 54511 docs, 256.0 MB text
+2026-09-16T21:06:00+0530 INFO    tokstudy.data.shard: Wrote train-00006.parquet: 52408 docs, 256.0 MB text
+2026-09-16T21:06:00+0530 INFO    __main__: Read 400000 docs, 1.91 GB (20.7% of target), 106.2 MB/s
+2026-09-16T21:06:02+0530 INFO    tokstudy.data.shard: Wrote train-00007.parquet: 52876 docs, 256.0 MB text
+2026-09-16T21:06:04+0530 INFO    tokstudy.data.shard: Wrote train-00008.parquet: 52875 docs, 256.0 MB text
+2026-09-16T21:06:04+0530 INFO    __main__: Read 500000 docs, 2.39 GB (26.0% of target), 106.6 MB/s
+2026-09-16T21:06:07+0530 INFO    tokstudy.data.shard: Wrote train-00009.parquet: 53886 docs, 256.0 MB text
+2026-09-16T21:06:09+0530 INFO    tokstudy.data.shard: Wrote train-00010.parquet: 53151 docs, 256.0 MB text
+2026-09-16T21:06:09+0530 INFO    __main__: Read 600000 docs, 2.87 GB (31.1% of target), 106.8 MB/s
+2026-09-16T21:06:11+0530 INFO    tokstudy.data.shard: Wrote train-00011.parquet: 53974 docs, 256.0 MB text
+2026-09-16T21:06:12+0530 INFO    __main__: Read 700000 docs, 3.35 GB (36.3% of target), 112.0 MB/s
+2026-09-16T21:06:13+0530 INFO    tokstudy.data.shard: Wrote train-00012.parquet: 53164 docs, 256.0 MB text
+2026-09-16T21:06:14+0530 INFO    tokstudy.data.download: Fetching sample/10BT/001_00000.parquet (2.15 GB)
+2026-09-16T21:06:14+0530 INFO    httpx: HTTP Request: HEAD https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/001_00000.parquet "HTTP/1.1 302 Found"
+2026-09-16T21:06:14+0530 WARNING huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-16T21:06:14+0530 INFO    httpx: HTTP Request: GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/001_00000.parquet "HTTP/1.1 302 Found"
+2026-09-16T21:06:15+0530 INFO    httpx: HTTP Request: GET https://us.aws.cdn.hf.co/xet-bridge-us/6655eb19d17e141dcb546ed5/e9960557cb2dc32fbb60dcd731f26a567939acf5400da272a02e0a2129372c0b?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27001_00000.parquet%3B+filename%3D%22001_00000.parquet%22%3B&user_id=public&X-Xet-Cas-Uid=public&Expires=1789576574&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1L2U5OTYwNTU3Y2IyZGMzMmZiYjYwZGNkNzMxZjI2YTU2NzkzOWFjZjU0MDBkYTI3MmEwMmUwYTIxMjkzNzJjMGJcXD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAxXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDFfMDAwMDAucGFycXVldCUyMiUzQiZ1c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzg5NTc2NTc0fX19XX0_&Signature=MEYCIQCYZFbu6AQL--p4JsGeTZ7VxiArb1fq7W4u5IsD8OBSvAIhAPJLUiROv0JIaSMIbpRskYKdYB-CEXkb8VHAvz-%7EDPTy&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 "HTTP/1.1 200 OK"
+2026-09-16T21:17:49+0530 WARNING huggingface_hub.file_download: Error while downloading from https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/001_00000.parquet: peer closed connection without sending complete message body (received 874659317 bytes, expected 2152222432)
+Trying to resume download...
+2026-09-16T21:17:50+0530 INFO    httpx: HTTP Request: GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/001_00000.parquet "HTTP/1.1 302 Found"
+2026-09-16T21:17:51+0530 INFO    httpx: HTTP Request: GET https://us.aws.cdn.hf.co/xet-bridge-us/6655eb19d17e141dcb546ed5/e9960557cb2dc32fbb60dcd731f26a567939acf5400da272a02e0a2129372c0b?user_id=public&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27001_00000.parquet%3B+filename%3D%22001_00000.parquet%22%3B&Expires=1789577270&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1L2U5OTYwNTU3Y2IyZGMzMmZiYjYwZGNkNzMxZjI2YTU2NzkzOWFjZjU0MDBkYTI3MmEwMmUwYTIxMjkzNzJjMGJcXD91c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAxXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDFfMDAwMDAucGFycXVldCUyMiUzQiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzg5NTc3MjcwfX19XX0_&Signature=MEUCIDnhqgZdo3OHhBQff%7E9uLq2B2K9z7Hpq%7EY5DsalicemoAiEA-3ViIFsxI3ahRddOMqbt0frRjvCFSIJ-JnqV9Cy0RH4_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 "HTTP/1.1 206 Partial Content"
+2026-09-16T21:25:08+0530 INFO    tokstudy.data.download: Fetched sample/10BT/001_00000.parquet (2.15 GB) in 724s, sha256 verified
+2026-09-16T21:25:10+0530 INFO    tokstudy.data.shard: Wrote train-00013.parquet: 53186 docs, 256.0 MB text
+2026-09-16T21:25:10+0530 INFO    __main__: Read 800000 docs, 3.82 GB (41.5% of target), 5.0 MB/s
+2026-09-16T21:25:12+0530 INFO    tokstudy.data.shard: Wrote train-00014.parquet: 54152 docs, 256.0 MB text
+2026-09-16T21:25:14+0530 INFO    tokstudy.data.shard: Wrote train-00015.parquet: 54843 docs, 256.0 MB text
+2026-09-16T21:25:15+0530 INFO    __main__: Read 900000 docs, 4.29 GB (46.7% of target), 5.6 MB/s
+2026-09-16T21:25:16+0530 INFO    tokstudy.data.shard: Wrote train-00016.parquet: 54347 docs, 256.0 MB text
+2026-09-16T21:25:19+0530 INFO    tokstudy.data.shard: Wrote train-00017.parquet: 54063 docs, 256.0 MB text
+2026-09-16T21:25:19+0530 INFO    __main__: Read 1000000 docs, 4.76 GB (51.7% of target), 6.2 MB/s
+2026-09-16T21:25:21+0530 INFO    tokstudy.data.shard: Wrote train-00018.parquet: 55313 docs, 256.0 MB text
+2026-09-16T21:25:23+0530 INFO    tokstudy.data.shard: Wrote train-00019.parquet: 52827 docs, 256.0 MB text
+2026-09-16T21:25:23+0530 INFO    __main__: Read 1100000 docs, 5.24 GB (56.9% of target), 6.8 MB/s
+2026-09-16T21:25:26+0530 INFO    tokstudy.data.shard: Wrote train-00020.parquet: 53258 docs, 256.0 MB text
+2026-09-16T21:25:28+0530 INFO    tokstudy.data.shard: Wrote train-00021.parquet: 53027 docs, 256.0 MB text
+2026-09-16T21:25:28+0530 INFO    __main__: Read 1200000 docs, 5.72 GB (62.1% of target), 7.4 MB/s
+2026-09-16T21:25:30+0530 INFO    tokstudy.data.shard: Wrote train-00022.parquet: 53609 docs, 256.0 MB text
+2026-09-16T21:25:31+0530 INFO    __main__: Read 1300000 docs, 6.20 GB (67.3% of target), 7.9 MB/s
+2026-09-16T21:25:32+0530 INFO    tokstudy.data.shard: Wrote train-00023.parquet: 53953 docs, 256.0 MB text
+2026-09-16T21:25:35+0530 INFO    tokstudy.data.shard: Wrote train-00024.parquet: 53460 docs, 256.0 MB text
+2026-09-16T21:25:35+0530 INFO    __main__: Read 1400000 docs, 6.67 GB (72.5% of target), 8.5 MB/s
+2026-09-16T21:25:37+0530 INFO    tokstudy.data.shard: Wrote train-00025.parquet: 53887 docs, 256.0 MB text
+2026-09-16T21:25:38+0530 INFO    tokstudy.data.download: Fetching sample/10BT/002_00000.parquet (2.15 GB)
+2026-09-16T21:25:38+0530 INFO    httpx: HTTP Request: HEAD https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/002_00000.parquet "HTTP/1.1 302 Found"
+2026-09-16T21:25:38+0530 INFO    httpx: HTTP Request: GET https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu/resolve/87f09149ef4734204d70ed1d046ddc9ca3f2b8f9/sample/10BT/002_00000.parquet "HTTP/1.1 302 Found"
+2026-09-16T21:25:39+0530 INFO    httpx: HTTP Request: GET https://us.aws.cdn.hf.co/xet-bridge-us/6655eb19d17e141dcb546ed5/b56d6a2de6a9a15410ecc04eaad89793f13cf6afc45f443b8038eaf55abfcd98?user_id=public&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27002_00000.parquet%3B+filename%3D%22002_00000.parquet%22%3B&Expires=1789577738&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjY1NWViMTlkMTdlMTQxZGNiNTQ2ZWQ1L2I1NmQ2YTJkZTZhOWExNTQxMGVjYzA0ZWFhZDg5NzkzZjEzY2Y2YWZjNDVmNDQzYjgwMzhlYWY1NWFiZmNkOThcXD91c2VyX2lkPXB1YmxpYyZYLVhldC1DYXMtVWlkPXB1YmxpYyZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3MDAyXzAwMDAwLnBhcnF1ZXQlM0IrZmlsZW5hbWUlM0QlMjIwMDJfMDAwMDAucGFycXVldCUyMiUzQiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzg5NTc3NzM4fX19XX0_&Signature=MEUCIQCLGJ3Em-g4PN1f8UmQZGkMks%7EJ5nNPwrJrBOb5zE2%7ECQIgUrqYlfvIcXT3mvbIE8-sPrjz%7EMQtZg1ZdG50M72kyBo_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 "HTTP/1.1 200 OK"
+2026-09-16T21:38:49+0530 INFO    tokstudy.data.download: Fetched sample/10BT/002_00000.parquet (2.15 GB) in 790s, sha256 verified
+2026-09-16T21:38:51+0530 INFO    tokstudy.data.shard: Wrote train-00026.parquet: 52223 docs, 256.0 MB text
+2026-09-16T21:38:52+0530 INFO    __main__: Read 1500000 docs, 7.16 GB (77.8% of target), 4.5 MB/s
+2026-09-16T21:38:53+0530 INFO    tokstudy.data.shard: Wrote train-00027.parquet: 52619 docs, 256.1 MB text
+2026-09-16T21:38:56+0530 INFO    tokstudy.data.shard: Wrote train-00028.parquet: 53970 docs, 256.0 MB text
+2026-09-16T21:38:56+0530 INFO    __main__: Read 1600000 docs, 7.64 GB (83.0% of target), 4.8 MB/s
+2026-09-16T21:38:58+0530 INFO    tokstudy.data.shard: Wrote train-00029.parquet: 53433 docs, 256.0 MB text
+2026-09-16T21:39:00+0530 INFO    tokstudy.data.shard: Wrote train-00030.parquet: 53988 docs, 256.0 MB text
+2026-09-16T21:39:00+0530 INFO    __main__: Read 1700000 docs, 8.11 GB (88.1% of target), 5.1 MB/s
+2026-09-16T21:39:02+0530 INFO    tokstudy.data.shard: Wrote train-00031.parquet: 53279 docs, 256.0 MB text
+2026-09-16T21:39:05+0530 INFO    tokstudy.data.shard: Wrote train-00032.parquet: 54699 docs, 256.0 MB text
+2026-09-16T21:39:05+0530 INFO    __main__: Read 1800000 docs, 8.59 GB (93.3% of target), 5.4 MB/s
+2026-09-16T21:39:07+0530 INFO    tokstudy.data.shard: Wrote train-00033.parquet: 52846 docs, 256.0 MB text
+2026-09-16T21:39:08+0530 INFO    __main__: Read 1900000 docs, 9.07 GB (98.5% of target), 5.7 MB/s
+2026-09-16T21:39:09+0530 INFO    tokstudy.data.shard: Wrote train-00034.parquet: 53283 docs, 256.0 MB text
+2026-09-16T21:39:10+0530 INFO    tokstudy.data.shard: Wrote train-00035.parquet: 24353 docs, 115.2 MB text
+2026-09-16T21:39:11+0530 INFO    tokstudy.data.shard: Wrote heldout.parquet: 10530 docs, 50.0 MB text
+2026-09-16T21:39:11+0530 INFO    __main__: Wrote manifest data/manifest.json
+2026-09-16T21:39:11+0530 INFO    tokstudy.utils.registry: Wrote metrics to /Users/dhruvparmar/Project/tokenizer/results/phase1/20260916T153541Z-a2cf0298/metrics.json
+2026-09-16T21:39:11+0530 INFO    __main__: Timing: {"elapsed_sec": 1599.5767842079804, "read_mb_per_sec": 5.754036353782985, "docs_per_sec": 1205.5851391684503, "bytes_per_gpt2_token": 4.605753248102044, "fetch_sec": {"sample/10BT/000_00000.parquet": 0.0, "sample/10BT/001_00000.parquet": 723.9, "sample/10BT/002_00000.parquet": 790.5}, "processing_sec": 85.17678420798029, "processing_mb_per_sec": 108.0578828208176}

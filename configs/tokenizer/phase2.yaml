@@ -1,0 +1,41 @@
+# Phase 2: every tokenizer trained on the same 5 GB prefix of the train shards.
+seed: 0
+data_dir: data
+subset_bytes: 5000000000
+batch_docs: 1000
+roundtrip_docs: 2000          # held-out docs used for the round-trip exit check
+out_dir: artifacts/tokenizers
+
+special_tokens: ["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"]
+unk_token: "[UNK]"
+cls_token: "[CLS]"
+sep_token: "[SEP]"
+
+# BERT-uncased normalization for every arm (decision 2026-09-16), identical to bert-orig.
+normalizer:
+  clean_text: true
+  handle_chinese_chars: true
+  strip_accents: null         # follows `lowercase`, as in bert-base-uncased
+  lowercase: true
+
+bpe:
+  vocab_sizes: [8000, 16000, 32000]
+  min_frequency: 2
+
+unigram:
+  vocab_sizes: [8000, 16000, 32000]   # includes 256 byte-fallback pieces
+  shrinking_factor: 0.75
+  n_sub_iterations: 2
+  max_piece_length: 16
+
+wordpiece:
+  vocab_sizes: [8000, 16000, 32000]
+  min_frequency: 2
+  limit_alphabet: 1000
+
+bert:
+  repo: google-bert/bert-base-uncased
+  revision: 86b5e0934494bd15c9632b12f734a8a67f723594  # resolved 2026-09-16
+  trim_sizes: [8000, 16000]
+
+only: null
