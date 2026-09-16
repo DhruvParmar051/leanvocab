@@ -1,0 +1,677 @@
+{
+  "metrics": {
+    "environment": {
+      "cpu_count": 18,
+      "rayon_threads": "default"
+    },
+    "heldout": {
+      "bytes": 49995608,
+      "docs": 10530,
+      "paragraphs": 213438,
+      "sha256": "917a57c8cad252edcc5dc45730e405ca7c5e870f7611a4f914894dc4abe5856d",
+      "words": 8082824
+    },
+    "proposal": {
+      "by_vocab_size": {
+        "16000": {
+          "dropped_by_gate": [],
+          "ranked_passing": [
+            "bpe-16k",
+            "wp-16k",
+            "uni-16k"
+          ]
+        },
+        "8000": {
+          "dropped_by_gate": [],
+          "ranked_passing": [
+            "bpe-8k",
+            "wp-8k",
+            "uni-8k"
+          ]
+        }
+      },
+      "reference": "bert-orig"
+    },
+    "report": "reports/intrinsic.md",
+    "tokenizers": {
+      "bert-orig": {
+        "bytes_per_token": 4.726272147720701,
+        "doc_len_mean": 1004.5805318138652,
+        "doc_len_p50": 628.0,
+        "doc_len_p95": 2852.199999999997,
+        "doc_truncated": {
+          "128": 0.9735042735042735,
+          "256": 0.8454890788224122,
+          "512": 0.5954415954415955
+        },
+        "fertility": 1.3087298449155889,
+        "flops_doc_ratio_vs_reference": 1.0,
+        "flops_para_ratio_vs_reference": 1.0,
+        "flops_per_doc_at_max_len": 5482748156.936752,
+        "flops_per_para": 1091279713.5193546,
+        "len_ratio_vs_reference": 1.0,
+        "observed_types": 28142,
+        "para_len_mean": 49.36127118882298,
+        "para_len_p95": 146.0,
+        "para_truncated": {
+          "128": 0.07173980265932027,
+          "256": 0.009735848349403574,
+          "512": 0.0009745218752049775
+        },
+        "params_ratio_vs_reference": 1.0,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.41578818968251074,
+        "renyi_efficiency_observed_types": 0.41908302057722696,
+        "share_words_split_ge_min_pieces": 0.06715350971393166,
+        "throughput": {
+          "batched_docs_per_sec": 5161.945100700009,
+          "batched_mb_per_sec": 24.50850748073297,
+          "single_thread_docs_per_sec": 931.5487320743351,
+          "single_thread_mb_per_sec": 4.258254110139623
+        },
+        "token_embedding_params": 11720448,
+        "tokenizer_sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+        "tokens": 10578233,
+        "total_params": 22467072,
+        "unk_doc_share": 0.019373219373219373,
+        "unk_token_rate": 0.0002485292203338686,
+        "unk_word_rate": 0.00011815177467677138,
+        "vocab_size": 30522,
+        "vocab_used_share": 0.9220234584889588,
+        "whitespace_only_tokens": 0,
+        "words": 8082824
+      },
+      "bert-trim-16k": {
+        "bytes_per_token": 4.563243115263865,
+        "doc_len_mean": 1040.470750237417,
+        "doc_len_p50": 646.0,
+        "doc_len_p95": 2949.0999999999985,
+        "doc_truncated": {
+          "128": 0.9769230769230769,
+          "256": 0.8559354226020893,
+          "512": 0.6077872744539411
+        },
+        "fertility": 1.3554862755888288,
+        "flops_doc_ratio_vs_reference": 1.0037909496204285,
+        "flops_para_ratio_vs_reference": 1.0324764184685644,
+        "flops_per_doc_at_max_len": 5503532978.981196,
+        "flops_per_para": 1126720570.1618643,
+        "len_ratio_vs_reference": 1.0357265717251642,
+        "observed_types": 15012,
+        "para_len_mean": 51.12458418838258,
+        "para_len_p95": 152.0,
+        "para_truncated": {
+          "128": 0.07840684414209279,
+          "256": 0.011277279584703755,
+          "512": 0.0010963371096055997
+        },
+        "params_ratio_vs_reference": 0.7517946263758802,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.4493487833477352,
+        "renyi_efficiency_observed_types": 0.4523270662410468,
+        "share_words_split_ge_min_pieces": 0.08300712721197442,
+        "throughput": {
+          "batched_docs_per_sec": 5391.96700611997,
+          "batched_mb_per_sec": 25.60063331309664,
+          "single_thread_docs_per_sec": 939.6570817907004,
+          "single_thread_mb_per_sec": 4.295318637541509
+        },
+        "token_embedding_params": 6144000,
+        "tokenizer_sha256": "823055b8bbfbd5ed5f7258b5f56b38fb69466610a719047ba15fdb89a40f06e1",
+        "tokens": 10956157,
+        "total_params": 16890624,
+        "unk_doc_share": 0.019373219373219373,
+        "unk_token_rate": 0.00023995640077081773,
+        "unk_word_rate": 0.00011815177467677138,
+        "vocab_size": 16000,
+        "vocab_used_share": 0.93825,
+        "whitespace_only_tokens": 0,
+        "words": 8082824
+      },
+      "bert-trim-8k": {
+        "bytes_per_token": 4.090859088780913,
+        "doc_len_mean": 1160.617094017094,
+        "doc_len_p50": 716.0,
+        "doc_len_p95": 3298.7499999999964,
+        "doc_truncated": {
+          "128": 0.9859449192782526,
+          "256": 0.8811016144349477,
+          "512": 0.6509021842355176
+        },
+        "fertility": 1.5120084267577767,
+        "flops_doc_ratio_vs_reference": 1.0147414283851692,
+        "flops_para_ratio_vs_reference": 1.1405791355679755,
+        "flops_per_doc_at_max_len": 5563571696.246154,
+        "flops_per_para": 1244690872.3087735,
+        "len_ratio_vs_reference": 1.15532509068386,
+        "observed_types": 7012,
+        "para_len_mean": 57.03044912339883,
+        "para_len_p95": 171.0,
+        "para_truncated": {
+          "128": 0.10129405260544046,
+          "256": 0.01629981540306787,
+          "512": 0.0015461164366232817
+        },
+        "params_ratio_vs_reference": 0.6150611882135776,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.5025665882365704,
+        "renyi_efficiency_observed_types": 0.510047647709442,
+        "share_words_split_ge_min_pieces": 0.13471343678892428,
+        "throughput": {
+          "batched_docs_per_sec": 5285.487540757609,
+          "batched_mb_per_sec": 25.095077224748476,
+          "single_thread_docs_per_sec": 923.3779265293495,
+          "single_thread_mb_per_sec": 4.220904087433231
+        },
+        "token_embedding_params": 3072000,
+        "tokenizer_sha256": "33b6aa6c45e41d3df120c92c8233f58c23b8960e1133e2cfaa0f1f375ee41d25",
+        "tokens": 12221298,
+        "total_params": 13818624,
+        "unk_doc_share": 0.019373219373219373,
+        "unk_token_rate": 0.00021511626670096744,
+        "unk_word_rate": 0.00011815177467677138,
+        "vocab_size": 8000,
+        "vocab_used_share": 0.8765,
+        "whitespace_only_tokens": 0,
+        "words": 8082824
+      },
+      "bpe-16k": {
+        "bytes_per_token": 4.568234911964664,
+        "doc_len_mean": 1039.3338081671416,
+        "doc_len_p50": 644.0,
+        "doc_len_p95": 2955.0,
+        "doc_truncated": {
+          "128": 0.9774928774928775,
+          "256": 0.8555555555555555,
+          "512": 0.6070275403608737
+        },
+        "fertility": 1.3540051100951846,
+        "flops_doc_ratio_vs_reference": 1.0039923959328754,
+        "flops_para_ratio_vs_reference": 1.0364254970319926,
+        "flops_per_doc_at_max_len": 5504637458.379487,
+        "flops_per_para": 1131030119.4852276,
+        "len_ratio_vs_reference": 1.03459481370849,
+        "observed_types": 15844,
+        "para_len_mean": 51.34619889616657,
+        "para_len_p95": 152.0,
+        "para_truncated": {
+          "128": 0.07864110420824783,
+          "256": 0.011235112772795847,
+          "512": 0.0011150779148980032
+        },
+        "params_ratio_vs_reference": 0.7517946263758802,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.4575443600291841,
+        "renyi_efficiency_observed_types": 0.4580079271838868,
+        "share_words_split_ge_min_pieces": 0.07452209772228122,
+        "throughput": {
+          "batched_docs_per_sec": 4254.311754463025,
+          "batched_mb_per_sec": 20.199136067039472,
+          "single_thread_docs_per_sec": 725.9522749885015,
+          "single_thread_mb_per_sec": 3.318440734551201
+        },
+        "token_embedding_params": 6144000,
+        "tokenizer_sha256": "25099cdd24c41579a130abb49b43c7318c882d9d0d389dc72a7f01e9fce08001",
+        "tokens": 10944185,
+        "total_params": 16890624,
+        "unk_doc_share": 0.0,
+        "unk_token_rate": 0.0,
+        "unk_word_rate": 0.0,
+        "vocab_size": 16000,
+        "vocab_used_share": 0.99025,
+        "whitespace_only_tokens": 2915,
+        "words": 8082824
+      },
+      "bpe-32k": {
+        "bytes_per_token": 4.8383629954265714,
+        "doc_len_mean": 981.3073124406458,
+        "doc_len_p50": 611.5,
+        "doc_len_p95": 2785.199999999997,
+        "doc_truncated": {
+          "128": 0.9710351377018044,
+          "256": 0.841025641025641,
+          "512": 0.5851851851851851
+        },
+        "fertility": 1.2784103674656284,
+        "flops_doc_ratio_vs_reference": 0.9975991123686315,
+        "flops_para_ratio_vs_reference": 0.9816903559937258,
+        "flops_per_doc_at_max_len": 5469584694.700854,
+        "flops_per_para": 1071298770.4535463,
+        "len_ratio_vs_reference": 0.9768328982732749,
+        "observed_types": 31582,
+        "para_len_mean": 48.39820463085299,
+        "para_len_p95": 143.0,
+        "para_truncated": {
+          "128": 0.06833366129742595,
+          "256": 0.009192364995923874,
+          "512": 0.0009510958685894732
+        },
+        "params_ratio_vs_reference": 1.0252615027004854,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.41799334623433926,
+        "renyi_efficiency_observed_types": 0.4185238318353853,
+        "share_words_split_ge_min_pieces": 0.05168428757077972,
+        "throughput": {
+          "batched_docs_per_sec": 4227.935583044423,
+          "batched_mb_per_sec": 20.073904089187124,
+          "single_thread_docs_per_sec": 722.2823036505382,
+          "single_thread_mb_per_sec": 3.3016647248848274
+        },
+        "token_embedding_params": 12288000,
+        "tokenizer_sha256": "65efd5e653cefb28771687e58248ab573582f6339a37821fd35a71991db01e61",
+        "tokens": 10333166,
+        "total_params": 23034624,
+        "unk_doc_share": 0.0,
+        "unk_token_rate": 0.0,
+        "unk_word_rate": 0.0,
+        "vocab_size": 32000,
+        "vocab_used_share": 0.9869375,
+        "whitespace_only_tokens": 1942,
+        "words": 8082824
+      },
+      "bpe-8k": {
+        "bytes_per_token": 4.177103701113672,
+        "doc_len_mean": 1136.6538461538462,
+        "doc_len_p50": 702.0,
+        "doc_len_p95": 3213.649999999998,
+        "doc_truncated": {
+          "128": 0.9848053181386515,
+          "256": 0.8769230769230769,
+          "512": 0.6435897435897436
+        },
+        "fertility": 1.4807900060671864,
+        "flops_doc_ratio_vs_reference": 1.0131433073913665,
+        "flops_para_ratio_vs_reference": 1.1259383793125461,
+        "flops_per_doc_at_max_len": 5554809601.31282,
+        "flops_per_para": 1228713712.0166419,
+        "len_ratio_vs_reference": 1.1314711067528953,
+        "observed_types": 7891,
+        "para_len_mean": 56.21299393734949,
+        "para_len_p95": 167.0,
+        "para_truncated": {
+          "128": 0.09694150057627976,
+          "256": 0.015133200273615758,
+          "512": 0.0014477272088381638
+        },
+        "params_ratio_vs_reference": 0.6150611882135776,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.5084108570264196,
+        "renyi_efficiency_observed_types": 0.5091881166068186,
+        "share_words_split_ge_min_pieces": 0.1136385006032545,
+        "throughput": {
+          "batched_docs_per_sec": 4226.229998728266,
+          "batched_mb_per_sec": 20.065806109616226,
+          "single_thread_docs_per_sec": 731.7842883806015,
+          "single_thread_mb_per_sec": 3.3450997746445728
+        },
+        "token_embedding_params": 3072000,
+        "tokenizer_sha256": "b8da90f18eb6b852527892515d5e8936b60f5e09469aed5873c8278fc2aa0af8",
+        "tokens": 11968965,
+        "total_params": 13818624,
+        "unk_doc_share": 0.0,
+        "unk_token_rate": 0.0,
+        "unk_word_rate": 0.0,
+        "vocab_size": 8000,
+        "vocab_used_share": 0.986375,
+        "whitespace_only_tokens": 7440,
+        "words": 8082824
+      },
+      "uni-16k": {
+        "bytes_per_token": 4.4941670026351614,
+        "doc_len_mean": 1056.462962962963,
+        "doc_len_p50": 653.0,
+        "doc_len_p95": 2983.0,
+        "doc_truncated": {
+          "128": 0.9792972459639127,
+          "256": 0.8586894586894587,
+          "512": 0.6125356125356125
+        },
+        "fertility": 1.376320330617121,
+        "flops_doc_ratio_vs_reference": 1.005788993473827,
+        "flops_para_ratio_vs_reference": 1.0497882215827132,
+        "flops_per_doc_at_max_len": 5514487750.235897,
+        "flops_per_para": 1145612589.704776,
+        "len_ratio_vs_reference": 1.0516458656185774,
+        "observed_types": 15627,
+        "para_len_mean": 52.084881792370616,
+        "para_len_p95": 154.0,
+        "para_truncated": {
+          "128": 0.08157404023650897,
+          "256": 0.01196600417919958,
+          "512": 0.0011619299281290117
+        },
+        "params_ratio_vs_reference": 0.7517946263758802,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.44900211880095686,
+        "renyi_efficiency_observed_types": 0.450098895264368,
+        "share_words_split_ge_min_pieces": 0.06528695911231025,
+        "throughput": {
+          "batched_docs_per_sec": 3529.8167843882625,
+          "batched_mb_per_sec": 16.759291193171517,
+          "single_thread_docs_per_sec": 772.2045610678693,
+          "single_thread_mb_per_sec": 3.529867126450477
+        },
+        "token_embedding_params": 6144000,
+        "tokenizer_sha256": "4eaa951b88f5b9a3f7d0a21f1d47667be7b3b83d928228bdc86049c53e2fc247",
+        "tokens": 11124555,
+        "total_params": 16890624,
+        "unk_doc_share": 0.0,
+        "unk_token_rate": 0.0,
+        "unk_word_rate": 0.0,
+        "vocab_size": 16000,
+        "vocab_used_share": 0.9766875,
+        "whitespace_only_tokens": 455733,
+        "words": 8082824
+      },
+      "uni-32k": {
+        "bytes_per_token": 4.824168505640431,
+        "doc_len_mean": 984.1946818613485,
+        "doc_len_p50": 612.0,
+        "doc_len_p95": 2800.0,
+        "doc_truncated": {
+          "128": 0.9727445394112061,
+          "256": 0.8418803418803419,
+          "512": 0.586039886039886
+        },
+        "fertility": 1.2821719240701022,
+        "flops_doc_ratio_vs_reference": 0.9980693625077883,
+        "flops_para_ratio_vs_reference": 0.9812558772401637,
+        "flops_per_doc_at_max_len": 5472162957.7846155,
+        "flops_per_para": 1070824632.6038288,
+        "len_ratio_vs_reference": 0.9797071023109436,
+        "observed_types": 31531,
+        "para_len_mean": 48.40707840215894,
+        "para_len_p95": 144.0,
+        "para_truncated": {
+          "128": 0.06881155183238223,
+          "256": 0.009421939860755816,
+          "512": 0.0010026330831435827
+        },
+        "params_ratio_vs_reference": 1.0252615027004854,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.4148337106725526,
+        "renyi_efficiency_observed_types": 0.4154249900234695,
+        "share_words_split_ge_min_pieces": 0.040697409717197854,
+        "throughput": {
+          "batched_docs_per_sec": 3518.800030960239,
+          "batched_mb_per_sec": 16.706984518354794,
+          "single_thread_docs_per_sec": 746.1846296481231,
+          "single_thread_mb_per_sec": 3.4109259738314806
+        },
+        "token_embedding_params": 12288000,
+        "tokenizer_sha256": "1a67cc2eef0216f464e5632efb70a7ba1fd3cdd082982117a7217cf0c0777ca0",
+        "tokens": 10363570,
+        "total_params": 23034624,
+        "unk_doc_share": 0.0,
+        "unk_token_rate": 0.0,
+        "unk_word_rate": 0.0,
+        "vocab_size": 32000,
+        "vocab_used_share": 0.98534375,
+        "whitespace_only_tokens": 455768,
+        "words": 8082824
+      },
+      "uni-8k": {
+        "bytes_per_token": 4.001909558824353,
+        "doc_len_mean": 1186.4138651471985,
+        "doc_len_p50": 733.0,
+        "doc_len_p95": 3346.5499999999993,
+        "doc_truncated": {
+          "128": 0.9869895536562203,
+          "256": 0.8870845204178538,
+          "512": 0.6603988603988604
+        },
+        "fertility": 1.5456154928030104,
+        "flops_doc_ratio_vs_reference": 1.0168966234895396,
+        "flops_para_ratio_vs_reference": 1.1692923159911583,
+        "flops_per_doc_at_max_len": 5575388088.232479,
+        "flops_per_para": 1276024983.6152139,
+        "len_ratio_vs_reference": 1.1810042376642678,
+        "observed_types": 7630,
+        "para_len_mean": 58.62827612702518,
+        "para_len_p95": 174.0,
+        "para_truncated": {
+          "128": 0.10607764315632642,
+          "256": 0.017443004525904478,
+          "512": 0.0017241540869011142
+        },
+        "params_ratio_vs_reference": 0.6150611882135776,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.4829644239409694,
+        "renyi_efficiency_observed_types": 0.4855226512361675,
+        "share_words_split_ge_min_pieces": 0.10868330177670577,
+        "throughput": {
+          "batched_docs_per_sec": 3583.88090808935,
+          "batched_mb_per_sec": 17.01598338077105,
+          "single_thread_docs_per_sec": 780.3917723823777,
+          "single_thread_mb_per_sec": 3.5672921424804533
+        },
+        "token_embedding_params": 3072000,
+        "tokenizer_sha256": "6f9414a43fdb81edcc41c2be75282cb58d47f71ba98037ee63b3c9958048363e",
+        "tokens": 12492938,
+        "total_params": 13818624,
+        "unk_doc_share": 0.0,
+        "unk_token_rate": 0.0,
+        "unk_word_rate": 0.0,
+        "vocab_size": 8000,
+        "vocab_used_share": 0.95375,
+        "whitespace_only_tokens": 525270,
+        "words": 8082824
+      },
+      "wp-16k": {
+        "bytes_per_token": 4.5639312775885355,
+        "doc_len_mean": 1040.3138651471984,
+        "doc_len_p50": 645.0,
+        "doc_len_p95": 2932.5499999999993,
+        "doc_truncated": {
+          "128": 0.9772079772079773,
+          "256": 0.8557454890788224,
+          "512": 0.6065527065527065
+        },
+        "fertility": 1.3552818915765084,
+        "flops_doc_ratio_vs_reference": 1.003931483179652,
+        "flops_para_ratio_vs_reference": 1.0323439905010419,
+        "flops_per_doc_at_max_len": 5504303489.094017,
+        "flops_per_para": 1126576054.2074044,
+        "len_ratio_vs_reference": 1.0355704019754528,
+        "observed_types": 15271,
+        "para_len_mean": 51.11598684395469,
+        "para_len_p95": 152.0,
+        "para_truncated": {
+          "128": 0.07829439931033837,
+          "256": 0.01124448317544205,
+          "512": 0.0010729111029900956
+        },
+        "params_ratio_vs_reference": 0.7517946263758802,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.4494296154678906,
+        "renyi_efficiency_observed_types": 0.4516051326922105,
+        "share_words_split_ge_min_pieces": 0.07859220985140837,
+        "throughput": {
+          "batched_docs_per_sec": 5450.724467057369,
+          "batched_mb_per_sec": 25.879609095062595,
+          "single_thread_docs_per_sec": 940.389549068698,
+          "single_thread_mb_per_sec": 4.2986668593678985
+        },
+        "token_embedding_params": 6144000,
+        "tokenizer_sha256": "0102ead3be37c813df7931972990301cf2b7a1a361fdcb3ea804e73fab8c0e1c",
+        "tokens": 10954505,
+        "total_params": 16890624,
+        "unk_doc_share": 0.011490978157644825,
+        "unk_token_rate": 0.00015947776736602887,
+        "unk_word_rate": 7.68295833238482e-05,
+        "vocab_size": 16000,
+        "vocab_used_share": 0.9544375,
+        "whitespace_only_tokens": 0,
+        "words": 8082824
+      },
+      "wp-32k": {
+        "bytes_per_token": 4.841365315232525,
+        "doc_len_mean": 980.6987654320988,
+        "doc_len_p50": 611.0,
+        "doc_len_p95": 2777.5499999999993,
+        "doc_truncated": {
+          "128": 0.9713200379867046,
+          "256": 0.8401709401709402,
+          "512": 0.585375118708452
+        },
+        "fertility": 1.277617575243504,
+        "flops_doc_ratio_vs_reference": 0.9974212444346565,
+        "flops_para_ratio_vs_reference": 0.9779026891575648,
+        "flops_per_doc_at_max_len": 5468609489.613675,
+        "flops_per_para": 1067165366.4736738,
+        "len_ratio_vs_reference": 0.9762271260237887,
+        "observed_types": 30678,
+        "para_len_mean": 48.187108200039354,
+        "para_len_p95": 143.0,
+        "para_truncated": {
+          "128": 0.06795415999025478,
+          "256": 0.009019012546969143,
+          "512": 0.0009136142580046664
+        },
+        "params_ratio_vs_reference": 1.0252615027004854,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.41025849916927176,
+        "renyi_efficiency_observed_types": 0.411933879081912,
+        "share_words_split_ge_min_pieces": 0.05552960203018153,
+        "throughput": {
+          "batched_docs_per_sec": 5541.541872076805,
+          "batched_mb_per_sec": 26.31080295839868,
+          "single_thread_docs_per_sec": 946.4802116352502,
+          "single_thread_mb_per_sec": 4.326508225057637
+        },
+        "token_embedding_params": 12288000,
+        "tokenizer_sha256": "3657ecfa3a50ea6b4a2958525ff13283b5a77ff877732086b10467976924071b",
+        "tokens": 10326758,
+        "total_params": 23034624,
+        "unk_doc_share": 0.011490978157644825,
+        "unk_token_rate": 0.0001691721641971275,
+        "unk_word_rate": 7.68295833238482e-05,
+        "vocab_size": 32000,
+        "vocab_used_share": 0.9586875,
+        "whitespace_only_tokens": 0,
+        "words": 8082824
+      },
+      "wp-8k": {
+        "bytes_per_token": 4.10280497310211,
+        "doc_len_mean": 1157.2377967711302,
+        "doc_len_p50": 716.0,
+        "doc_len_p95": 3271.5499999999993,
+        "doc_truncated": {
+          "128": 0.9858499525166192,
+          "256": 0.8813865147198481,
+          "512": 0.6507122507122507
+        },
+        "fertility": 1.5076060050299251,
+        "flops_doc_ratio_vs_reference": 1.014679182078984,
+        "flops_para_ratio_vs_reference": 1.1379649097709124,
+        "flops_per_doc_at_max_len": 5563230415.425641,
+        "flops_per_para": 1241838020.7298794,
+        "len_ratio_vs_reference": 1.1519612018377738,
+        "observed_types": 7440,
+        "para_len_mean": 56.861936487410865,
+        "para_len_p95": 170.0,
+        "para_truncated": {
+          "128": 0.1003991791527282,
+          "256": 0.015826610069434685,
+          "512": 0.0015133200273615758
+        },
+        "params_ratio_vs_reference": 0.6150611882135776,
+        "passes_len_gate": true,
+        "renyi_efficiency": 0.5017897821780957,
+        "renyi_efficiency_observed_types": 0.5058746682549704,
+        "share_words_split_ge_min_pieces": 0.1244107257562456,
+        "throughput": {
+          "batched_docs_per_sec": 5181.35968372077,
+          "batched_mb_per_sec": 24.600686386923794,
+          "single_thread_docs_per_sec": 921.9674590766033,
+          "single_thread_mb_per_sec": 4.21445662137904
+        },
+        "token_embedding_params": 3072000,
+        "tokenizer_sha256": "76ea2c6b87130359fe589df5a81fdba3cfc28349ea54754fe13c894acf54b2a2",
+        "tokens": 12185714,
+        "total_params": 13818624,
+        "unk_doc_share": 0.011490978157644825,
+        "unk_token_rate": 0.00014336459890655566,
+        "unk_word_rate": 7.68295833238482e-05,
+        "vocab_size": 8000,
+        "vocab_used_share": 0.93,
+        "whitespace_only_tokens": 0,
+        "words": 8082824
+      }
+    }
+  },
+  "provenance": {
+    "config": {
+      "data_dir": "data",
+      "encode_batch_docs": 512,
+      "encoder": {
+        "d_ffn": 1536,
+        "d_model": 384,
+        "max_len": 256,
+        "n_layers": 6,
+        "type_vocab": 2
+      },
+      "gate": {
+        "candidate_prefixes": [
+          "bpe-",
+          "uni-",
+          "wp-"
+        ],
+        "claim_vocab_sizes": [
+          8000,
+          16000
+        ],
+        "max_len_ratio": 1.35
+      },
+      "max_lens": [
+        128,
+        256,
+        512
+      ],
+      "min_paragraph_chars": 20,
+      "n_special_tokens": 2,
+      "reference": "bert-orig",
+      "renyi_alpha": 2.5,
+      "report_dir": "reports",
+      "seed": 0,
+      "split_word_min_pieces": 3,
+      "throughput": {
+        "batch_docs": 512,
+        "repeats": 3,
+        "single_thread_docs": 2000
+      },
+      "tokenizer_dir": "artifacts/tokenizers",
+      "tokenizers": [
+        "bert-orig",
+        "bert-trim-8k",
+        "bert-trim-16k",
+        "bpe-8k",
+        "bpe-16k",
+        "bpe-32k",
+        "uni-8k",
+        "uni-16k",
+        "uni-32k",
+        "wp-8k",
+        "wp-16k",
+        "wp-32k"
+      ]
+    },
+    "config_sha256": "e77c7ae97bc64b31ec501266761f8d0086f07432f4e2caeae9d254708831c4c5",
+    "git_dirty": false,
+    "git_sha": "2a645bd5c53f1ec9161ed7d33acd45658d50eaf0",
+    "libraries": {
+      "datasets": "5.0.1",
+      "huggingface-hub": "1.31.0",
+      "leanvocab": "0.1.0",
+      "numpy": "2.4.6",
+      "pyarrow": "25.0.1",
+      "pydantic": "2.13.5",
+      "tokenizers": "0.23.2"
+    },
+    "phase": "phase3",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.15",
+    "run_id": "20260916T181733Z-e77c7ae9",
+    "seed": 0
+  }
+}

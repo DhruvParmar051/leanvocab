@@ -1,0 +1,16 @@
+2026-09-16T23:47:33+0530 INFO    leanvocab.utils.seeding: Seeded python,numpy with seed=0
+2026-09-16T23:47:33+0530 INFO    __main__: Run 20260916T181733Z-e77c7ae9, config sha256=e77c7ae97bc64b31ec501266761f8d0086f07432f4e2caeae9d254708831c4c5
+2026-09-16T23:47:35+0530 INFO    __main__: Held-out: 10530 docs, 50.0 MB, 8082824 words, 213438 paragraphs
+2026-09-16T23:47:58+0530 INFO    __main__: bert-orig: 4.726 bytes/tok, fertility 1.309, renyi 0.4158, unk 2.49e-04, mean len 1005 (23s)
+2026-09-16T23:48:21+0530 INFO    __main__: bert-trim-8k: 4.091 bytes/tok, fertility 1.512, renyi 0.5026, unk 2.15e-04, mean len 1161 (23s)
+2026-09-16T23:48:43+0530 INFO    __main__: bert-trim-16k: 4.563 bytes/tok, fertility 1.355, renyi 0.4493, unk 2.40e-04, mean len 1040 (22s)
+2026-09-16T23:49:12+0530 INFO    __main__: bpe-8k: 4.177 bytes/tok, fertility 1.481, renyi 0.5084, unk 0.00e+00, mean len 1137 (29s)
+2026-09-16T23:49:40+0530 INFO    __main__: bpe-16k: 4.568 bytes/tok, fertility 1.354, renyi 0.4575, unk 0.00e+00, mean len 1039 (28s)
+2026-09-16T23:50:08+0530 INFO    __main__: bpe-32k: 4.838 bytes/tok, fertility 1.278, renyi 0.4180, unk 0.00e+00, mean len 981 (28s)
+2026-09-16T23:50:38+0530 INFO    __main__: uni-8k: 4.002 bytes/tok, fertility 1.546, renyi 0.4830, unk 0.00e+00, mean len 1186 (30s)
+2026-09-16T23:51:09+0530 INFO    __main__: uni-16k: 4.494 bytes/tok, fertility 1.376, renyi 0.4490, unk 0.00e+00, mean len 1056 (30s)
+2026-09-16T23:51:39+0530 INFO    __main__: uni-32k: 4.824 bytes/tok, fertility 1.282, renyi 0.4148, unk 0.00e+00, mean len 984 (31s)
+2026-09-16T23:52:02+0530 INFO    __main__: wp-8k: 4.103 bytes/tok, fertility 1.508, renyi 0.5018, unk 1.43e-04, mean len 1157 (23s)
+2026-09-16T23:52:25+0530 INFO    __main__: wp-16k: 4.564 bytes/tok, fertility 1.355, renyi 0.4494, unk 1.59e-04, mean len 1040 (22s)
+2026-09-16T23:52:47+0530 INFO    __main__: wp-32k: 4.841 bytes/tok, fertility 1.278, renyi 0.4103, unk 1.69e-04, mean len 981 (22s)
+2026-09-16T23:52:47+0530 INFO    leanvocab.utils.registry: Wrote metrics to /Users/dhruvparmar/Project/leanvocab/results/phase3/20260916T181733Z-e77c7ae9/metrics.json

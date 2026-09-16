@@ -33,6 +33,14 @@ FAMILY_STYLE: dict[str, tuple[str, str, str]] = {
 }
 
 
+# Small horizontal offsets (millions of params) so equal-size tokenizers stay visible.
+FAMILY_DODGE = {"bert": -0.27, "bpe": -0.09, "uni": 0.09, "wp": 0.27}
+LABEL_OFFSET_X = 0.6
+# Points closer than this on x (millions) share one label column.
+LABEL_COLUMN_WIDTH = 1.0
+LABEL_GAP_FRACTION = 0.04
+
+
 def _family(tid: str) -> str:
     return tid.split("-")[0]
 
@@ -47,12 +55,12 @@ def plot_pareto(
     ref_len = results[reference]["doc_len_mean"]
     ax.axhline(ref_len * max_ratio, color=TEXT_SECONDARY, lw=1, ls=(0, (4, 3)), zorder=1)
     ax.text(
-        0.3,
+        0.2,
         ref_len * max_ratio,
-        f"  length gate: {max_ratio:.2f}× {reference}",
+        f"length gate: {max_ratio:.2f}× {reference} (candidates above are dropped)",
         color=TEXT_SECONDARY,
         fontsize=8,
-        va="bottom",
+        va="top",
     )
 
     points = sorted(
@@ -74,13 +82,15 @@ def plot_pareto(
         label="Pareto frontier",
     )
 
+    y_values = [y for _, y, _ in points] + [ref_len * max_ratio]
+    min_gap = LABEL_GAP_FRACTION * (max(y_values) - min(y_values))
     for family, (color, marker, label) in FAMILY_STYLE.items():
-        fam = [(x, y, t) for x, y, t in points if _family(t) == family]
+        fam = [(x + FAMILY_DODGE[family], y) for x, y, t in points if _family(t) == family]
         if not fam:
             continue
         ax.scatter(
-            [x for x, _, _ in fam],
-            [y for _, y, _ in fam],
+            [x for x, _ in fam],
+            [y for _, y in fam],
             s=64,
             color=color,
             marker=marker,
@@ -89,15 +99,29 @@ def plot_pareto(
             zorder=3,
             label=label,
         )
-        for x, y, t in fam:
-            ax.annotate(
-                t,
-                (x, y),
-                textcoords="offset points",
-                xytext=(7, 4),
-                fontsize=8,
-                color=TEXT_PRIMARY,
-            )
+
+    # Tokenizers of equal vocab size share an x position: stack their labels in a
+    # column to the right, spaced at least `min_gap` apart, with thin leader lines.
+    columns: list[tuple[float, list[tuple[float, str]]]] = []
+    for x, y, t in points:  # points are sorted by x
+        if columns and x - columns[-1][0] < LABEL_COLUMN_WIDTH:
+            columns[-1][1].append((y, t))
+        else:
+            columns.append((x, [(y, t)]))
+    x_of = {t: x for x, _, t in points}
+    for _, group in columns:
+        x = max(x_of[t] for _, t in group)
+        group.sort()
+        label_y: list[float] = []
+        for y, _ in group:
+            label_y.append(y if not label_y else max(y, label_y[-1] + min_gap))
+        shift = (label_y[-1] - group[-1][0]) / 2 if len(group) > 1 else 0.0
+        for (y, t), ly in zip(group, label_y, strict=True):
+            px = x_of[t] + FAMILY_DODGE[_family(t)]
+            tx = x + LABEL_OFFSET_X
+            ty = ly - shift
+            ax.plot([px, tx - 0.05], [y, ty], color=GRID, lw=0.8, zorder=2)
+            ax.text(tx, ty, t, fontsize=8, color=TEXT_PRIMARY, va="center")
 
     ax.set_xlabel("Token-embedding parameters (millions)", color=TEXT_SECONDARY)
     ax.set_ylabel("Mean tokens per held-out document", color=TEXT_SECONDARY)
@@ -114,8 +138,17 @@ def plot_pareto(
     for side in ("left", "bottom"):
         ax.spines[side].set_color(GRID)
     ax.tick_params(colors=TEXT_SECONDARY, labelsize=8)
-    ax.set_xlim(left=0)
-    ax.legend(frameon=False, fontsize=8, labelcolor=TEXT_SECONDARY, loc="upper right")
+    ax.set_xlim(0, max(x for x, _, _ in points) + 2.0)
+    ax.legend(frameon=False, fontsize=8, labelcolor=TEXT_SECONDARY, loc="lower left")
+    ax.text(
+        1.0,
+        -0.12,
+        "Markers are nudged sideways by family; equal vocab sizes share one x value.",
+        transform=ax.transAxes,
+        ha="right",
+        fontsize=7,
+        color=TEXT_SECONDARY,
+    )
     fig.tight_layout()
     fig.savefig(path, facecolor=SURFACE)
     plt.close(fig)
