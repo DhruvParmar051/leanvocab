@@ -16,6 +16,7 @@ def make_config(out_dir: Path, **overrides: object) -> DataPrepConfig:
             revision="0" * 40,
             file_prefix="fake/",
             read_batch_rows=64,
+            disable_xet=True,
             text_field="text",
             id_field="id",
             url_field="url",

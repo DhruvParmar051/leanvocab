@@ -17,6 +17,9 @@ class SourceConfig(StrictConfig):
     revision: str = Field(min_length=40, max_length=40, description="Pinned dataset commit SHA")
     file_prefix: str = Field(description="Repo directory whose parquet files form the config")
     read_batch_rows: int = Field(gt=0)
+    disable_xet: bool = Field(
+        description="Use plain resumable HTTP instead of the Xet transfer backend"
+    )
     text_field: str
     id_field: str
     url_field: str

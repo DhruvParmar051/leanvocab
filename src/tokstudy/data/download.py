@@ -8,13 +8,13 @@ of ``datasets`` streaming) is faster and avoids an Arrow I/O pool deadlock at ex
 from __future__ import annotations
 
 import logging
+import os
 import time
 from collections.abc import Generator
 from pathlib import Path
 from typing import Any
 
 import pyarrow.parquet as pq
-from huggingface_hub import HfApi, hf_hub_download
 
 from tokstudy.data.schema import Document, SourceConfig
 from tokstudy.data.shard import sha256_file
@@ -29,6 +29,12 @@ class HubParquetSource:
         self.source = source
         self.raw_dir = raw_dir
         self.files_used: list[dict[str, Any]] = []
+        if source.disable_xet:
+            # Read by huggingface_hub at import time, so it must be set before importing it.
+            os.environ["HF_HUB_DISABLE_XET"] = "1"
+        from huggingface_hub import HfApi
+
+        logger.info("Hub transfer backend: %s", "http" if source.disable_xet else "xet")
         api = HfApi()
         listing = api.list_repo_tree(
             source.path,
@@ -48,6 +54,9 @@ class HubParquetSource:
         logger.info("Source has %d parquet files", len(self._remote))
 
     def _fetch(self, remote: Any) -> Path:
+        from huggingface_hub import hf_hub_download
+
+        logger.info("Fetching %s (%.2f GB)", remote.path, remote.size / 1e9)
         start = time.monotonic()
         local = Path(
             hf_hub_download(
