@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import platform
 import subprocess
 from dataclasses import dataclass, field
@@ -27,6 +28,9 @@ TRACKED_PACKAGES: tuple[str, ...] = (
     "pydantic",
     "tokenizers",
     "mlx",
+    "mlx-metal",
+    "transformers",
+    "tokenization-scorer",
     "torch",
     "mteb",
     "sentence-transformers",
@@ -95,6 +99,7 @@ class RunContext:
             "python": platform.python_version(),
             "platform": platform.platform(),
             "libraries": library_versions(),
+            "env": {k: v for k, v in os.environ.items() if k.startswith(("MLX_", "RAYON_"))},
             **git_state(),
         }
 

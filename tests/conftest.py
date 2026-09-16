@@ -1,5 +1,11 @@
 from __future__ import annotations
 
+import os
+
+# Exact float32 matmul in tests (MLX enables TF32 on Apple GPUs by default); must be set
+# before mlx is first imported.
+os.environ["MLX_ENABLE_TF32"] = "0"
+
 from pathlib import Path
 
 import pytest
