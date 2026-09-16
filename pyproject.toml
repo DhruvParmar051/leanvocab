@@ -53,3 +53,14 @@ addopts = "-q"
 # `tokenizers` trainer constructors ship without annotations.
 module = "leanvocab.tokenizers.*"
 disallow_untyped_calls = false
+
+[[tool.mypy.overrides]]
+# MLX ships partial stubs that mypy cannot resolve (e.g. mlx.nn.LayerNorm); treat it as Any.
+module = ["mlx", "mlx.*"]
+follow_imports = "skip"
+
+[[tool.mypy.overrides]]
+module = ["leanvocab.model.*", "leanvocab.pretrain.*", "leanvocab.finetune.*", "leanvocab.eval.*"]
+disallow_subclassing_any = false
+disallow_any_generics = false
+warn_return_any = false
