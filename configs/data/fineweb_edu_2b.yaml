@@ -13,8 +13,8 @@ source:
   token_count_field: token_count
 
 seed: 0
-# Placeholder of 2e9 tokens * 4.7 bytes/token; replaced by the dry-run measurement.
-target_text_bytes: 9400000000
+# 2e9 GPT-2 tokens * 4.602 bytes/token (measured on the 50k-doc dry run, 2026-09-16).
+target_text_bytes: 9204000000
 max_docs: null
 heldout_bytes: 50000000
 heldout_fraction: 0.007      # ~66 MB of candidates; lowest-hash 50 MB kept

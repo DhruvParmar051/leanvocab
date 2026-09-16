@@ -234,6 +234,12 @@ def main() -> None:
     with closing(source.__iter__()) as docs:
         manifest, timing = prepare(cfg, docs, source.provenance)
     timing["fetch_sec"] = {f["path"]: f["fetch_sec"] for f in source.files_used}
+    # prepare() times the whole read loop, which includes lazy file downloads.
+    processing_sec = timing["elapsed_sec"] - sum(timing["fetch_sec"].values())
+    timing["processing_sec"] = processing_sec
+    timing["processing_mb_per_sec"] = (
+        manifest["read"]["text_bytes"] / 1e6 / processing_sec if processing_sec > 0 else 0.0
+    )
     metrics = {
         "manifest_path": str(cfg.out_dir / MANIFEST_NAME),
         "read": manifest["read"],
