@@ -1,0 +1,35 @@
+# Phase 3: intrinsic evaluation of the Phase 2 tokenizers on the frozen held-out split.
+seed: 0
+data_dir: data
+tokenizer_dir: artifacts/tokenizers
+report_dir: reports
+tokenizers: [bert-orig, bert-trim-8k, bert-trim-16k,
+             bpe-8k, bpe-16k, bpe-32k,
+             uni-8k, uni-16k, uni-32k,
+             wp-8k, wp-16k, wp-32k]
+reference: bert-orig
+
+renyi_alpha: 2.5
+max_lens: [128, 256, 512]
+n_special_tokens: 2           # [CLS] ... [SEP]
+min_paragraph_chars: 20       # held-out docs split on newlines; shorter lines dropped
+encode_batch_docs: 512
+split_word_min_pieces: 3      # "share of words split into >= 3 pieces"
+
+throughput:
+  single_thread_docs: 2000    # tok.encode() loop over the first N held-out docs
+  repeats: 3                  # median of repeats, after one warm-up
+  batch_docs: 512             # tok.encode_batch() chunk size (all cores)
+
+# Encoder shape for parameter/FLOPs estimates; must match the Phase 4 model.
+encoder:
+  n_layers: 6
+  d_model: 384
+  d_ffn: 1536
+  max_len: 256
+  type_vocab: 2
+
+gate:
+  max_len_ratio: 1.35         # drop candidates whose mean doc length exceeds this x reference
+  candidate_prefixes: [bpe-, uni-, wp-]
+  claim_vocab_sizes: [8000, 16000]
