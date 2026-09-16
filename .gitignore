@@ -1,0 +1,10 @@
+/data/
+.venv/
+results/**/ckpt*
+__pycache__/
+*.pyc
+.DS_Store
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+results/*-dryrun/

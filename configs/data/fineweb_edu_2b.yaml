@@ -1,0 +1,23 @@
+# Phase 1: ~2B GPT-2 tokens of FineWeb-Edu text (budget measured in bytes).
+source:
+  path: HuggingFaceFW/fineweb-edu
+  name: sample-10BT
+  split: train
+  revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9  # resolved 2026-09-16
+  text_field: text
+  id_field: id
+  url_field: url
+  token_count_field: token_count
+
+seed: 0
+# Placeholder of 2e9 tokens * 4.7 bytes/token; replaced by the dry-run measurement.
+target_text_bytes: 9400000000
+max_docs: null
+heldout_bytes: 50000000
+heldout_fraction: 0.007      # ~66 MB of candidates; lowest-hash 50 MB kept
+shard_bytes: 256000000
+row_group_rows: 8192
+parquet_compression: zstd
+parquet_compression_level: 3
+log_every_docs: 100000
+out_dir: data
