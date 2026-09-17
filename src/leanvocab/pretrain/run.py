@@ -41,12 +41,18 @@ def main() -> None:
     from leanvocab.utils.registry import RunContext, write_metrics
     from leanvocab.utils.seeding import seed_everything
 
+    key = cfg.training_key(arm)
+    finished = cfg.checkpoint_dir / f"{arm.id}-{key}" / "final" / "state.json"
+    if not args.dry_run and finished.exists():
+        setup_logging(None)
+        logger.info("Arm %s (key %s) already finished; skipping", arm.id, key)
+        return
+
     phase = "phase4-dryrun" if args.dry_run else "phase4"
     ctx = RunContext(phase=phase, config=cfg, seed=cfg.seed)
     ctx.run_id = f"{ctx.run_id}-{arm.id}"
     setup_logging(ctx.run_dir)
     seed_everything(cfg.seed)
-    key = cfg.training_key(arm)
     if args.dry_run:
         root = args.dry_run_root or cfg.checkpoint_dir / "dry-run"
         ckpt_root = root / f"{arm.id}-{key}-{ctx.run_id}"
