@@ -1,0 +1,148 @@
+2026-09-18T10:09:50+0530 INFO    leanvocab.utils.seeding: Seeded python,numpy,mlx,torch with seed=0
+2026-09-18T10:09:50+0530 INFO    __main__: Run 20260918T043947Z-1e4505cf-bpe-8k arm=bpe-8k key=c9f6c65068d6 env={'MLX_ENABLE_TF32': '1'} ckpt=data/checkpoints/bpe-8k-c9f6c65068d6
+2026-09-18T10:09:50+0530 INFO    leanvocab.pretrain.data: Reusing pre-tokenized data data/pretok/bpe-8k-5865ee73a3ef9351
+2026-09-18T10:09:50+0530 INFO    leanvocab.pretrain.mlm: bpe-8k: 1885255 seqs, batch 97 x 3 = 291 seqs (308712 bytes), 6478 steps, warmup 389, k=38
+2026-09-18T10:10:38+0530 INFO    leanvocab.pretrain.mlm: step 50/6478 loss 8.5199 lr 6.30e-05 gnorm 1.43 76452 tok/s 23.90 GB
+2026-09-18T10:11:27+0530 INFO    leanvocab.pretrain.mlm: step 100/6478 loss 7.4599 lr 1.27e-04 gnorm 0.44 77252 tok/s 23.90 GB
+2026-09-18T10:12:15+0530 INFO    leanvocab.pretrain.mlm: step 150/6478 loss 7.0598 lr 1.92e-04 gnorm 0.55 76826 tok/s 23.90 GB
+2026-09-18T10:13:03+0530 INFO    leanvocab.pretrain.mlm: step 200/6478 loss 6.9256 lr 2.56e-04 gnorm 0.46 77502 tok/s 23.90 GB
+2026-09-18T10:13:51+0530 INFO    leanvocab.pretrain.mlm: step 250/6478 loss 6.8022 lr 3.20e-04 gnorm 0.49 77685 tok/s 23.90 GB
+2026-09-18T10:14:39+0530 INFO    leanvocab.pretrain.mlm: step 300/6478 loss 6.6966 lr 3.84e-04 gnorm 0.42 77107 tok/s 23.90 GB
+2026-09-18T10:15:27+0530 INFO    leanvocab.pretrain.mlm: step 350/6478 loss 6.6127 lr 4.49e-04 gnorm 0.55 77826 tok/s 23.90 GB
+2026-09-18T10:16:15+0530 INFO    leanvocab.pretrain.mlm: step 400/6478 loss 6.5646 lr 4.99e-04 gnorm 0.85 78006 tok/s 23.90 GB
+2026-09-18T10:17:02+0530 INFO    leanvocab.pretrain.mlm: step 450/6478 loss 6.5121 lr 4.95e-04 gnorm 0.98 78816 tok/s 23.90 GB
+2026-09-18T10:17:50+0530 INFO    leanvocab.pretrain.mlm: step 500/6478 loss 6.4699 lr 4.91e-04 gnorm 1.51 78845 tok/s 23.90 GB
+2026-09-18T10:17:58+0530 INFO    leanvocab.pretrain.mlm: eval step 500: bits/byte 2.2294, mlm loss 6.4599, acc 0.1327 (9s)
+2026-09-18T10:18:46+0530 INFO    leanvocab.pretrain.mlm: step 550/6478 loss 6.4423 lr 4.87e-04 gnorm 0.74 66011 tok/s 23.90 GB
+2026-09-18T10:19:33+0530 INFO    leanvocab.pretrain.mlm: step 600/6478 loss 6.4135 lr 4.83e-04 gnorm 1.24 78681 tok/s 23.90 GB
+2026-09-18T10:20:21+0530 INFO    leanvocab.pretrain.mlm: step 650/6478 loss 6.3792 lr 4.79e-04 gnorm 0.91 78731 tok/s 23.90 GB
+2026-09-18T10:21:08+0530 INFO    leanvocab.pretrain.mlm: step 700/6478 loss 6.3624 lr 4.75e-04 gnorm 0.99 78762 tok/s 23.90 GB
+2026-09-18T10:21:55+0530 INFO    leanvocab.pretrain.mlm: step 750/6478 loss 6.3403 lr 4.70e-04 gnorm 1.01 78790 tok/s 23.90 GB
+2026-09-18T10:22:42+0530 INFO    leanvocab.pretrain.mlm: step 800/6478 loss 6.3176 lr 4.66e-04 gnorm 0.84 78899 tok/s 23.90 GB
+2026-09-18T10:23:30+0530 INFO    leanvocab.pretrain.mlm: step 850/6478 loss 6.3071 lr 4.62e-04 gnorm 1.32 78767 tok/s 23.90 GB
+2026-09-18T10:24:17+0530 INFO    leanvocab.pretrain.mlm: step 900/6478 loss 6.2935 lr 4.58e-04 gnorm 0.99 78950 tok/s 23.90 GB
+2026-09-18T10:25:04+0530 INFO    leanvocab.pretrain.mlm: step 950/6478 loss 6.2937 lr 4.54e-04 gnorm 0.84 79032 tok/s 23.90 GB
+2026-09-18T10:25:51+0530 INFO    leanvocab.pretrain.mlm: step 1000/6478 loss 6.2729 lr 4.50e-04 gnorm 1.26 78942 tok/s 23.90 GB
+2026-09-18T10:26:00+0530 INFO    leanvocab.pretrain.mlm: eval step 1000: bits/byte 2.1613, mlm loss 6.2625, acc 0.1371 (9s)
+2026-09-18T10:26:47+0530 INFO    leanvocab.pretrain.mlm: step 1050/6478 loss 6.2549 lr 4.46e-04 gnorm 0.83 66536 tok/s 23.90 GB
+2026-09-18T10:27:34+0530 INFO    leanvocab.pretrain.mlm: step 1100/6478 loss 6.2473 lr 4.42e-04 gnorm 0.94 78966 tok/s 23.90 GB
+2026-09-18T10:28:21+0530 INFO    leanvocab.pretrain.mlm: step 1150/6478 loss 6.2463 lr 4.38e-04 gnorm 1.05 79059 tok/s 23.90 GB
+2026-09-18T10:29:09+0530 INFO    leanvocab.pretrain.mlm: step 1200/6478 loss 6.2294 lr 4.33e-04 gnorm 1.04 79092 tok/s 23.90 GB
+2026-09-18T10:29:56+0530 INFO    leanvocab.pretrain.mlm: step 1250/6478 loss 6.2228 lr 4.29e-04 gnorm 1.00 79091 tok/s 23.90 GB
+2026-09-18T10:30:43+0530 INFO    leanvocab.pretrain.mlm: step 1300/6478 loss 6.2122 lr 4.25e-04 gnorm 0.95 79116 tok/s 23.90 GB
+2026-09-18T10:31:30+0530 INFO    leanvocab.pretrain.mlm: step 1350/6478 loss 6.2098 lr 4.21e-04 gnorm 1.28 79086 tok/s 23.90 GB
+2026-09-18T10:32:17+0530 INFO    leanvocab.pretrain.mlm: step 1400/6478 loss 6.2050 lr 4.17e-04 gnorm 1.06 79130 tok/s 23.90 GB
+2026-09-18T10:33:04+0530 INFO    leanvocab.pretrain.mlm: step 1450/6478 loss 6.1838 lr 4.13e-04 gnorm 1.25 79137 tok/s 23.90 GB
+2026-09-18T10:33:51+0530 INFO    leanvocab.pretrain.mlm: step 1500/6478 loss 6.1885 lr 4.09e-04 gnorm 0.89 79186 tok/s 23.90 GB
+2026-09-18T10:34:00+0530 INFO    leanvocab.pretrain.mlm: eval step 1500: bits/byte 2.1346, mlm loss 6.1852, acc 0.1373 (9s)
+2026-09-18T10:34:47+0530 INFO    leanvocab.pretrain.mlm: step 1550/6478 loss 6.1884 lr 4.05e-04 gnorm 1.26 66584 tok/s 23.90 GB
+2026-09-18T10:35:34+0530 INFO    leanvocab.pretrain.mlm: step 1600/6478 loss 6.1768 lr 4.01e-04 gnorm 1.36 79258 tok/s 23.90 GB
+2026-09-18T10:36:22+0530 INFO    leanvocab.pretrain.mlm: step 1650/6478 loss 6.1678 lr 3.97e-04 gnorm 0.97 77658 tok/s 23.90 GB
+2026-09-18T10:37:09+0530 INFO    leanvocab.pretrain.mlm: step 1700/6478 loss 6.1633 lr 3.92e-04 gnorm 1.15 78389 tok/s 23.90 GB
+2026-09-18T10:37:58+0530 INFO    leanvocab.pretrain.mlm: step 1750/6478 loss 6.1660 lr 3.88e-04 gnorm 1.11 77471 tok/s 23.90 GB
+2026-09-18T10:38:46+0530 INFO    leanvocab.pretrain.mlm: step 1800/6478 loss 6.1556 lr 3.84e-04 gnorm 0.95 77047 tok/s 23.90 GB
+2026-09-18T10:39:34+0530 INFO    leanvocab.pretrain.mlm: step 1850/6478 loss 6.1382 lr 3.80e-04 gnorm 1.04 76939 tok/s 23.90 GB
+2026-09-18T10:40:22+0530 INFO    leanvocab.pretrain.mlm: step 1900/6478 loss 6.1434 lr 3.76e-04 gnorm 0.88 77307 tok/s 23.90 GB
+2026-09-18T10:41:10+0530 INFO    leanvocab.pretrain.mlm: step 1950/6478 loss 6.1440 lr 3.72e-04 gnorm 1.07 77744 tok/s 23.90 GB
+2026-09-18T10:41:58+0530 INFO    leanvocab.pretrain.mlm: step 2000/6478 loss 6.1473 lr 3.68e-04 gnorm 1.15 77711 tok/s 23.90 GB
+2026-09-18T10:42:08+0530 INFO    leanvocab.pretrain.mlm: eval step 2000: bits/byte 2.1154, mlm loss 6.1295, acc 0.1378 (9s)
+2026-09-18T10:42:56+0530 INFO    leanvocab.pretrain.mlm: step 2050/6478 loss 6.1333 lr 3.64e-04 gnorm 0.90 65091 tok/s 23.90 GB
+2026-09-18T10:43:43+0530 INFO    leanvocab.pretrain.mlm: step 2100/6478 loss 6.1344 lr 3.60e-04 gnorm 0.98 77826 tok/s 23.90 GB
+2026-09-18T10:44:30+0530 INFO    leanvocab.pretrain.mlm: step 2150/6478 loss 6.1220 lr 3.55e-04 gnorm 1.22 79118 tok/s 23.90 GB
+2026-09-18T10:45:17+0530 INFO    leanvocab.pretrain.mlm: step 2200/6478 loss 6.1238 lr 3.51e-04 gnorm 0.98 79194 tok/s 23.90 GB
+2026-09-18T10:46:05+0530 INFO    leanvocab.pretrain.mlm: step 2250/6478 loss 6.1183 lr 3.47e-04 gnorm 1.20 79167 tok/s 23.90 GB
+2026-09-18T10:46:52+0530 INFO    leanvocab.pretrain.mlm: step 2300/6478 loss 6.1154 lr 3.43e-04 gnorm 1.08 79209 tok/s 23.90 GB
+2026-09-18T10:47:39+0530 INFO    leanvocab.pretrain.mlm: step 2350/6478 loss 6.1021 lr 3.39e-04 gnorm 1.20 79282 tok/s 23.90 GB
+2026-09-18T10:48:26+0530 INFO    leanvocab.pretrain.mlm: step 2400/6478 loss 6.0855 lr 3.35e-04 gnorm 1.31 79267 tok/s 23.90 GB
+2026-09-18T10:49:13+0530 INFO    leanvocab.pretrain.mlm: step 2450/6478 loss 6.0771 lr 3.31e-04 gnorm 1.17 79213 tok/s 23.90 GB
+2026-09-18T10:50:00+0530 INFO    leanvocab.pretrain.mlm: step 2500/6478 loss 6.0646 lr 3.27e-04 gnorm 1.08 79302 tok/s 23.90 GB
+2026-09-18T10:50:08+0530 INFO    leanvocab.pretrain.mlm: eval step 2500: bits/byte 2.0842, mlm loss 6.0392, acc 0.1384 (9s)
+2026-09-18T10:50:55+0530 INFO    leanvocab.pretrain.mlm: step 2550/6478 loss 6.0364 lr 3.23e-04 gnorm 1.14 66808 tok/s 23.90 GB
+2026-09-18T10:51:42+0530 INFO    leanvocab.pretrain.mlm: step 2600/6478 loss 6.0279 lr 3.19e-04 gnorm 1.00 79195 tok/s 23.90 GB
+2026-09-18T10:52:29+0530 INFO    leanvocab.pretrain.mlm: step 2650/6478 loss 6.0223 lr 3.14e-04 gnorm 1.01 79293 tok/s 23.90 GB
+2026-09-18T10:53:17+0530 INFO    leanvocab.pretrain.mlm: step 2700/6478 loss 5.9981 lr 3.10e-04 gnorm 1.19 78851 tok/s 23.90 GB
+2026-09-18T10:54:04+0530 INFO    leanvocab.pretrain.mlm: step 2750/6478 loss 5.9874 lr 3.06e-04 gnorm 1.11 79154 tok/s 23.90 GB
+2026-09-18T10:54:51+0530 INFO    leanvocab.pretrain.mlm: step 2800/6478 loss 5.9703 lr 3.02e-04 gnorm 1.28 79205 tok/s 23.90 GB
+2026-09-18T10:55:38+0530 INFO    leanvocab.pretrain.mlm: step 2850/6478 loss 5.9559 lr 2.98e-04 gnorm 1.15 78852 tok/s 23.94 GB
+2026-09-18T10:56:25+0530 INFO    leanvocab.pretrain.mlm: step 2900/6478 loss 5.9442 lr 2.94e-04 gnorm 1.17 79062 tok/s 23.94 GB
+2026-09-18T10:57:12+0530 INFO    leanvocab.pretrain.mlm: step 2950/6478 loss 5.9160 lr 2.90e-04 gnorm 1.20 79258 tok/s 23.94 GB
+2026-09-18T10:57:59+0530 INFO    leanvocab.pretrain.mlm: step 3000/6478 loss 5.9068 lr 2.86e-04 gnorm 1.28 78717 tok/s 23.94 GB
+2026-09-18T10:58:08+0530 INFO    leanvocab.pretrain.mlm: eval step 3000: bits/byte 2.0180, mlm loss 5.8474, acc 0.1493 (9s)
+2026-09-18T10:58:55+0530 INFO    leanvocab.pretrain.mlm: step 3050/6478 loss 5.8761 lr 2.82e-04 gnorm 1.24 66657 tok/s 23.94 GB
+2026-09-18T10:59:42+0530 INFO    leanvocab.pretrain.mlm: step 3100/6478 loss 5.8545 lr 2.77e-04 gnorm 1.30 78948 tok/s 23.94 GB
+2026-09-18T11:00:29+0530 INFO    leanvocab.pretrain.mlm: step 3150/6478 loss 5.8362 lr 2.73e-04 gnorm 1.19 79281 tok/s 23.94 GB
+2026-09-18T11:01:16+0530 INFO    leanvocab.pretrain.mlm: step 3200/6478 loss 5.8109 lr 2.69e-04 gnorm 1.25 79251 tok/s 23.94 GB
+2026-09-18T11:02:03+0530 INFO    leanvocab.pretrain.mlm: step 3250/6478 loss 5.7739 lr 2.65e-04 gnorm 1.29 79282 tok/s 23.94 GB
+2026-09-18T11:02:50+0530 INFO    leanvocab.pretrain.mlm: step 3300/6478 loss 5.7259 lr 2.61e-04 gnorm 1.35 79204 tok/s 23.94 GB
+2026-09-18T11:03:37+0530 INFO    leanvocab.pretrain.mlm: step 3350/6478 loss 5.6338 lr 2.57e-04 gnorm 1.77 79158 tok/s 23.94 GB
+2026-09-18T11:04:24+0530 INFO    leanvocab.pretrain.mlm: step 3400/6478 loss 5.5513 lr 2.53e-04 gnorm 1.69 79296 tok/s 23.94 GB
+2026-09-18T11:05:11+0530 INFO    leanvocab.pretrain.mlm: step 3450/6478 loss 5.4806 lr 2.49e-04 gnorm 1.50 79292 tok/s 23.94 GB
+2026-09-18T11:05:58+0530 INFO    leanvocab.pretrain.mlm: step 3500/6478 loss 5.4115 lr 2.45e-04 gnorm 1.76 79314 tok/s 23.94 GB
+2026-09-18T11:06:07+0530 INFO    leanvocab.pretrain.mlm: eval step 3500: bits/byte 1.8120, mlm loss 5.2505, acc 0.1852 (9s)
+2026-09-18T11:06:54+0530 INFO    leanvocab.pretrain.mlm: step 3550/6478 loss 5.3503 lr 2.41e-04 gnorm 1.76 66814 tok/s 23.94 GB
+2026-09-18T11:07:41+0530 INFO    leanvocab.pretrain.mlm: step 3600/6478 loss 5.2967 lr 2.36e-04 gnorm 1.85 79338 tok/s 23.94 GB
+2026-09-18T11:08:28+0530 INFO    leanvocab.pretrain.mlm: step 3650/6478 loss 5.2415 lr 2.32e-04 gnorm 2.03 79263 tok/s 23.94 GB
+2026-09-18T11:09:15+0530 INFO    leanvocab.pretrain.mlm: step 3700/6478 loss 5.1754 lr 2.28e-04 gnorm 1.87 79139 tok/s 23.94 GB
+2026-09-18T11:10:02+0530 INFO    leanvocab.pretrain.mlm: step 3750/6478 loss 5.1106 lr 2.24e-04 gnorm 1.93 79299 tok/s 23.94 GB
+2026-09-18T11:10:49+0530 INFO    leanvocab.pretrain.mlm: step 3800/6478 loss 5.0168 lr 2.20e-04 gnorm 1.79 79083 tok/s 23.94 GB
+2026-09-18T11:11:37+0530 INFO    leanvocab.pretrain.mlm: step 3850/6478 loss 4.9160 lr 2.16e-04 gnorm 1.67 77896 tok/s 23.94 GB
+2026-09-18T11:12:24+0530 INFO    leanvocab.pretrain.mlm: step 3900/6478 loss 4.8204 lr 2.12e-04 gnorm 1.78 79240 tok/s 23.94 GB
+2026-09-18T11:13:11+0530 INFO    leanvocab.pretrain.mlm: step 3950/6478 loss 4.7324 lr 2.08e-04 gnorm 1.55 79136 tok/s 23.94 GB
+2026-09-18T11:13:58+0530 INFO    leanvocab.pretrain.mlm: step 4000/6478 loss 4.6698 lr 2.04e-04 gnorm 1.64 79080 tok/s 23.94 GB
+2026-09-18T11:14:07+0530 INFO    leanvocab.pretrain.mlm: eval step 4000: bits/byte 1.5352, mlm loss 4.4482, acc 0.2603 (9s)
+2026-09-18T11:14:55+0530 INFO    leanvocab.pretrain.mlm: step 4050/6478 loss 4.5897 lr 1.99e-04 gnorm 1.81 65822 tok/s 23.94 GB
+2026-09-18T11:15:42+0530 INFO    leanvocab.pretrain.mlm: step 4100/6478 loss 4.5284 lr 1.95e-04 gnorm 1.45 78137 tok/s 23.94 GB
+2026-09-18T11:16:30+0530 INFO    leanvocab.pretrain.mlm: step 4150/6478 loss 4.4705 lr 1.91e-04 gnorm 1.52 78756 tok/s 23.94 GB
+2026-09-18T11:17:17+0530 INFO    leanvocab.pretrain.mlm: step 4200/6478 loss 4.4148 lr 1.87e-04 gnorm 1.47 79325 tok/s 23.94 GB
+2026-09-18T11:18:04+0530 INFO    leanvocab.pretrain.mlm: step 4250/6478 loss 4.3745 lr 1.83e-04 gnorm 1.40 79299 tok/s 23.94 GB
+2026-09-18T11:18:51+0530 INFO    leanvocab.pretrain.mlm: step 4300/6478 loss 4.3312 lr 1.79e-04 gnorm 1.56 79325 tok/s 23.94 GB
+2026-09-18T11:19:38+0530 INFO    leanvocab.pretrain.mlm: step 4350/6478 loss 4.2825 lr 1.75e-04 gnorm 1.39 79323 tok/s 23.94 GB
+2026-09-18T11:20:25+0530 INFO    leanvocab.pretrain.mlm: step 4400/6478 loss 4.2517 lr 1.71e-04 gnorm 1.42 79211 tok/s 23.94 GB
+2026-09-18T11:21:12+0530 INFO    leanvocab.pretrain.mlm: step 4450/6478 loss 4.2183 lr 1.67e-04 gnorm 1.39 79309 tok/s 23.94 GB
+2026-09-18T11:21:59+0530 INFO    leanvocab.pretrain.mlm: step 4500/6478 loss 4.1783 lr 1.63e-04 gnorm 1.44 79288 tok/s 23.94 GB
+2026-09-18T11:22:07+0530 INFO    leanvocab.pretrain.mlm: eval step 4500: bits/byte 1.3916, mlm loss 4.0323, acc 0.3039 (9s)
+2026-09-18T11:22:54+0530 INFO    leanvocab.pretrain.mlm: step 4550/6478 loss 4.1467 lr 1.58e-04 gnorm 1.58 66800 tok/s 23.94 GB
+2026-09-18T11:23:41+0530 INFO    leanvocab.pretrain.mlm: step 4600/6478 loss 4.1275 lr 1.54e-04 gnorm 1.45 79223 tok/s 23.94 GB
+2026-09-18T11:24:28+0530 INFO    leanvocab.pretrain.mlm: step 4650/6478 loss 4.1028 lr 1.50e-04 gnorm 1.48 79187 tok/s 23.94 GB
+2026-09-18T11:25:15+0530 INFO    leanvocab.pretrain.mlm: step 4700/6478 loss 4.0629 lr 1.46e-04 gnorm 1.45 79358 tok/s 23.94 GB
+2026-09-18T11:26:02+0530 INFO    leanvocab.pretrain.mlm: step 4750/6478 loss 4.0372 lr 1.42e-04 gnorm 1.40 79367 tok/s 23.94 GB
+2026-09-18T11:26:49+0530 INFO    leanvocab.pretrain.mlm: step 4800/6478 loss 4.0199 lr 1.38e-04 gnorm 1.37 79323 tok/s 23.94 GB
+2026-09-18T11:27:36+0530 INFO    leanvocab.pretrain.mlm: step 4850/6478 loss 3.9878 lr 1.34e-04 gnorm 1.38 78927 tok/s 23.94 GB
+2026-09-18T11:28:23+0530 INFO    leanvocab.pretrain.mlm: step 4900/6478 loss 3.9836 lr 1.30e-04 gnorm 1.42 79334 tok/s 23.94 GB
+2026-09-18T11:29:10+0530 INFO    leanvocab.pretrain.mlm: step 4950/6478 loss 3.9458 lr 1.26e-04 gnorm 1.27 79137 tok/s 23.94 GB
+2026-09-18T11:29:58+0530 INFO    leanvocab.pretrain.mlm: step 5000/6478 loss 3.9378 lr 1.21e-04 gnorm 1.18 78618 tok/s 23.94 GB
+2026-09-18T11:30:07+0530 INFO    leanvocab.pretrain.mlm: eval step 5000: bits/byte 1.3046, mlm loss 3.7803, acc 0.3359 (9s)
+2026-09-18T11:30:54+0530 INFO    leanvocab.pretrain.mlm: step 5050/6478 loss 3.9082 lr 1.17e-04 gnorm 1.28 66693 tok/s 23.94 GB
+2026-09-18T11:31:41+0530 INFO    leanvocab.pretrain.mlm: step 5100/6478 loss 3.8867 lr 1.13e-04 gnorm 1.45 79111 tok/s 23.94 GB
+2026-09-18T11:32:28+0530 INFO    leanvocab.pretrain.mlm: step 5150/6478 loss 3.8679 lr 1.09e-04 gnorm 1.32 78900 tok/s 23.94 GB
+2026-09-18T11:33:15+0530 INFO    leanvocab.pretrain.mlm: step 5200/6478 loss 3.8512 lr 1.05e-04 gnorm 1.21 79132 tok/s 23.94 GB
+2026-09-18T11:34:02+0530 INFO    leanvocab.pretrain.mlm: step 5250/6478 loss 3.8475 lr 1.01e-04 gnorm 1.30 79301 tok/s 23.94 GB
+2026-09-18T11:34:49+0530 INFO    leanvocab.pretrain.mlm: step 5300/6478 loss 3.8183 lr 9.68e-05 gnorm 1.27 79290 tok/s 23.94 GB
+2026-09-18T11:35:36+0530 INFO    leanvocab.pretrain.mlm: step 5350/6478 loss 3.8087 lr 9.27e-05 gnorm 1.25 79292 tok/s 23.94 GB
+2026-09-18T11:36:23+0530 INFO    leanvocab.pretrain.mlm: step 5400/6478 loss 3.7976 lr 8.86e-05 gnorm 1.26 79310 tok/s 23.94 GB
+2026-09-18T11:37:10+0530 INFO    leanvocab.pretrain.mlm: step 5450/6478 loss 3.7777 lr 8.45e-05 gnorm 1.29 79310 tok/s 23.94 GB
+2026-09-18T11:37:57+0530 INFO    leanvocab.pretrain.mlm: step 5500/6478 loss 3.7696 lr 8.04e-05 gnorm 1.33 79093 tok/s 23.94 GB
+2026-09-18T11:38:06+0530 INFO    leanvocab.pretrain.mlm: eval step 5500: bits/byte 1.2456, mlm loss 3.6093, acc 0.3611 (9s)
+2026-09-18T11:38:53+0530 INFO    leanvocab.pretrain.mlm: step 5550/6478 loss 3.7688 lr 7.63e-05 gnorm 1.37 66286 tok/s 23.94 GB
+2026-09-18T11:39:41+0530 INFO    leanvocab.pretrain.mlm: step 5600/6478 loss 3.7402 lr 7.22e-05 gnorm 1.29 77263 tok/s 23.94 GB
+2026-09-18T11:40:29+0530 INFO    leanvocab.pretrain.mlm: step 5650/6478 loss 3.7251 lr 6.81e-05 gnorm 1.29 77736 tok/s 23.94 GB
+2026-09-18T11:41:16+0530 INFO    leanvocab.pretrain.mlm: step 5700/6478 loss 3.7211 lr 6.40e-05 gnorm 1.28 79238 tok/s 23.94 GB
+2026-09-18T11:42:03+0530 INFO    leanvocab.pretrain.mlm: step 5750/6478 loss 3.7036 lr 5.99e-05 gnorm 1.27 79313 tok/s 23.94 GB
+2026-09-18T11:42:51+0530 INFO    leanvocab.pretrain.mlm: step 5800/6478 loss 3.6902 lr 5.58e-05 gnorm 1.29 77389 tok/s 23.94 GB
+2026-09-18T11:43:40+0530 INFO    leanvocab.pretrain.mlm: step 5850/6478 loss 3.6828 lr 5.17e-05 gnorm 1.30 77053 tok/s 23.94 GB
+2026-09-18T11:44:28+0530 INFO    leanvocab.pretrain.mlm: step 5900/6478 loss 3.6762 lr 4.75e-05 gnorm 1.24 77026 tok/s 23.94 GB
+2026-09-18T11:45:15+0530 INFO    leanvocab.pretrain.mlm: step 5950/6478 loss 3.6717 lr 4.34e-05 gnorm 1.22 79335 tok/s 23.94 GB
+2026-09-18T11:46:02+0530 INFO    leanvocab.pretrain.mlm: step 6000/6478 loss 3.6607 lr 3.93e-05 gnorm 1.29 79100 tok/s 23.94 GB
+2026-09-18T11:46:11+0530 INFO    leanvocab.pretrain.mlm: eval step 6000: bits/byte 1.2120, mlm loss 3.5120, acc 0.3758 (9s)
+2026-09-18T11:46:58+0530 INFO    leanvocab.pretrain.mlm: step 6050/6478 loss 3.6662 lr 3.52e-05 gnorm 1.23 66537 tok/s 23.94 GB
+2026-09-18T11:47:45+0530 INFO    leanvocab.pretrain.mlm: step 6100/6478 loss 3.6541 lr 3.11e-05 gnorm 1.18 79294 tok/s 23.94 GB
+2026-09-18T11:48:32+0530 INFO    leanvocab.pretrain.mlm: step 6150/6478 loss 3.6494 lr 2.70e-05 gnorm 1.19 79307 tok/s 23.94 GB
+2026-09-18T11:49:19+0530 INFO    leanvocab.pretrain.mlm: step 6200/6478 loss 3.6406 lr 2.29e-05 gnorm 1.20 79298 tok/s 23.94 GB
+2026-09-18T11:50:06+0530 INFO    leanvocab.pretrain.mlm: step 6250/6478 loss 3.6461 lr 1.88e-05 gnorm 1.15 79252 tok/s 23.94 GB
+2026-09-18T11:50:54+0530 INFO    leanvocab.pretrain.mlm: step 6300/6478 loss 3.6355 lr 1.47e-05 gnorm 1.16 77934 tok/s 23.94 GB
+2026-09-18T11:51:41+0530 INFO    leanvocab.pretrain.mlm: step 6350/6478 loss 3.6338 lr 1.06e-05 gnorm 1.13 79355 tok/s 23.94 GB
+2026-09-18T11:52:28+0530 INFO    leanvocab.pretrain.mlm: step 6400/6478 loss 3.6279 lr 6.49e-06 gnorm 1.15 79393 tok/s 23.94 GB
+2026-09-18T11:53:15+0530 INFO    leanvocab.pretrain.mlm: step 6450/6478 loss 3.6280 lr 2.38e-06 gnorm 1.16 79461 tok/s 23.94 GB
+2026-09-18T11:53:41+0530 INFO    leanvocab.pretrain.mlm: step 6478/6478 loss 3.6323 lr 8.21e-08 gnorm 1.10 79480 tok/s 23.94 GB
+2026-09-18T11:53:50+0530 INFO    leanvocab.pretrain.mlm: eval step 6478: bits/byte 1.1992, mlm loss 3.4747, acc 0.3812 (9s)
+2026-09-18T11:53:50+0530 INFO    leanvocab.utils.registry: Wrote metrics to /Users/dhruvparmar/Project/leanvocab/results/phase4/20260918T043947Z-1e4505cf-bpe-8k/metrics.json

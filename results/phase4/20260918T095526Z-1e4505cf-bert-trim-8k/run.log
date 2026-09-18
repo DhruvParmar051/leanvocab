@@ -1,0 +1,10 @@
+2026-09-18T15:25:27+0530 INFO    leanvocab.utils.seeding: Seeded python,numpy,mlx,torch with seed=0
+2026-09-18T15:25:27+0530 INFO    __main__: Run 20260918T095526Z-1e4505cf-bert-trim-8k arm=bert-trim-8k key=b9b52aa2bb28 env={'MLX_ENABLE_TF32': '1'} ckpt=data/checkpoints/bert-trim-8k-b9b52aa2bb28
+2026-09-18T15:25:27+0530 INFO    leanvocab.pretrain.data: Reusing pre-tokenized data data/pretok/bert-trim-8k-be4db0b3be749c8a
+2026-09-18T15:25:27+0530 INFO    leanvocab.pretrain.mlm: bert-trim-8k: 1926969 seqs, batch 99 x 3 = 297 seqs (308257 bytes), 6488 steps, warmup 389, k=38
+2026-09-18T15:26:16+0530 INFO    leanvocab.pretrain.mlm: step 50/6488 loss 8.5282 lr 6.30e-05 gnorm 1.53 76304 tok/s 24.39 GB
+2026-09-18T15:27:06+0530 INFO    leanvocab.pretrain.mlm: step 100/6488 loss 7.3703 lr 1.27e-04 gnorm 0.49 77513 tok/s 24.39 GB
+2026-09-18T15:27:54+0530 INFO    leanvocab.pretrain.mlm: step 150/6488 loss 6.8966 lr 1.92e-04 gnorm 0.73 77862 tok/s 24.39 GB
+2026-09-18T15:28:44+0530 INFO    leanvocab.pretrain.mlm: step 200/6488 loss 6.7492 lr 2.56e-04 gnorm 0.59 76792 tok/s 24.39 GB
+2026-09-18T15:29:34+0530 INFO    leanvocab.pretrain.mlm: step 250/6488 loss 6.6193 lr 3.20e-04 gnorm 0.59 76104 tok/s 24.39 GB
+2026-09-18T15:30:23+0530 INFO    leanvocab.pretrain.mlm: step 300/6488 loss 6.5096 lr 3.84e-04 gnorm 0.85 77156 tok/s 24.39 GB
