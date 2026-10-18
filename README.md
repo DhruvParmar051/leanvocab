@@ -8,14 +8,16 @@ Everything is held fixed except the tokenizer: the same corpus, the same number 
 
 ## Status
 
+**This is an ongoing project, currently moving slowly** — the pipeline, the tokenizers and the pretraining runs are in place; the downstream evaluation phases are queued and will land as I find time for them. Nothing below is abandoned.
+
 | Phase | What it does | State |
 |---|---|---|
 | 1 | Corpus: FineWeb-Edu `sample-10BT`, NFC-normalized, exact-deduped, sharded, frozen held-out split | done |
 | 2 | Train 12 tokenizers (BPE / Unigram / WordPiece at 8k/16k/32k, plus BERT vocab and trimmed BERT) | done |
 | 3 | Intrinsic evaluation (compression, fertility, Rényi efficiency, truncation, FLOPs, throughput) | done — [`reports/intrinsic.md`](reports/intrinsic.md) |
-| 4 | MLM pretraining of 6 arms, 2 GB of text each | 4 of 6 arms done |
-| 5 | Contrastive fine-tuning for sentence embeddings | not started |
-| 6 | MTEB English subset + latency, final report | not started |
+| 4 | MLM pretraining of 6 arms, 2 GB of text each | 4 of 6 arms done, 2 queued |
+| 5 | Contrastive fine-tuning for sentence embeddings | planned, next up |
+| 6 | MTEB English subset + latency, final report | planned |
 
 ## Results so far
 
@@ -39,9 +41,9 @@ Reading of these numbers:
 - A 16k BPE vocabulary **beat** the 30,522-vocab control on held-out bits per byte while using 25% fewer parameters and 29% less wall clock.
 - An 8k vocabulary landed within 0.006 bits/byte of the control — inside the likely seed-to-seed noise band, which has not yet been measured.
 - ALBERT-style embedding factorization **failed** under this shared recipe, so parameter savings from a smaller vocabulary are not interchangeable with savings from factorization.
-- Caveats: single seed, and bits per byte is not MTEB. Phases 5–6 are what actually test the claim.
+- Caveats: single seed, and bits per byte is not MTEB. Phases 5–6 are what actually test the claim, and they are still ahead.
 
-Remaining Phase 4 arms: `bert-trim-8k` and `bert-trim-16k` (~3.5 h).
+Queued next: the two remaining Phase 4 arms (`bert-trim-8k`, `bert-trim-16k`, ~3.5 h), then repeat seeds on the top arms, then Phase 5.
 
 ## Hardware and stack
 
@@ -106,7 +108,7 @@ src/leanvocab/
   intrinsic/        Phase 3: metrics and report generation
   model/            MLX encoder with HF-compatible parameter names
   pretrain/         Phase 4: packing, masking, MLM training loop
-  finetune/ eval/   Phases 5-6 (not yet implemented)
+  finetune/ eval/   Phases 5-6 (planned)
   utils/            logging, seeding, config loading, run registry, MLX env
 scripts/            Phase 4 dry-run and full-run drivers
 reports/            generated reports and figures
