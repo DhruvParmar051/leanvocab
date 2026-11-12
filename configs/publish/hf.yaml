@@ -1,0 +1,60 @@
+# Publishing the Phase 4 checkpoints and the Phase 2 tokenizers to the Hugging Face Hub.
+owner: DhruvParmar051
+private: false
+license: apache-2.0
+language: en
+source_dataset: HuggingFaceFW/fineweb-edu
+repo_url: https://github.com/DhruvParmar051/leanvocab
+
+checkpoint_dir: data/checkpoints
+tokenizer_dir: artifacts/tokenizers
+phase3_results: results/phase3/20260916T181733Z-e77c7ae9/metrics.json
+phase4_results: results/phase4
+phase2_results: results/phase2/20260916T171944Z-bf13d67e/metrics.json
+pretrain_config: configs/pretrain/phase4.yaml
+tokenizer_config: configs/tokenizer/phase2.yaml
+intrinsic_report: reports/intrinsic.md
+
+include_optimizer: false       # optimizer state stays local; it is 2x the model size
+model_max_length: 256          # matches max_position_embeddings
+hidden_act: gelu
+attention_dropout: 0.0         # the MLX encoder does not drop attention probabilities
+
+tokenizer_repo: leanvocab-tokenizers
+# Every tokenizer trained in Phase 2, published together.
+tokenizer_ids:
+  - bert-orig
+  - bert-trim-8k
+  - bert-trim-16k
+  - bpe-8k
+  - bpe-16k
+  - bpe-32k
+  - uni-8k
+  - uni-16k
+  - uni-32k
+  - wp-8k
+  - wp-16k
+  - wp-32k
+
+# One model repo per pretraining arm that has finished.
+arms:
+  - id: bert-orig
+    repo: leanvocab-bert-orig
+    tokenizer: bert-orig
+    role: control
+    bert_compatible: true
+  - id: bpe-8k
+    repo: leanvocab-bpe-8k
+    tokenizer: bpe-8k
+    role: small-vocab candidate
+    bert_compatible: true
+  - id: bpe-16k
+    repo: leanvocab-bpe-16k
+    tokenizer: bpe-16k
+    role: small-vocab candidate
+    bert_compatible: true
+  - id: factorized-bert-orig
+    repo: leanvocab-factorized-bert-orig
+    tokenizer: bert-orig
+    role: factorized-embedding baseline
+    bert_compatible: false      # embedding_projection is not a stock BERT parameter
