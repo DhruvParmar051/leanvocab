@@ -45,6 +45,32 @@ Reading of these numbers:
 
 Queued next: the two remaining Phase 4 arms (`bert-trim-8k`, `bert-trim-16k`, ~3.5 h), then repeat seeds on the top arms, then Phase 5.
 
+## Released artifacts
+
+The finished checkpoints and every tokenizer are on the Hugging Face Hub. Cards are generated
+from the recorded run metrics by [`leanvocab.publish.hf`](src/leanvocab/publish/hf.py), so their
+numbers always match `results/`.
+
+| Repo | What it is |
+|---|---|
+| [`leanvocab-bpe-16k`](https://huggingface.co/DhruvParmar051/leanvocab-bpe-16k) | 16k BPE encoder - best bits/byte so far, 25% fewer parameters than the control |
+| [`leanvocab-bpe-8k`](https://huggingface.co/DhruvParmar051/leanvocab-bpe-8k) | 8k BPE encoder - 38% fewer parameters, within 0.006 bits/byte of the control |
+| [`leanvocab-bert-orig`](https://huggingface.co/DhruvParmar051/leanvocab-bert-orig) | The control: same recipe with BERT's 30,522-token vocabulary |
+| [`leanvocab-factorized-bert-orig`](https://huggingface.co/DhruvParmar051/leanvocab-factorized-bert-orig) | Baseline A, published because it failed; not loadable as a stock BERT |
+| [`leanvocab-tokenizers`](https://huggingface.co/DhruvParmar051/leanvocab-tokenizers) | All 12 Phase 2 tokenizers with their intrinsic metrics |
+
+The three non-factorized checkpoints load directly with `transformers`:
+
+```python
+from transformers import AutoModelForMaskedLM, AutoTokenizer
+
+model = AutoModelForMaskedLM.from_pretrained("DhruvParmar051/leanvocab-bpe-16k")
+tok = AutoTokenizer.from_pretrained("DhruvParmar051/leanvocab-bpe-16k")
+```
+
+These are research checkpoints on a 2 GB budget, not finished embedding models - see the
+limitations section of any card.
+
 ## Hardware and stack
 
 Built for a **MacBook M5 Pro (48 GB), no CUDA**. MLX is the compute path (`mx.fast.scaled_dot_product_attention`, `mx.compile`, `MultiOptimizer` for the decay/no-decay split); PyTorch appears only as a dev dependency for a reference-parity test of the encoder. Peak GPU memory during pretraining was ~24 GB.
@@ -109,6 +135,7 @@ src/leanvocab/
   model/            MLX encoder with HF-compatible parameter names
   pretrain/         Phase 4: packing, masking, MLM training loop
   finetune/ eval/   Phases 5-6 (planned)
+  publish/          Hugging Face repo staging and generated model cards
   utils/            logging, seeding, config loading, run registry, MLX env
 scripts/            Phase 4 dry-run and full-run drivers
 reports/            generated reports and figures
