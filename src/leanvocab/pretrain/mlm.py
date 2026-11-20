@@ -12,10 +12,8 @@ from __future__ import annotations
 
 import json
 import logging
-import math
 import shutil
 import time
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -37,6 +35,7 @@ from leanvocab.pretrain.data import (
     prepare_arm_data,
 )
 from leanvocab.pretrain.masking import mask_tokens, num_predictions
+from leanvocab.pretrain.plan import BITS_PER_NAT, BatchPlan, plan_batches
 
 logger = logging.getLogger(__name__)
 
@@ -44,41 +43,12 @@ STATE_FILE = "state.json"
 MODEL_FILE = "model.safetensors"
 OPTIMIZER_FILE = "optimizer.safetensors"
 FINAL_DIR = "final"
-BITS_PER_NAT = 1.0 / math.log(2.0)
+
+__all__ = ["FINAL_DIR", "MODEL_FILE", "OPTIMIZER_FILE", "STATE_FILE", "plan_batches", "train"]
 
 
 def _scalar(a: mx.array) -> float:
     return float(np.asarray(a))
-
-
-@dataclass(frozen=True)
-class BatchPlan:
-    micro_seqs: int
-    n_micro: int
-    total_steps: int
-    warmup_steps: int
-    mean_seq_bytes: float
-
-    @property
-    def batch_seqs(self) -> int:
-        return self.micro_seqs * self.n_micro
-
-    @property
-    def batch_bytes(self) -> float:
-        return self.batch_seqs * self.mean_seq_bytes
-
-
-def plan_batches(cfg: Phase4Config, n_seqs: int, seq_bytes_total: float) -> BatchPlan:
-    mean_seq_bytes = seq_bytes_total / n_seqs
-    target = cfg.batch_bytes / mean_seq_bytes
-    n_micro = max(1, math.ceil(target / cfg.max_micro_batch_seqs))
-    micro = max(1, round(target / n_micro))
-    total = n_seqs // (micro * n_micro)
-    if total < 1:
-        raise ValueError("Budget smaller than one batch")
-    return BatchPlan(
-        micro, n_micro, total, round(cfg.optim.warmup_fraction * total), mean_seq_bytes
-    )
 
 
 def build_optimizer(cfg: Phase4Config, plan: BatchPlan) -> optim.MultiOptimizer:

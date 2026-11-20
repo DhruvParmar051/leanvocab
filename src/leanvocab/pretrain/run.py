@@ -1,8 +1,13 @@
 """Phase 4 entry point: MLM pretraining of one arm (full run, resumable, or timed dry run).
 
+The backend comes from the config and can be overridden with ``--backend``: ``mlx`` for
+Apple silicon, ``torch`` for CUDA. The two share the data pipeline, the batch plan and the
+evaluation, and their encoders are held to each other by the parity test.
+
 Usage:
     uv run python -m leanvocab.pretrain.run --config configs/pretrain/phase4.yaml --arm bpe-8k
     uv run python -m leanvocab.pretrain.run --config ... --arm bpe-8k --dry-run
+    uv run python -m leanvocab.pretrain.run --config ... --arm bpe-8k --backend torch
 """
 
 from __future__ import annotations
@@ -24,6 +29,12 @@ def main() -> None:
     parser.add_argument("--arm", required=True)
     parser.add_argument("--dry-run", action="store_true", help="Timed run from scratch")
     parser.add_argument(
+        "--backend",
+        choices=["mlx", "torch"],
+        default=None,
+        help="Override the config's backend (mlx on Apple silicon, torch on CUDA)",
+    )
+    parser.add_argument(
         "--dry-run-root",
         type=Path,
         default=None,
@@ -32,11 +43,16 @@ def main() -> None:
     args = parser.parse_args()
 
     cfg = load_config(args.config, Phase4Config)
-    env = configure_mlx(cfg.tf32)
+    if args.backend is not None and args.backend != cfg.backend:
+        cfg = cfg.model_copy(update={"backend": args.backend})
+    env = configure_mlx(cfg.tf32) if cfg.backend == "mlx" else {}
     arm = cfg.arm(args.arm)
 
-    # MLX-dependent imports only after the environment is configured.
-    from leanvocab.pretrain.mlm import train
+    # Backend-dependent imports only after the environment is configured.
+    if cfg.backend == "mlx":
+        from leanvocab.pretrain.mlm import train
+    else:
+        from leanvocab.pretrain.torch_mlm import train
     from leanvocab.utils.logging import setup_logging
     from leanvocab.utils.registry import RunContext, write_metrics
     from leanvocab.utils.seeding import seed_everything
@@ -58,7 +74,15 @@ def main() -> None:
         ckpt_root = root / f"{arm.id}-{key}-{ctx.run_id}"
     else:
         ckpt_root = cfg.checkpoint_dir / f"{arm.id}-{key}"
-    logger.info("Run %s arm=%s key=%s env=%s ckpt=%s", ctx.run_id, arm.id, key, env, ckpt_root)
+    logger.info(
+        "Run %s arm=%s backend=%s key=%s env=%s ckpt=%s",
+        ctx.run_id,
+        arm.id,
+        cfg.backend,
+        key,
+        env,
+        ckpt_root,
+    )
 
     metrics = train(
         cfg,
@@ -68,6 +92,7 @@ def main() -> None:
         dry_run_minutes=cfg.dry_run.minutes if args.dry_run else None,
     )
     metrics["training_key"] = key
+    metrics["backend"] = cfg.backend
     write_metrics(ctx, metrics)
 
 

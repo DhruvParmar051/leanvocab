@@ -5,14 +5,9 @@ from __future__ import annotations
 import mlx.core as mx
 
 from leanvocab.pretrain.data import SpecialIds
+from leanvocab.pretrain.plan import num_predictions
 
-
-def num_predictions(seq_len: int, mask_prob: float) -> int:
-    """Predictions per packed sequence: ``round(mask_prob * (seq_len - 2))``."""
-    k = round(mask_prob * (seq_len - 2))
-    if k < 1:
-        raise ValueError("mask_prob too small for seq_len")
-    return k
+__all__ = ["mask_tokens", "num_predictions"]
 
 
 def mask_tokens(

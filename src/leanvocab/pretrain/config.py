@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import Field, model_validator
 
@@ -54,6 +54,16 @@ class EvalConfig(StrictConfig):
     seed: int = Field(ge=0)
 
 
+class TorchConfig(StrictConfig):
+    """Backend settings for CUDA runs; ignored by the MLX backend."""
+
+    device: Literal["cuda", "cpu"] = "cuda"
+    amp_dtype: Literal["none", "bfloat16", "float16"] = "bfloat16"
+    compile: bool = False
+    allow_tf32: bool = True
+    dataloader_pin_memory: bool = True
+
+
 class ArmConfig(StrictConfig):
     id: str
     tokenizer: str
@@ -87,6 +97,8 @@ class Phase4Config(StrictConfig):
     eval: EvalConfig
     dry_run: DryRunConfig
     arms: list[ArmConfig]
+    backend: Literal["mlx", "torch"] = "mlx"
+    torch: TorchConfig = TorchConfig()
 
     def arm(self, arm_id: str) -> ArmConfig:
         for arm in self.arms:
@@ -104,7 +116,20 @@ class Phase4Config(StrictConfig):
     def training_key(self, arm: ArmConfig) -> str:
         """Identity of a training run: everything that changes the trajectory."""
         shared = self.model_dump(
-            mode="json", exclude={"arms", "dry_run", "log_every_steps", "keep_checkpoints"}
+            mode="json",
+            exclude={
+                "arms",
+                "dry_run",
+                "log_every_steps",
+                "keep_checkpoints",
+                "torch",
+                "backend",
+            },
         )
         blob: dict[str, Any] = {"shared": shared, "arm": arm.model_dump(mode="json")}
+        # A different backend is a different trajectory, so it belongs in the key. The MLX
+        # runs predate the field and keep their original keys (and checkpoint directories)
+        # by being the unmarked case.
+        if self.backend != "mlx":
+            blob["backend"] = self.backend
         return hashlib.sha256(json.dumps(blob, sort_keys=True).encode()).hexdigest()[:12]

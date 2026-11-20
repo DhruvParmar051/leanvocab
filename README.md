@@ -15,7 +15,7 @@ Everything is held fixed except the tokenizer: the same corpus, the same number 
 | 1 | Corpus: FineWeb-Edu `sample-10BT`, NFC-normalized, exact-deduped, sharded, frozen held-out split | done |
 | 2 | Train 12 tokenizers (BPE / Unigram / WordPiece at 8k/16k/32k, plus BERT vocab and trimmed BERT) | done |
 | 3 | Intrinsic evaluation (compression, fertility, Rényi efficiency, truncation, FLOPs, throughput) | done — [`reports/intrinsic.md`](reports/intrinsic.md) |
-| 4 | MLM pretraining of 6 arms, 2 GB of text each | 4 of 6 arms done, 2 queued |
+| 4 | MLM pretraining of 6 arms, 2 GB of text each | 4 of 6 arms done on MLX; CUDA backend ready for the full set |
 | 5 | Contrastive fine-tuning for sentence embeddings | planned, next up |
 | 6 | MTEB English subset + latency, final report | planned |
 
@@ -73,7 +73,16 @@ limitations section of any card.
 
 ## Hardware and stack
 
-Built for a **MacBook M5 Pro (48 GB), no CUDA**. MLX is the compute path (`mx.fast.scaled_dot_product_attention`, `mx.compile`, `MultiOptimizer` for the decay/no-decay split); PyTorch appears only as a dev dependency for a reference-parity test of the encoder. Peak GPU memory during pretraining was ~24 GB.
+Two interchangeable backends behind one study design:
+
+- **MLX** on a MacBook M5 Pro (48 GB), no CUDA - how Phases 1-4 were run. Peak GPU memory ~24 GB.
+- **PyTorch/CUDA** for a GPU cluster - [`cluster/`](cluster/README.md) has the runbook.
+
+The data pipeline, batch plan, masking rule and evaluation are shared; the two encoders are
+held to the same outputs by [`tests/test_torch_encoder_parity.py`](tests/test_torch_encoder_parity.py)
+(1e-5, both the plain and factorized shapes), and both write checkpoints with the same
+Hugging Face parameter names, so artifacts are backend-independent. Pick one with
+`backend:` in the config or `--backend` on the command line.
 
 Note: MLX enables TF32 matmuls by default on Apple GPUs (~1e-3 relative error, ~1.9× faster). The training configs record `tf32: true` explicitly; the test suite forces it off so numerical-parity tests are meaningful.
 
@@ -133,11 +142,12 @@ src/leanvocab/
   tokenizers/       Phase 2: BPE / Unigram / WordPiece training, BERT trimming, round-trips
   intrinsic/        Phase 3: metrics and report generation
   model/            MLX encoder with HF-compatible parameter names
-  pretrain/         Phase 4: packing, masking, MLM training loop
+  pretrain/         Phase 4: packing, masking, MLM training loop (MLX and PyTorch)
   finetune/ eval/   Phases 5-6 (planned)
   publish/          Hugging Face repo staging and generated model cards
   utils/            logging, seeding, config loading, run registry, MLX env
 scripts/            Phase 4 dry-run and full-run drivers
+cluster/            GPU-cluster staging, Slurm jobs and runbook
 reports/            generated reports and figures
 results/            metrics.json per run + index.jsonl
 tests/              pytest suite

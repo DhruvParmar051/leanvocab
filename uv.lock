@@ -560,13 +560,14 @@ dependencies = [
     { name = "datasets" },
     { name = "huggingface-hub" },
     { name = "matplotlib" },
-    { name = "mlx" },
+    { name = "mlx", marker = "sys_platform == 'darwin'" },
     { name = "numpy" },
     { name = "pyarrow" },
     { name = "pydantic" },
     { name = "pyyaml" },
     { name = "tokenization-scorer" },
     { name = "tokenizers" },
+    { name = "torch" },
 ]
 
 [package.dev-dependencies]
@@ -574,7 +575,6 @@ dev = [
     { name = "mypy" },
     { name = "pytest" },
     { name = "ruff" },
-    { name = "torch" },
     { name = "transformers" },
     { name = "types-pyyaml" },
 ]
@@ -584,13 +584,14 @@ requires-dist = [
     { name = "datasets", specifier = "==5.0.1" },
     { name = "huggingface-hub", specifier = "==1.31.0" },
     { name = "matplotlib", specifier = "==3.11.2" },
-    { name = "mlx", specifier = "==0.32.2" },
+    { name = "mlx", marker = "sys_platform == 'darwin'", specifier = "==0.32.2" },
     { name = "numpy", specifier = "==2.4.6" },
     { name = "pyarrow", specifier = "==25.0.1" },
     { name = "pydantic", specifier = "==2.13.5" },
     { name = "pyyaml", specifier = "==6.0.3" },
     { name = "tokenization-scorer", specifier = "==1.1.8" },
     { name = "tokenizers", specifier = "==0.23.2" },
+    { name = "torch", specifier = "==2.14.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -598,7 +599,6 @@ dev = [
     { name = "mypy", specifier = "==2.3.1" },
     { name = "pytest", specifier = "==9.1.1" },
     { name = "ruff", specifier = "==0.16.7" },
-    { name = "torch", specifier = "==2.14.0" },
     { name = "transformers", specifier = "==5.17.0" },
     { name = "types-pyyaml", specifier = "==6.0.12.20260906" },
 ]
@@ -706,10 +706,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/4e/3c/f56f5de7188b0b5855046244b1ebb6f2055cc298c9f7336b69cc2013ad23/mlx-0.32.2-cp311-cp311-macosx_14_0_arm64.whl", hash = "sha256:238b50d2ee3917c836e73f9446011518b79ff094940eb0107fa6cd17d02a2eca", size = 625943, upload-time = "2026-08-25T10:31:33.737Z" },
     { url = "https://files.pythonhosted.org/packages/c4/77/a1f7b2ca95b5c5106eb00268a950e351deb3348cd5b5433861619d3b0de0/mlx-0.32.2-cp311-cp311-macosx_15_0_arm64.whl", hash = "sha256:e507dc67d268cf78254e17756f25057198fe74791508fcbd1e6d967673a8d374", size = 625943, upload-time = "2026-08-25T10:31:35.241Z" },
     { url = "https://files.pythonhosted.org/packages/16/f9/15c5b7313a73c33014e8082992a868b95b742c1966a57b684b7a3cffe597/mlx-0.32.2-cp311-cp311-macosx_26_0_arm64.whl", hash = "sha256:e0828c96a6b988afbe6f07cc39adc0470eba9121f7e356623a8fb9d9a6397533", size = 625981, upload-time = "2026-08-25T10:31:36.631Z" },
-    { url = "https://files.pythonhosted.org/packages/29/6e/3ba0307df625f17848bc3b5f1afeeb3313393d14dab9d5854a40999c4406/mlx-0.32.2-cp311-cp311-manylinux_2_35_aarch64.whl", hash = "sha256:765af966cb92abceb9d50b382908bea606d0796c04a9b4957f98ab630d030c36", size = 710255, upload-time = "2026-08-25T10:31:38.083Z" },
-    { url = "https://files.pythonhosted.org/packages/5e/27/2aba257085d29e9b50467b3640dc5303a55e689e117e44c6f35f44e94942/mlx-0.32.2-cp311-cp311-manylinux_2_35_x86_64.whl", hash = "sha256:4bc6709cd92a46de44caade61ec7831647005e66113243f681168f67001155d9", size = 749644, upload-time = "2026-08-25T10:31:39.676Z" },
-    { url = "https://files.pythonhosted.org/packages/3c/76/26e668e91898031641118c5cb8f8d9c0d39e17ba1116d3ae8c1abd13260a/mlx-0.32.2-cp311-cp311-win_amd64.whl", hash = "sha256:cab5889fac45696cf2feb0e6157404cf814c0a54f1d44f1f6879d94b4d712b81", size = 620574, upload-time = "2026-08-25T10:31:41.122Z" },
-    { url = "https://files.pythonhosted.org/packages/99/14/392db43b1cfef7d41705b1ebcbc393a818704b5d328f2050c16ed71d021a/mlx-0.32.2-cp311-cp311-win_arm64.whl", hash = "sha256:809ae9c6f944b5c60309eab5d6c042e4b69fb67bd9e87be86b8baa3f31df66e0", size = 605993, upload-time = "2026-08-25T10:31:42.635Z" },
 ]
 
 [[package]]
