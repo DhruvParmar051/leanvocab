@@ -127,9 +127,14 @@ class Phase4Config(StrictConfig):
             },
         )
         blob: dict[str, Any] = {"shared": shared, "arm": arm.model_dump(mode="json")}
-        # A different backend is a different trajectory, so it belongs in the key. The MLX
-        # runs predate the field and keep their original keys (and checkpoint directories)
-        # by being the unmarked case.
+        # A different backend, or different arithmetic within one, is a different trajectory
+        # and belongs in the key; `device`, `compile` and pinning do not change the maths.
+        # The MLX runs predate these fields and keep their original keys - and so their
+        # checkpoint directories - by being the unmarked case.
         if self.backend != "mlx":
             blob["backend"] = self.backend
+            blob["numerics"] = {
+                "amp_dtype": self.torch.amp_dtype,
+                "allow_tf32": self.torch.allow_tf32,
+            }
         return hashlib.sha256(json.dumps(blob, sort_keys=True).encode()).hexdigest()[:12]

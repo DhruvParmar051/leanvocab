@@ -263,3 +263,33 @@ def test_dry_run_reports_estimate(corpus: Path) -> None:
     assert timing["estimated_full_run_sec"] > 0
     assert out["final_eval"]["bits_per_byte"] > 0
     assert not (corpus / "ckptC" / FINAL_DIR).exists()
+
+
+def test_training_key_tracks_numerics_not_placement(corpus: Path) -> None:
+    """The key must change when the arithmetic does, and not when only placement does."""
+    mlx = _cfg(corpus)
+    arm = mlx.arm("tiny")
+    baseline = mlx.training_key(arm)
+
+    torch_bf16 = mlx.model_copy(update={"backend": "torch"})
+    assert torch_bf16.training_key(arm) != baseline
+
+    fp32 = torch_bf16.model_copy(
+        update={"torch": torch_bf16.torch.model_copy(update={"amp_dtype": "none"})}
+    )
+    assert fp32.training_key(arm) != torch_bf16.training_key(arm)
+
+    no_tf32 = torch_bf16.model_copy(
+        update={"torch": torch_bf16.torch.model_copy(update={"allow_tf32": False})}
+    )
+    assert no_tf32.training_key(arm) != torch_bf16.training_key(arm)
+
+    # Placement and compilation do not change the maths, so they must not split runs.
+    moved = torch_bf16.model_copy(
+        update={
+            "torch": torch_bf16.torch.model_copy(
+                update={"device": "cpu", "compile": True, "dataloader_pin_memory": False}
+            )
+        }
+    )
+    assert moved.training_key(arm) == torch_bf16.training_key(arm)
