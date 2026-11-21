@@ -20,6 +20,36 @@ Home is shared and capped at **25 GB**; `/tmp` is node-local, large, and wiped o
 So code, logs, results and the uv cache live in home, while the corpus, the virtualenv,
 the pre-tokenized streams and the checkpoints live in `/tmp/$USER/leanvocab-*`.
 
+## 0. Cost: tokens are charged on the time you ASK for
+
+```bash
+token-balance
+```
+
+The faculty account has a **monthly allowance of 100 tokens**, and a job is billed on its
+requested `--time`, not on the time it actually uses. Measured on 2026-11-21: a job with 8
+CPUs and 1 GPU quoted **275.20 tokens for a 4-hour limit**, i.e. about **68.8 tokens per
+GPU-hour**, so the monthly allowance is roughly **1.45 GPU-hours**. CPU-only jobs are far
+cheaper (about 12 tokens per hour at 8 CPUs).
+
+This is easy to get badly wrong. Asking for `--time=08:00:00` for a job that finishes in 28
+minutes costs 550 tokens - five months of allowance - and the account is then `BLOCKED`
+until an admin tops it up. Request a little more than the work needs and no more:
+
+| Job | Real duration | Sensible `--time` |
+|---|---|---|
+| `prepare_node` | ~2 min | `00:20:00` |
+| One arm (H200) | ~4 min | `00:15:00` |
+| All six arms | ~30 min | `01:00:00` |
+
+Use the wrapper, which prints the balance and the estimated cost and refuses to submit when
+the balance cannot cover it:
+
+```bash
+cluster/submit.sh 01:00:00 "--partition=h200-fullgpu --nodelist=gpunode2 --gres=gpu:h200:1" \
+    cluster/pretrain.sbatch
+```
+
 ## 1. Stage code and corpus (from the Mac)
 
 ```bash
@@ -46,7 +76,7 @@ libraries is several GB against the 25 GB quota.
 ## 3. Prepare the GPU node
 
 ```bash
-sbatch cluster/prepare_node.sbatch
+cluster/submit.sh 00:20:00 "" cluster/prepare_node.sbatch
 tail -f logs/leanvocab-prepare-*.out
 ```
 
@@ -170,3 +200,5 @@ Only your own files, and only after checking what each directory is.
 | `STOP: data exists as a real directory` | something wrote `~/gpu-work/leanvocab/data`; move it aside so the symlink can be made |
 | Run restarted from step 0 | `/tmp` was wiped; the weights in `leanvocab-results` survive, but the optimizer state does not |
 | `Disk quota exceeded` | `du -sh ~/gpu-work/*`; the uv cache and the staged corpus are the big items |
+| `has only 0.00 tokens available` / `BLOCKED` | the allowance is spent; see step 0. Only an HPC admin can top it up |
+| `job requeued in held state` | the account ran out of tokens while the job was queued |

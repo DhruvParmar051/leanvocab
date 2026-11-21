@@ -6,12 +6,13 @@
 #   sbatch --nodelist=gpunode2 cluster/prepare_node.sbatch # gpunode2 (H200)
 #
 # /tmp is node-local, so each GPU node needs its own prepare job before it can run arms.
+# CPU-only and short: tokens are charged on the requested --time, so keep it tight.
 #SBATCH --job-name=leanvocab-prepare
 #SBATCH --partition=cpu
 #SBATCH --nodelist=gpunode1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=16G
-#SBATCH --time=01:30:00
+#SBATCH --time=00:20:00
 #SBATCH --output=logs/%x-%j.out
 #SBATCH --error=logs/%x-%j.out
 

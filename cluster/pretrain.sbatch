@@ -5,6 +5,11 @@
 #   sbatch --export=ALL,ARMS="bpe-16k bpe-8k" cluster/pretrain.sbatch
 #   sbatch --export=ALL,DRY_RUN=1 -p rtx6000-mig --gres=gpu:1 cluster/pretrain.sbatch  # smoke
 #
+# COST: tokens are charged on the requested --time, not the time used, and the faculty
+# allowance is about 1.45 GPU-hours a month (roughly 68.8 tokens per GPU-hour at 8 CPUs).
+# Ask for a little more than the work needs and no more: all six arms take ~30 minutes on
+# an H200, so --time=01:00:00 is the default here. Check `token-balance` before submitting.
+#
 # The directives below target gpunode1's 96 GB card; whichever node is free changes by the
 # hour, so override them for the H200 (prepare that node first - /tmp is node-local):
 #   sbatch --nodelist=gpunode2 cluster/prepare_node.sbatch
@@ -15,7 +20,7 @@
 #SBATCH --nodelist=gpunode1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --time=20:00:00
+#SBATCH --time=01:00:00
 #SBATCH --requeue
 #SBATCH --output=logs/%x-%j.out
 #SBATCH --error=logs/%x-%j.out
