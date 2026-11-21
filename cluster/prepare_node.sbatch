@@ -30,7 +30,8 @@ rsync -a --info=stats2 "$PROJ_STAGE/data/" "$PROJ_DATA/" || exit 1
 du -sh "$PROJ_DATA"/*
 
 echo "== offline environment"
-uv sync --locked --no-dev || exit 1
+# --no-default-groups, not --no-dev: the latter still put the dev group in the install plan.
+uv sync --locked --no-default-groups || exit 1
 uv run python - <<'PY' || exit 1
 import platform
 

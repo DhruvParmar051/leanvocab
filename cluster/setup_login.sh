@@ -11,8 +11,10 @@ command -v uv >/dev/null || {
 
 echo "== fetching the interpreter and the locked wheels (needs internet)"
 UV_OFFLINE=0 UV_PYTHON_DOWNLOADS=automatic uv python install 3.11
+# Cache every group, including dev: the GPU node resolves offline, so anything missing
+# here is a job failure there. The dev extras are small next to torch and CUDA.
 UV_OFFLINE=0 UV_PYTHON_DOWNLOADS=automatic \
   UV_PROJECT_ENVIRONMENT=/tmp/$USER/leanvocab-venv-fetch \
-  uv sync --locked --no-dev
+  uv sync --locked
 echo "== uv cache size (counts against the 25 GB home quota)"
 du -sh "$UV_CACHE_DIR"

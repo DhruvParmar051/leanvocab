@@ -13,6 +13,7 @@ export PROJ_RUNS=/tmp/$USER/$P-runs
 export UV_CACHE_DIR=$HOME/gpu-work/$P-uvcache      # filled on the login node, read on gpunode1
 export UV_PROJECT_ENVIRONMENT=/tmp/$USER/$P-venv
 export UV_OFFLINE=1                                 # gpunode1 has no usable internet
+export UV_LINK_MODE=copy                            # cache is in home, venv in /tmp: no hardlinks
 export UV_PYTHON_DOWNLOADS=never
 export HF_HOME=/tmp/$USER/$P-hf-cache
 export HF_HUB_OFFLINE=1                             # nothing in Phase 4 needs the network
