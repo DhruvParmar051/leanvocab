@@ -71,6 +71,29 @@ explicit = true
 torch = [{ index = "pytorch-cu128", marker = "sys_platform == 'linux'" }]
 ```
 
+## 4b. Pick a node
+
+Both GPU nodes work, and which one is free changes by the hour:
+
+```bash
+squeue -w gpunode1 -o "%.8i %.12u %.16P %.10M %.11l %b"   # who holds the card, for how long
+sinfo -N -o "%N %P %t %C %G"                               # idle / mix / drain
+squeue -u $USER --start                                    # Slurm's estimate for your jobs
+```
+
+An interactive job with a multi-day limit can block the full card for days, and Slurm's
+estimated start will say so. `gpunode2` carries an H200 (140 GB) and is often idle despite
+the cluster notes; it is the better card for this work. Because `/tmp` is node-local, a new
+node needs its own prepare job first:
+
+```bash
+p=$(sbatch --parsable --nodelist=gpunode2 cluster/prepare_node.sbatch)
+sbatch --dependency=afterok:$p -p h200-fullgpu --nodelist=gpunode2 --gres=gpu:h200:1 \
+       cluster/pretrain.sbatch
+```
+
+Never `scancel` a job that is not yours, however long it has been sitting on the card.
+
 ## 5. Smoke test on a MIG slice (do this first)
 
 ```bash
@@ -79,7 +102,9 @@ sbatch --export=ALL,DRY_RUN=1,ARMS="bpe-16k" \
 ```
 
 A dry run trains for the configured 10 minutes, evaluates, and prints an estimate of the
-full-run cost. Two things to read off it: the estimate (the MLX pilot took 1.7-2.5 h per
+full-run cost. Note that the CUDA config plans a ~264-sequence batch in a single
+micro-batch, which may not fit a 24 GB slice; running the dry run on the whole card is also
+the only way to get a timing estimate that means anything for the full runs. Two things to read off it: the estimate (the MLX pilot took 1.7-2.5 h per
 arm), and whether `bits_per_byte` is in the same region as the pilot's early evals. A MIG
 slice has 24 GB, so a full-batch arm may not fit there - that is expected, and the full-run
 job refuses anything under 90 GB on purpose.

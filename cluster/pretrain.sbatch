@@ -1,9 +1,14 @@
 #!/bin/bash
 # Phase 4 on the full 96 GB card: every arm, resumable, finished arms skipped.
 #
-#   sbatch cluster/pretrain.sbatch                                  # all arms
+#   sbatch cluster/pretrain.sbatch                                  # all arms, gpunode1
 #   sbatch --export=ALL,ARMS="bpe-16k bpe-8k" cluster/pretrain.sbatch
 #   sbatch --export=ALL,DRY_RUN=1 -p rtx6000-mig --gres=gpu:1 cluster/pretrain.sbatch  # smoke
+#
+# The directives below target gpunode1's 96 GB card; whichever node is free changes by the
+# hour, so override them for the H200 (prepare that node first - /tmp is node-local):
+#   sbatch --nodelist=gpunode2 cluster/prepare_node.sbatch
+#   sbatch -p h200-fullgpu --nodelist=gpunode2 --gres=gpu:h200:1 cluster/pretrain.sbatch
 #SBATCH --job-name=leanvocab-phase4
 #SBATCH --partition=rtx6000-fullgpu
 #SBATCH --gres=gpu:rtx_pro:1        # the FULL 96 GB card; plain gpu:1 can land on a MIG slice
@@ -30,7 +35,8 @@ config=${LEANVOCAB_CONFIG}
 mem=$(nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits | head -1)
 echo "GPU memory: ${mem} MiB | dry_run=${dry_run} | config=${config}"
 if [ "$dry_run" = "0" ] && [ "$mem" -lt 90000 ]; then
-  echo "STOP: full runs need the 96 GB card, got ${mem} MiB (use --gres=gpu:rtx_pro:1)"
+  echo "STOP: full runs need a whole card, got ${mem} MiB (a MIG slice?)."
+  echo "      Use --gres=gpu:rtx_pro:1 on gpunode1 or --gres=gpu:h200:1 on gpunode2."
   touch "$PROJ_RESULTS/FAILED"; exit 1
 fi
 

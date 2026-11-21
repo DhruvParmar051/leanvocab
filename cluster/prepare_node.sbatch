@@ -2,7 +2,10 @@
 # One CPU job on gpunode1: copy the corpus into that node's /tmp and build the offline
 # virtualenv there. Run cluster/setup_login.sh on the login node first (it fills the cache).
 #
-#   sbatch cluster/prepare_node.sbatch
+#   sbatch cluster/prepare_node.sbatch                    # gpunode1
+#   sbatch --nodelist=gpunode2 cluster/prepare_node.sbatch # gpunode2 (H200)
+#
+# /tmp is node-local, so each GPU node needs its own prepare job before it can run arms.
 #SBATCH --job-name=leanvocab-prepare
 #SBATCH --partition=cpu
 #SBATCH --nodelist=gpunode1
