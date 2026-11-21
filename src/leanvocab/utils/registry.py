@@ -37,6 +37,7 @@ TRACKED_PACKAGES: tuple[str, ...] = (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
+REVISION_FILE = "REVISION"
 
 
 def _git(*args: str) -> str:
@@ -49,14 +50,28 @@ def _git(*args: str) -> str:
 
 
 def git_state() -> dict[str, Any]:
-    """Current commit SHA (``None`` before the first commit) and dirty flag."""
+    """Current commit SHA and dirty flag.
+
+    Deployments without a checkout (the GPU cluster gets the tracked files by rsync, not by
+    git) record the commit from a ``REVISION`` file written at staging time; there the dirty
+    flag is unknowable rather than false, so it is ``None``.
+    """
     try:
         sha: str | None = _git("rev-parse", "HEAD")
     except RuntimeError:
-        logger.warning("No git commit found; recording git_sha=None")
         sha = None
-    dirty = bool(_git("status", "--porcelain", "--untracked-files=no"))
-    return {"git_sha": sha, "git_dirty": dirty}
+    else:
+        return {
+            "git_sha": sha,
+            "git_dirty": bool(_git("status", "--porcelain", "--untracked-files=no")),
+        }
+
+    revision = REPO_ROOT / REVISION_FILE
+    if revision.is_file() and (staged := revision.read_text().strip()):
+        logger.info("No git checkout; taking git_sha from %s", revision)
+        return {"git_sha": staged, "git_dirty": None, "git_sha_source": REVISION_FILE}
+    logger.warning("No git checkout and no %s; recording git_sha=None", REVISION_FILE)
+    return {"git_sha": None, "git_dirty": None}
 
 
 def library_versions() -> dict[str, str]:

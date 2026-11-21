@@ -49,3 +49,24 @@ def test_repo_config_loads_and_rejects_unknown_keys(tmp_path: Path) -> None:
     bad.write_text((REPO / "configs/data/fineweb_edu_2b.yaml").read_text() + "typo_key: 1\n")
     with pytest.raises(ValidationError):
         load_config(bad, DataPrepConfig)
+
+
+def test_git_state_falls_back_to_revision_file(tmp_path, monkeypatch) -> None:
+    """The GPU cluster gets rsynced files, not a checkout; provenance still needs the SHA."""
+    from leanvocab.utils import registry
+
+    sha = "a" * 40
+    (tmp_path / registry.REVISION_FILE).write_text(sha + "\n")
+    monkeypatch.setattr(registry, "REPO_ROOT", tmp_path)
+
+    state = registry.git_state()
+    assert state["git_sha"] == sha
+    assert state["git_dirty"] is None
+    assert state["git_sha_source"] == registry.REVISION_FILE
+
+
+def test_git_state_without_repo_or_revision_file(tmp_path, monkeypatch) -> None:
+    from leanvocab.utils import registry
+
+    monkeypatch.setattr(registry, "REPO_ROOT", tmp_path)
+    assert registry.git_state() == {"git_sha": None, "git_dirty": None}
