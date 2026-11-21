@@ -1,0 +1,74 @@
+# Phase 4 on CUDA in fp32, used to test one thing: the bf16 runs came out 0.02-0.05
+# bits/byte worse than the MLX pilot on three of four shared arms, and swapped the order
+# of two arms. This config is phase4_cuda.yaml with autocast off, so a dry run (which on
+# an H200 covers the whole budget in minutes) says whether bf16 is responsible.
+#
+# The MLX runs in results/phase4 are the pilot; these runs are the single-framework set.
+# Only backend-local settings differ from phase4.yaml, and they are listed at the bottom.
+seed: 0
+tf32: true                    # torch.backends.cuda.matmul.allow_tf32 on this backend
+data_dir: data
+tokenizer_dir: artifacts/tokenizers
+pretok_dir: data/pretok
+checkpoint_dir: data/checkpoints
+special_tokens: ["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"]
+
+budget_bytes: 2000000000      # decision 2026-09-16
+seq_len: 256
+batch_bytes: 307300           # unchanged: this is what makes the arms comparable
+max_micro_batch_seqs: 512     # 96 GB fits a full batch, so no gradient accumulation
+pretok_batch_docs: 1000
+log_every_steps: 50
+checkpoint_every_steps: 500
+keep_checkpoints: 2
+
+model:                        # MiniLM-L6 shape; embeddings tied to the MLM output layer
+  hidden_size: 384
+  num_layers: 6
+  num_heads: 12
+  intermediate_size: 1536
+  max_position_embeddings: 256
+  type_vocab_size: 2
+  hidden_dropout: 0.1
+  layer_norm_eps: 1.0e-12
+  initializer_range: 0.02
+
+optim:                        # fixed a priori (RoBERTa-style), identical for all arms
+  learning_rate: 5.0e-4
+  warmup_fraction: 0.06
+  beta1: 0.9
+  beta2: 0.98
+  eps: 1.0e-6
+  weight_decay: 0.01
+  grad_clip: 1.0
+
+mlm:
+  mask_prob: 0.15
+  replace_mask: 0.8
+  replace_random: 0.1
+
+eval:                         # held-out bits per byte with fixed masks
+  heldout_bytes: 10000000
+  batch_seqs: 256
+  every_steps: 500
+  seed: 1234
+
+dry_run:
+  minutes: 10
+  timing_skip_steps: 5        # exclude warm-up/compilation from the per-step timing
+
+backend: torch
+torch:
+  device: cuda
+  amp_dtype: none             # fp32 compute: isolates whether bf16 costs quality
+  compile: false              # turn on once a dry run confirms it helps more than it costs
+  allow_tf32: true
+  dataloader_pin_memory: true
+
+arms:
+  - {id: bert-orig, tokenizer: bert-orig}
+  - {id: bpe-8k, tokenizer: bpe-8k}
+  - {id: bpe-16k, tokenizer: bpe-16k}
+  - {id: factorized-bert-orig, tokenizer: bert-orig, embedding_dim: 128}   # Baseline A
+  - {id: bert-trim-8k, tokenizer: bert-trim-8k}                            # Baseline B
+  - {id: bert-trim-16k, tokenizer: bert-trim-16k}                          # Baseline B
