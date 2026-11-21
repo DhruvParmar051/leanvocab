@@ -6,6 +6,8 @@ float32 CPU with TF32 off (``tests/conftest.py``) and dropout disabled.
 
 from __future__ import annotations
 
+from typing import Any, cast
+
 import mlx.core as mx
 import numpy as np
 import pytest
@@ -49,7 +51,7 @@ def _cfg(**overrides: object) -> EncoderConfig:
     return EncoderConfig.model_validate(base)
 
 
-def _paired_models(cfg: EncoderConfig) -> tuple[MlxBert, torch.nn.Module]:
+def _paired_models(cfg: EncoderConfig) -> tuple[MlxBert, Any]:
     """An MLX model and a PyTorch model carrying the same weights."""
     mx.random.seed(0)
     mlx_model = MlxBert(cfg)
@@ -144,15 +146,15 @@ def test_init_weights_zeroes_bias_and_sets_layernorm() -> None:
             torch.testing.assert_close(p, torch.zeros_like(p))
         elif name.endswith(".LayerNorm.weight"):
             torch.testing.assert_close(p, torch.ones_like(p))
-    std = model.bert.encoder.layer[0].intermediate.dense.weight.std().item()
-    assert 0.15 < std < 0.25
+    weight = dict(model.named_parameters())["bert.encoder.layer.0.intermediate.dense.weight"]
+    assert 0.15 < weight.std().item() < 0.25
 
 
 def test_decay_groups_exclude_bias_and_layernorm() -> None:
     cfg = _cfg()
     model = TorchBert(cfg)
     groups = decay_parameter_groups(model, weight_decay=0.01)
-    sizes = [sum(p.numel() for p in g["params"]) for g in groups]
+    sizes = [sum(p.numel() for p in cast(list[Any], g["params"])) for g in groups]
     assert sum(sizes) == sum(p.numel() for p in model.parameters())
     expected_no_decay = sum(
         p.numel()

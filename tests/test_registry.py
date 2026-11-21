@@ -51,7 +51,9 @@ def test_repo_config_loads_and_rejects_unknown_keys(tmp_path: Path) -> None:
         load_config(bad, DataPrepConfig)
 
 
-def test_git_state_falls_back_to_revision_file(tmp_path, monkeypatch) -> None:
+def test_git_state_falls_back_to_revision_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     """The GPU cluster gets rsynced files, not a checkout; provenance still needs the SHA."""
     from leanvocab.utils import registry
 
@@ -65,7 +67,9 @@ def test_git_state_falls_back_to_revision_file(tmp_path, monkeypatch) -> None:
     assert state["git_sha_source"] == registry.REVISION_FILE
 
 
-def test_git_state_without_repo_or_revision_file(tmp_path, monkeypatch) -> None:
+def test_git_state_without_repo_or_revision_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from leanvocab.utils import registry
 
     monkeypatch.setattr(registry, "REPO_ROOT", tmp_path)

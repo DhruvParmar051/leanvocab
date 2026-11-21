@@ -1,0 +1,151 @@
+2026-11-21T14:20:14+0530 INFO    leanvocab.utils.seeding: Seeded python,numpy,torch with seed=0
+2026-11-21T14:20:14+0530 INFO    __main__: Run 20261121T085014Z-701836b4-factorized-bert-orig arm=factorized-bert-orig backend=torch key=4d83347032b2 env={} ckpt=data/checkpoints/factorized-bert-orig-4d83347032b2
+2026-11-21T14:20:14+0530 INFO    leanvocab.pretrain.data: Reusing pre-tokenized data data/pretok/bert-orig-4f1ec1afad4f52e0
+2026-11-21T14:20:14+0530 INFO    leanvocab.pretrain.torch_mlm: factorized-bert-orig on cuda: 1665313 seqs, batch 256 x 1 = 256 seqs (307450 bytes), 6505 steps, warmup 390, k=38
+2026-11-21T14:20:17+0530 INFO    leanvocab.pretrain.torch_mlm: step 50/6505 loss 10.1536 lr 6.28e-05 gnorm 1.10 1437654 tok/s 11.47 GB
+2026-11-21T14:20:19+0530 INFO    leanvocab.pretrain.torch_mlm: step 100/6505 loss 9.6204 lr 1.27e-04 gnorm 1.05 1622706 tok/s 11.47 GB
+2026-11-21T14:20:21+0530 INFO    leanvocab.pretrain.torch_mlm: step 150/6505 loss 8.8045 lr 1.91e-04 gnorm 1.08 1624974 tok/s 11.47 GB
+2026-11-21T14:20:23+0530 INFO    leanvocab.pretrain.torch_mlm: step 200/6505 loss 7.9442 lr 2.55e-04 gnorm 0.93 1626731 tok/s 11.47 GB
+2026-11-21T14:20:25+0530 INFO    leanvocab.pretrain.torch_mlm: step 250/6505 loss 7.3414 lr 3.19e-04 gnorm 0.35 1624944 tok/s 11.47 GB
+2026-11-21T14:20:28+0530 INFO    leanvocab.pretrain.torch_mlm: step 300/6505 loss 7.1777 lr 3.83e-04 gnorm 0.60 1623544 tok/s 11.47 GB
+2026-11-21T14:20:30+0530 INFO    leanvocab.pretrain.torch_mlm: step 350/6505 loss 7.1203 lr 4.47e-04 gnorm 0.51 1623770 tok/s 11.47 GB
+2026-11-21T14:20:32+0530 INFO    leanvocab.pretrain.torch_mlm: step 400/6505 loss 7.0282 lr 4.99e-04 gnorm 0.40 1624217 tok/s 11.47 GB
+2026-11-21T14:20:34+0530 INFO    leanvocab.pretrain.torch_mlm: step 450/6505 loss 6.9399 lr 4.95e-04 gnorm 0.63 1624108 tok/s 11.47 GB
+2026-11-21T14:20:36+0530 INFO    leanvocab.pretrain.torch_mlm: step 500/6505 loss 6.8641 lr 4.91e-04 gnorm 0.54 1623280 tok/s 11.47 GB
+2026-11-21T14:20:36+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 500: bits/byte 2.0895, mlm loss 6.8331, acc 0.1046 (1s)
+2026-11-21T14:20:38+0530 INFO    leanvocab.pretrain.torch_mlm: step 550/6505 loss 6.8044 lr 4.87e-04 gnorm 0.91 1155540 tok/s 11.47 GB
+2026-11-21T14:20:40+0530 INFO    leanvocab.pretrain.torch_mlm: step 600/6505 loss 6.7570 lr 4.83e-04 gnorm 0.87 1626920 tok/s 11.47 GB
+2026-11-21T14:20:42+0530 INFO    leanvocab.pretrain.torch_mlm: step 650/6505 loss 6.7183 lr 4.79e-04 gnorm 1.05 1626679 tok/s 11.47 GB
+2026-11-21T14:20:44+0530 INFO    leanvocab.pretrain.torch_mlm: step 700/6505 loss 6.6801 lr 4.75e-04 gnorm 1.54 1627092 tok/s 11.47 GB
+2026-11-21T14:20:46+0530 INFO    leanvocab.pretrain.torch_mlm: step 750/6505 loss 6.6471 lr 4.71e-04 gnorm 0.98 1627382 tok/s 11.47 GB
+2026-11-21T14:20:48+0530 INFO    leanvocab.pretrain.torch_mlm: step 800/6505 loss 6.6039 lr 4.67e-04 gnorm 1.18 1627332 tok/s 11.47 GB
+2026-11-21T14:20:50+0530 INFO    leanvocab.pretrain.torch_mlm: step 850/6505 loss 6.5800 lr 4.62e-04 gnorm 0.62 1626595 tok/s 11.47 GB
+2026-11-21T14:20:53+0530 INFO    leanvocab.pretrain.torch_mlm: step 900/6505 loss 6.5447 lr 4.58e-04 gnorm 0.68 1627332 tok/s 11.47 GB
+2026-11-21T14:20:55+0530 INFO    leanvocab.pretrain.torch_mlm: step 950/6505 loss 6.5275 lr 4.54e-04 gnorm 0.82 1627627 tok/s 11.47 GB
+2026-11-21T14:20:57+0530 INFO    leanvocab.pretrain.torch_mlm: step 1000/6505 loss 6.5067 lr 4.50e-04 gnorm 0.68 1626914 tok/s 11.47 GB
+2026-11-21T14:20:57+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 1000: bits/byte 1.9824, mlm loss 6.4828, acc 0.1292 (1s)
+2026-11-21T14:20:59+0530 INFO    leanvocab.pretrain.torch_mlm: step 1050/6505 loss 6.4943 lr 4.46e-04 gnorm 0.90 1167197 tok/s 11.47 GB
+2026-11-21T14:21:01+0530 INFO    leanvocab.pretrain.torch_mlm: step 1100/6505 loss 6.4580 lr 4.42e-04 gnorm 1.18 1627620 tok/s 11.47 GB
+2026-11-21T14:21:03+0530 INFO    leanvocab.pretrain.torch_mlm: step 1150/6505 loss 6.4453 lr 4.38e-04 gnorm 1.06 1627185 tok/s 11.47 GB
+2026-11-21T14:21:05+0530 INFO    leanvocab.pretrain.torch_mlm: step 1200/6505 loss 6.4342 lr 4.34e-04 gnorm 0.97 1627840 tok/s 11.47 GB
+2026-11-21T14:21:07+0530 INFO    leanvocab.pretrain.torch_mlm: step 1250/6505 loss 6.4197 lr 4.30e-04 gnorm 0.85 1627407 tok/s 11.47 GB
+2026-11-21T14:21:09+0530 INFO    leanvocab.pretrain.torch_mlm: step 1300/6505 loss 6.4054 lr 4.26e-04 gnorm 0.80 1627510 tok/s 11.47 GB
+2026-11-21T14:21:11+0530 INFO    leanvocab.pretrain.torch_mlm: step 1350/6505 loss 6.3846 lr 4.22e-04 gnorm 1.10 1627551 tok/s 11.47 GB
+2026-11-21T14:21:13+0530 INFO    leanvocab.pretrain.torch_mlm: step 1400/6505 loss 6.3764 lr 4.17e-04 gnorm 0.76 1627549 tok/s 11.47 GB
+2026-11-21T14:21:15+0530 INFO    leanvocab.pretrain.torch_mlm: step 1450/6505 loss 6.3636 lr 4.13e-04 gnorm 0.86 1626471 tok/s 11.47 GB
+2026-11-21T14:21:17+0530 INFO    leanvocab.pretrain.torch_mlm: step 1500/6505 loss 6.3725 lr 4.09e-04 gnorm 0.83 1627240 tok/s 11.47 GB
+2026-11-21T14:21:18+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 1500: bits/byte 1.9383, mlm loss 6.3386, acc 0.1383 (1s)
+2026-11-21T14:21:20+0530 INFO    leanvocab.pretrain.torch_mlm: step 1550/6505 loss 6.3563 lr 4.05e-04 gnorm 1.00 1164087 tok/s 11.47 GB
+2026-11-21T14:21:22+0530 INFO    leanvocab.pretrain.torch_mlm: step 1600/6505 loss 6.3473 lr 4.01e-04 gnorm 0.77 1627040 tok/s 11.47 GB
+2026-11-21T14:21:24+0530 INFO    leanvocab.pretrain.torch_mlm: step 1650/6505 loss 6.3391 lr 3.97e-04 gnorm 1.30 1626693 tok/s 11.47 GB
+2026-11-21T14:21:26+0530 INFO    leanvocab.pretrain.torch_mlm: step 1700/6505 loss 6.3195 lr 3.93e-04 gnorm 0.90 1627304 tok/s 11.47 GB
+2026-11-21T14:21:28+0530 INFO    leanvocab.pretrain.torch_mlm: step 1750/6505 loss 6.3286 lr 3.89e-04 gnorm 0.86 1627565 tok/s 11.47 GB
+2026-11-21T14:21:30+0530 INFO    leanvocab.pretrain.torch_mlm: step 1800/6505 loss 6.3063 lr 3.85e-04 gnorm 0.96 1627256 tok/s 11.47 GB
+2026-11-21T14:21:32+0530 INFO    leanvocab.pretrain.torch_mlm: step 1850/6505 loss 6.3095 lr 3.81e-04 gnorm 1.04 1627242 tok/s 11.47 GB
+2026-11-21T14:21:34+0530 INFO    leanvocab.pretrain.torch_mlm: step 1900/6505 loss 6.2924 lr 3.77e-04 gnorm 1.00 1627931 tok/s 11.47 GB
+2026-11-21T14:21:36+0530 INFO    leanvocab.pretrain.torch_mlm: step 1950/6505 loss 6.2917 lr 3.73e-04 gnorm 0.80 1627222 tok/s 11.47 GB
+2026-11-21T14:21:38+0530 INFO    leanvocab.pretrain.torch_mlm: step 2000/6505 loss 6.2838 lr 3.68e-04 gnorm 1.17 1627883 tok/s 11.47 GB
+2026-11-21T14:21:39+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 2000: bits/byte 1.9163, mlm loss 6.2666, acc 0.1409 (1s)
+2026-11-21T14:21:41+0530 INFO    leanvocab.pretrain.torch_mlm: step 2050/6505 loss 6.2733 lr 3.64e-04 gnorm 1.14 1160515 tok/s 11.47 GB
+2026-11-21T14:21:43+0530 INFO    leanvocab.pretrain.torch_mlm: step 2100/6505 loss 6.2728 lr 3.60e-04 gnorm 1.16 1624408 tok/s 11.47 GB
+2026-11-21T14:21:45+0530 INFO    leanvocab.pretrain.torch_mlm: step 2150/6505 loss 6.2464 lr 3.56e-04 gnorm 0.98 1624939 tok/s 11.47 GB
+2026-11-21T14:21:47+0530 INFO    leanvocab.pretrain.torch_mlm: step 2200/6505 loss 6.2605 lr 3.52e-04 gnorm 1.25 1624207 tok/s 11.47 GB
+2026-11-21T14:21:49+0530 INFO    leanvocab.pretrain.torch_mlm: step 2250/6505 loss 6.2641 lr 3.48e-04 gnorm 0.99 1624640 tok/s 11.47 GB
+2026-11-21T14:21:51+0530 INFO    leanvocab.pretrain.torch_mlm: step 2300/6505 loss 6.2491 lr 3.44e-04 gnorm 1.00 1623912 tok/s 11.47 GB
+2026-11-21T14:21:53+0530 INFO    leanvocab.pretrain.torch_mlm: step 2350/6505 loss 6.2457 lr 3.40e-04 gnorm 0.74 1623744 tok/s 11.47 GB
+2026-11-21T14:21:55+0530 INFO    leanvocab.pretrain.torch_mlm: step 2400/6505 loss 6.2368 lr 3.36e-04 gnorm 0.78 1624684 tok/s 11.47 GB
+2026-11-21T14:21:57+0530 INFO    leanvocab.pretrain.torch_mlm: step 2450/6505 loss 6.2387 lr 3.32e-04 gnorm 0.99 1624753 tok/s 11.47 GB
+2026-11-21T14:21:59+0530 INFO    leanvocab.pretrain.torch_mlm: step 2500/6505 loss 6.2310 lr 3.28e-04 gnorm 1.02 1624744 tok/s 11.47 GB
+2026-11-21T14:22:00+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 2500: bits/byte 1.8990, mlm loss 6.2099, acc 0.1426 (1s)
+2026-11-21T14:22:02+0530 INFO    leanvocab.pretrain.torch_mlm: step 2550/6505 loss 6.2336 lr 3.23e-04 gnorm 1.15 1161202 tok/s 11.47 GB
+2026-11-21T14:22:04+0530 INFO    leanvocab.pretrain.torch_mlm: step 2600/6505 loss 6.2194 lr 3.19e-04 gnorm 1.01 1626752 tok/s 11.47 GB
+2026-11-21T14:22:06+0530 INFO    leanvocab.pretrain.torch_mlm: step 2650/6505 loss 6.2182 lr 3.15e-04 gnorm 0.83 1627567 tok/s 11.47 GB
+2026-11-21T14:22:08+0530 INFO    leanvocab.pretrain.torch_mlm: step 2700/6505 loss 6.2182 lr 3.11e-04 gnorm 1.00 1627589 tok/s 11.47 GB
+2026-11-21T14:22:10+0530 INFO    leanvocab.pretrain.torch_mlm: step 2750/6505 loss 6.2078 lr 3.07e-04 gnorm 1.09 1627512 tok/s 11.47 GB
+2026-11-21T14:22:12+0530 INFO    leanvocab.pretrain.torch_mlm: step 2800/6505 loss 6.2036 lr 3.03e-04 gnorm 0.94 1628119 tok/s 11.47 GB
+2026-11-21T14:22:14+0530 INFO    leanvocab.pretrain.torch_mlm: step 2850/6505 loss 6.1990 lr 2.99e-04 gnorm 0.87 1627871 tok/s 11.47 GB
+2026-11-21T14:22:16+0530 INFO    leanvocab.pretrain.torch_mlm: step 2900/6505 loss 6.1957 lr 2.95e-04 gnorm 0.98 1628365 tok/s 11.47 GB
+2026-11-21T14:22:18+0530 INFO    leanvocab.pretrain.torch_mlm: step 2950/6505 loss 6.2014 lr 2.91e-04 gnorm 0.88 1628584 tok/s 11.47 GB
+2026-11-21T14:22:20+0530 INFO    leanvocab.pretrain.torch_mlm: step 3000/6505 loss 6.1946 lr 2.87e-04 gnorm 0.90 1627913 tok/s 11.47 GB
+2026-11-21T14:22:21+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 3000: bits/byte 1.8875, mlm loss 6.1723, acc 0.1438 (1s)
+2026-11-21T14:22:23+0530 INFO    leanvocab.pretrain.torch_mlm: step 3050/6505 loss 6.1978 lr 2.83e-04 gnorm 1.00 1161750 tok/s 11.47 GB
+2026-11-21T14:22:25+0530 INFO    leanvocab.pretrain.torch_mlm: step 3100/6505 loss 6.1930 lr 2.78e-04 gnorm 0.86 1627703 tok/s 11.47 GB
+2026-11-21T14:22:27+0530 INFO    leanvocab.pretrain.torch_mlm: step 3150/6505 loss 6.1843 lr 2.74e-04 gnorm 1.03 1627608 tok/s 11.47 GB
+2026-11-21T14:22:29+0530 INFO    leanvocab.pretrain.torch_mlm: step 3200/6505 loss 6.1781 lr 2.70e-04 gnorm 0.90 1628283 tok/s 11.47 GB
+2026-11-21T14:22:31+0530 INFO    leanvocab.pretrain.torch_mlm: step 3250/6505 loss 6.1744 lr 2.66e-04 gnorm 1.03 1628169 tok/s 11.47 GB
+2026-11-21T14:22:33+0530 INFO    leanvocab.pretrain.torch_mlm: step 3300/6505 loss 6.1765 lr 2.62e-04 gnorm 0.96 1628231 tok/s 11.47 GB
+2026-11-21T14:22:35+0530 INFO    leanvocab.pretrain.torch_mlm: step 3350/6505 loss 6.1718 lr 2.58e-04 gnorm 0.84 1628382 tok/s 11.47 GB
+2026-11-21T14:22:37+0530 INFO    leanvocab.pretrain.torch_mlm: step 3400/6505 loss 6.1674 lr 2.54e-04 gnorm 1.21 1627880 tok/s 11.47 GB
+2026-11-21T14:22:39+0530 INFO    leanvocab.pretrain.torch_mlm: step 3450/6505 loss 6.1637 lr 2.50e-04 gnorm 0.89 1628386 tok/s 11.47 GB
+2026-11-21T14:22:41+0530 INFO    leanvocab.pretrain.torch_mlm: step 3500/6505 loss 6.1496 lr 2.46e-04 gnorm 1.01 1628585 tok/s 11.47 GB
+2026-11-21T14:22:42+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 3500: bits/byte 1.8792, mlm loss 6.1452, acc 0.1444 (1s)
+2026-11-21T14:22:44+0530 INFO    leanvocab.pretrain.torch_mlm: step 3550/6505 loss 6.1558 lr 2.42e-04 gnorm 0.84 1162522 tok/s 11.47 GB
+2026-11-21T14:22:46+0530 INFO    leanvocab.pretrain.torch_mlm: step 3600/6505 loss 6.1585 lr 2.38e-04 gnorm 0.92 1627750 tok/s 11.47 GB
+2026-11-21T14:22:48+0530 INFO    leanvocab.pretrain.torch_mlm: step 3650/6505 loss 6.1539 lr 2.34e-04 gnorm 1.23 1627506 tok/s 11.47 GB
+2026-11-21T14:22:50+0530 INFO    leanvocab.pretrain.torch_mlm: step 3700/6505 loss 6.1531 lr 2.29e-04 gnorm 0.84 1628492 tok/s 11.47 GB
+2026-11-21T14:22:52+0530 INFO    leanvocab.pretrain.torch_mlm: step 3750/6505 loss 6.1513 lr 2.25e-04 gnorm 0.83 1627649 tok/s 11.47 GB
+2026-11-21T14:22:54+0530 INFO    leanvocab.pretrain.torch_mlm: step 3800/6505 loss 6.1430 lr 2.21e-04 gnorm 0.88 1627882 tok/s 11.47 GB
+2026-11-21T14:22:56+0530 INFO    leanvocab.pretrain.torch_mlm: step 3850/6505 loss 6.1366 lr 2.17e-04 gnorm 0.83 1627764 tok/s 11.47 GB
+2026-11-21T14:22:58+0530 INFO    leanvocab.pretrain.torch_mlm: step 3900/6505 loss 6.1416 lr 2.13e-04 gnorm 0.78 1627871 tok/s 11.47 GB
+2026-11-21T14:23:00+0530 INFO    leanvocab.pretrain.torch_mlm: step 3950/6505 loss 6.1421 lr 2.09e-04 gnorm 0.96 1628050 tok/s 11.47 GB
+2026-11-21T14:23:02+0530 INFO    leanvocab.pretrain.torch_mlm: step 4000/6505 loss 6.1343 lr 2.05e-04 gnorm 0.98 1627712 tok/s 11.47 GB
+2026-11-21T14:23:03+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 4000: bits/byte 1.8719, mlm loss 6.1212, acc 0.1454 (1s)
+2026-11-21T14:23:05+0530 INFO    leanvocab.pretrain.torch_mlm: step 4050/6505 loss 6.1414 lr 2.01e-04 gnorm 0.95 1164986 tok/s 11.47 GB
+2026-11-21T14:23:07+0530 INFO    leanvocab.pretrain.torch_mlm: step 4100/6505 loss 6.1467 lr 1.97e-04 gnorm 0.86 1628334 tok/s 11.47 GB
+2026-11-21T14:23:09+0530 INFO    leanvocab.pretrain.torch_mlm: step 4150/6505 loss 6.1367 lr 1.93e-04 gnorm 0.92 1628253 tok/s 11.47 GB
+2026-11-21T14:23:11+0530 INFO    leanvocab.pretrain.torch_mlm: step 4200/6505 loss 6.1395 lr 1.89e-04 gnorm 1.25 1627765 tok/s 11.47 GB
+2026-11-21T14:23:13+0530 INFO    leanvocab.pretrain.torch_mlm: step 4250/6505 loss 6.1412 lr 1.84e-04 gnorm 0.98 1628267 tok/s 11.47 GB
+2026-11-21T14:23:15+0530 INFO    leanvocab.pretrain.torch_mlm: step 4300/6505 loss 6.1272 lr 1.80e-04 gnorm 0.95 1627085 tok/s 11.47 GB
+2026-11-21T14:23:17+0530 INFO    leanvocab.pretrain.torch_mlm: step 4350/6505 loss 6.1242 lr 1.76e-04 gnorm 0.97 1627882 tok/s 11.47 GB
+2026-11-21T14:23:19+0530 INFO    leanvocab.pretrain.torch_mlm: step 4400/6505 loss 6.1274 lr 1.72e-04 gnorm 1.34 1628540 tok/s 11.47 GB
+2026-11-21T14:23:21+0530 INFO    leanvocab.pretrain.torch_mlm: step 4450/6505 loss 6.1218 lr 1.68e-04 gnorm 1.03 1627381 tok/s 11.47 GB
+2026-11-21T14:23:23+0530 INFO    leanvocab.pretrain.torch_mlm: step 4500/6505 loss 6.1255 lr 1.64e-04 gnorm 0.85 1627568 tok/s 11.47 GB
+2026-11-21T14:23:24+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 4500: bits/byte 1.8660, mlm loss 6.1020, acc 0.1461 (1s)
+2026-11-21T14:23:26+0530 INFO    leanvocab.pretrain.torch_mlm: step 4550/6505 loss 6.1286 lr 1.60e-04 gnorm 0.89 1162132 tok/s 11.47 GB
+2026-11-21T14:23:28+0530 INFO    leanvocab.pretrain.torch_mlm: step 4600/6505 loss 6.1247 lr 1.56e-04 gnorm 0.91 1627133 tok/s 11.47 GB
+2026-11-21T14:23:30+0530 INFO    leanvocab.pretrain.torch_mlm: step 4650/6505 loss 6.1121 lr 1.52e-04 gnorm 0.99 1627474 tok/s 11.47 GB
+2026-11-21T14:23:32+0530 INFO    leanvocab.pretrain.torch_mlm: step 4700/6505 loss 6.1135 lr 1.48e-04 gnorm 1.09 1628076 tok/s 11.47 GB
+2026-11-21T14:23:34+0530 INFO    leanvocab.pretrain.torch_mlm: step 4750/6505 loss 6.1174 lr 1.44e-04 gnorm 1.28 1627742 tok/s 11.47 GB
+2026-11-21T14:23:36+0530 INFO    leanvocab.pretrain.torch_mlm: step 4800/6505 loss 6.1144 lr 1.39e-04 gnorm 0.94 1628367 tok/s 11.47 GB
+2026-11-21T14:23:38+0530 INFO    leanvocab.pretrain.torch_mlm: step 4850/6505 loss 6.1090 lr 1.35e-04 gnorm 0.84 1627880 tok/s 11.47 GB
+2026-11-21T14:23:40+0530 INFO    leanvocab.pretrain.torch_mlm: step 4900/6505 loss 6.1123 lr 1.31e-04 gnorm 0.89 1628032 tok/s 11.47 GB
+2026-11-21T14:23:42+0530 INFO    leanvocab.pretrain.torch_mlm: step 4950/6505 loss 6.1004 lr 1.27e-04 gnorm 1.01 1627341 tok/s 11.47 GB
+2026-11-21T14:23:44+0530 INFO    leanvocab.pretrain.torch_mlm: step 5000/6505 loss 6.1008 lr 1.23e-04 gnorm 0.82 1627532 tok/s 11.47 GB
+2026-11-21T14:23:45+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 5000: bits/byte 1.8614, mlm loss 6.0871, acc 0.1467 (1s)
+2026-11-21T14:23:47+0530 INFO    leanvocab.pretrain.torch_mlm: step 5050/6505 loss 6.1051 lr 1.19e-04 gnorm 0.82 1162692 tok/s 11.47 GB
+2026-11-21T14:23:49+0530 INFO    leanvocab.pretrain.torch_mlm: step 5100/6505 loss 6.1036 lr 1.15e-04 gnorm 1.10 1627305 tok/s 11.47 GB
+2026-11-21T14:23:51+0530 INFO    leanvocab.pretrain.torch_mlm: step 5150/6505 loss 6.1132 lr 1.11e-04 gnorm 0.86 1627241 tok/s 11.47 GB
+2026-11-21T14:23:53+0530 INFO    leanvocab.pretrain.torch_mlm: step 5200/6505 loss 6.1141 lr 1.07e-04 gnorm 0.90 1627542 tok/s 11.47 GB
+2026-11-21T14:23:55+0530 INFO    leanvocab.pretrain.torch_mlm: step 5250/6505 loss 6.0909 lr 1.03e-04 gnorm 0.77 1627581 tok/s 11.47 GB
+2026-11-21T14:23:57+0530 INFO    leanvocab.pretrain.torch_mlm: step 5300/6505 loss 6.0890 lr 9.86e-05 gnorm 0.93 1627397 tok/s 11.47 GB
+2026-11-21T14:23:59+0530 INFO    leanvocab.pretrain.torch_mlm: step 5350/6505 loss 6.0930 lr 9.45e-05 gnorm 0.81 1627108 tok/s 11.47 GB
+2026-11-21T14:24:01+0530 INFO    leanvocab.pretrain.torch_mlm: step 5400/6505 loss 6.0928 lr 9.04e-05 gnorm 0.84 1628041 tok/s 11.47 GB
+2026-11-21T14:24:03+0530 INFO    leanvocab.pretrain.torch_mlm: step 5450/6505 loss 6.0954 lr 8.63e-05 gnorm 0.87 1626835 tok/s 11.47 GB
+2026-11-21T14:24:05+0530 INFO    leanvocab.pretrain.torch_mlm: step 5500/6505 loss 6.0853 lr 8.23e-05 gnorm 0.99 1628009 tok/s 11.47 GB
+2026-11-21T14:24:06+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 5500: bits/byte 1.8549, mlm loss 6.0659, acc 0.1471 (1s)
+2026-11-21T14:24:08+0530 INFO    leanvocab.pretrain.torch_mlm: step 5550/6505 loss 6.0835 lr 7.82e-05 gnorm 0.89 1162881 tok/s 11.47 GB
+2026-11-21T14:24:10+0530 INFO    leanvocab.pretrain.torch_mlm: step 5600/6505 loss 6.0743 lr 7.41e-05 gnorm 0.87 1627251 tok/s 11.47 GB
+2026-11-21T14:24:12+0530 INFO    leanvocab.pretrain.torch_mlm: step 5650/6505 loss 6.0749 lr 7.00e-05 gnorm 0.93 1627187 tok/s 11.47 GB
+2026-11-21T14:24:14+0530 INFO    leanvocab.pretrain.torch_mlm: step 5700/6505 loss 6.0802 lr 6.59e-05 gnorm 0.81 1627054 tok/s 11.47 GB
+2026-11-21T14:24:16+0530 INFO    leanvocab.pretrain.torch_mlm: step 5750/6505 loss 6.0601 lr 6.18e-05 gnorm 0.81 1627480 tok/s 11.47 GB
+2026-11-21T14:24:18+0530 INFO    leanvocab.pretrain.torch_mlm: step 5800/6505 loss 6.0612 lr 5.77e-05 gnorm 0.93 1626828 tok/s 11.47 GB
+2026-11-21T14:24:20+0530 INFO    leanvocab.pretrain.torch_mlm: step 5850/6505 loss 6.0628 lr 5.36e-05 gnorm 0.87 1627227 tok/s 11.47 GB
+2026-11-21T14:24:22+0530 INFO    leanvocab.pretrain.torch_mlm: step 5900/6505 loss 6.0544 lr 4.96e-05 gnorm 0.94 1627196 tok/s 11.47 GB
+2026-11-21T14:24:24+0530 INFO    leanvocab.pretrain.torch_mlm: step 5950/6505 loss 6.0397 lr 4.55e-05 gnorm 0.82 1626723 tok/s 11.47 GB
+2026-11-21T14:24:26+0530 INFO    leanvocab.pretrain.torch_mlm: step 6000/6505 loss 6.0502 lr 4.14e-05 gnorm 0.89 1627286 tok/s 11.47 GB
+2026-11-21T14:24:27+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 6000: bits/byte 1.8397, mlm loss 6.0160, acc 0.1491 (1s)
+2026-11-21T14:24:29+0530 INFO    leanvocab.pretrain.torch_mlm: step 6050/6505 loss 6.0435 lr 3.73e-05 gnorm 0.95 1165759 tok/s 11.47 GB
+2026-11-21T14:24:31+0530 INFO    leanvocab.pretrain.torch_mlm: step 6100/6505 loss 6.0397 lr 3.32e-05 gnorm 0.81 1627433 tok/s 11.47 GB
+2026-11-21T14:24:33+0530 INFO    leanvocab.pretrain.torch_mlm: step 6150/6505 loss 6.0398 lr 2.91e-05 gnorm 0.76 1627600 tok/s 11.47 GB
+2026-11-21T14:24:35+0530 INFO    leanvocab.pretrain.torch_mlm: step 6200/6505 loss 6.0324 lr 2.50e-05 gnorm 0.96 1627265 tok/s 11.47 GB
+2026-11-21T14:24:37+0530 INFO    leanvocab.pretrain.torch_mlm: step 6250/6505 loss 6.0328 lr 2.09e-05 gnorm 0.89 1627522 tok/s 11.47 GB
+2026-11-21T14:24:39+0530 INFO    leanvocab.pretrain.torch_mlm: step 6300/6505 loss 6.0361 lr 1.68e-05 gnorm 0.79 1627454 tok/s 11.47 GB
+2026-11-21T14:24:41+0530 INFO    leanvocab.pretrain.torch_mlm: step 6350/6505 loss 6.0218 lr 1.28e-05 gnorm 0.79 1627633 tok/s 11.47 GB
+2026-11-21T14:24:43+0530 INFO    leanvocab.pretrain.torch_mlm: step 6400/6505 loss 6.0247 lr 8.67e-06 gnorm 0.83 1627670 tok/s 11.47 GB
+2026-11-21T14:24:45+0530 INFO    leanvocab.pretrain.torch_mlm: step 6450/6505 loss 6.0320 lr 4.58e-06 gnorm 0.79 1627262 tok/s 11.47 GB
+2026-11-21T14:24:47+0530 INFO    leanvocab.pretrain.torch_mlm: step 6500/6505 loss 6.0335 lr 4.91e-07 gnorm 0.81 1627676 tok/s 11.47 GB
+2026-11-21T14:24:48+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 6500: bits/byte 1.8329, mlm loss 5.9937, acc 0.1506 (1s)
+2026-11-21T14:24:48+0530 INFO    leanvocab.pretrain.torch_mlm: step 6505/6505 loss 6.0176 lr 8.18e-08 gnorm 0.80 325534 tok/s 11.47 GB
+2026-11-21T14:24:49+0530 INFO    leanvocab.pretrain.torch_mlm: eval step 6505: bits/byte 1.8328, mlm loss 5.9937, acc 0.1506 (1s)
+2026-11-21T14:24:49+0530 INFO    leanvocab.utils.registry: No git checkout; taking git_sha from /home/s202518030/gpu-work/leanvocab/REVISION
+2026-11-21T14:24:49+0530 INFO    leanvocab.utils.registry: Wrote metrics to /home/s202518030/gpu-work/leanvocab/results/phase4/20261121T085014Z-701836b4-factorized-bert-orig/metrics.json

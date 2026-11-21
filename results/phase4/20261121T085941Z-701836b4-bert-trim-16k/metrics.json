@@ -1,0 +1,339 @@
+{
+  "metrics": {
+    "amp_dtype": "bfloat16",
+    "arm": {
+      "embedding_dim": null,
+      "id": "bert-trim-16k",
+      "tokenizer": "bert-trim-16k"
+    },
+    "backend": "torch",
+    "bytes_seen": 1999802022.0791395,
+    "checkpoint_dir": "data/checkpoints/bert-trim-16k-adc739f4a6dc",
+    "data": {
+      "budget_bytes": 2000000000,
+      "eval": {
+        "docs": 2171,
+        "sequences": 8640,
+        "text_bytes": 10003196,
+        "tokens": 2194560
+      },
+      "seq_len": 256,
+      "special_ids": {
+        "cls": 2,
+        "mask": 4,
+        "pad": 0,
+        "random_low": 5,
+        "sep": 3,
+        "unk": 1,
+        "vocab_size": 16000
+      },
+      "tokenizer_id": "bert-trim-16k",
+      "tokenizer_sha256": "823055b8bbfbd5ed5f7258b5f56b38fb69466610a719047ba15fdb89a40f06e1",
+      "train": {
+        "bytes_per_token": 4.5630997754289915,
+        "doc_ids_sha256": "2ef81726f8245005c5ce63944fe69946a8578c00a844e5cad4214f5e462fed0a",
+        "docs": 419317,
+        "dropped_tail_tokens": 68,
+        "sequence_bytes": 2000004792.3060257,
+        "sequences": 1725589,
+        "stream_tokens": 438299674,
+        "text_bytes": 2000005144
+      }
+    },
+    "device": "cuda",
+    "dry_run": null,
+    "evals": [
+      {
+        "bits_per_byte": 2.053132920637051,
+        "bytes_seen": 153548765.78492928,
+        "eval_sec": 0.717770057002781,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.1340734649122807,
+        "mlm_loss": 6.489132339447795,
+        "step": 500
+      },
+      {
+        "bits_per_byte": 1.9828111741789787,
+        "bytes_seen": 307085762.44662434,
+        "eval_sec": 0.6919068059942219,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.14222404970760233,
+        "mlm_loss": 6.266873412847984,
+        "step": 1000
+      },
+      {
+        "bits_per_byte": 1.9528828774452514,
+        "bytes_seen": 460632957.6661508,
+        "eval_sec": 0.6926438189984765,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.1440972222222222,
+        "mlm_loss": 6.172282031916271,
+        "step": 1500
+      },
+      {
+        "bits_per_byte": 1.932921055365132,
+        "bytes_seen": 614231439.6485139,
+        "eval_sec": 0.6926239790045656,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.14392665692007797,
+        "mlm_loss": 6.109190692864431,
+        "step": 2000
+      },
+      {
+        "bits_per_byte": 1.8715026594530884,
+        "bytes_seen": 767847847.3308249,
+        "eval_sec": 0.6945357079966925,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.15304885477582847,
+        "mlm_loss": 5.915071697867172,
+        "step": 2500
+      },
+      {
+        "bits_per_byte": 1.789456101529084,
+        "bytes_seen": 921401503.1294069,
+        "eval_sec": 0.6935126400057925,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.1761909113060429,
+        "mlm_loss": 5.655755329689784,
+        "step": 3000
+      },
+      {
+        "bits_per_byte": 1.6007833268374128,
+        "bytes_seen": 1074980290.1291728,
+        "eval_sec": 0.6937324749887921,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.22286488791423,
+        "mlm_loss": 5.059436118440089,
+        "step": 3500
+      },
+      {
+        "bits_per_byte": 1.397675202779824,
+        "bytes_seen": 1228579097.66476,
+        "eval_sec": 0.6939064219914144,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.28423489278752434,
+        "mlm_loss": 4.4174925389578,
+        "step": 4000
+      },
+      {
+        "bits_per_byte": 1.285041749631904,
+        "bytes_seen": 1382156220.1036568,
+        "eval_sec": 0.6951326540001901,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.32317251461988306,
+        "mlm_loss": 4.061503223322521,
+        "step": 4500
+      },
+      {
+        "bits_per_byte": 1.2159250857089166,
+        "bytes_seen": 1535661532.5642455,
+        "eval_sec": 0.6937427049997495,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.3516447368421053,
+        "mlm_loss": 3.84305308083577,
+        "step": 5000
+      },
+      {
+        "bits_per_byte": 1.1726726630461564,
+        "bytes_seen": 1689254526.2157984,
+        "eval_sec": 0.6949835179984802,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.37003228557504875,
+        "mlm_loss": 3.7063494646990742,
+        "step": 5500
+      },
+      {
+        "bits_per_byte": 1.1470855477045236,
+        "bytes_seen": 1842803426.7824924,
+        "eval_sec": 0.6942454140080372,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.3812956871345029,
+        "mlm_loss": 3.625478822585435,
+        "step": 6000
+      },
+      {
+        "bits_per_byte": 1.1355711799799746,
+        "bytes_seen": 1996416491.6385024,
+        "eval_sec": 0.6935068000020692,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.38580653021442496,
+        "mlm_loss": 3.5890865095409965,
+        "step": 6500
+      },
+      {
+        "bits_per_byte": 1.1355520136536073,
+        "bytes_seen": 1999802022.0791395,
+        "eval_sec": 0.6934979609941365,
+        "masked_bytes": 1497067.7079013586,
+        "masked_tokens": 328320.0,
+        "mlm_accuracy": 0.38583089668615983,
+        "mlm_loss": 3.589025932445861,
+        "step": 6511
+      }
+    ],
+    "final_eval": {
+      "bits_per_byte": 1.1355520136536073,
+      "bytes_seen": 1999802022.0791395,
+      "eval_sec": 0.6934979609941365,
+      "masked_bytes": 1497067.7079013586,
+      "masked_tokens": 328320.0,
+      "mlm_accuracy": 0.38583089668615983,
+      "mlm_loss": 3.589025932445861,
+      "step": 6511
+    },
+    "params": {
+      "encoder": 16890624,
+      "mlm_head": 164608,
+      "total": 17055232,
+      "word_embeddings": 6144000
+    },
+    "peak_memory_gb": 9.77689344,
+    "plan": {
+      "batch_bytes": 307142.23952580645,
+      "batch_seqs": 265,
+      "micro_seqs": 265,
+      "n_micro": 1,
+      "predictions_per_seq": 38,
+      "total_steps": 6511,
+      "warmup_steps": 391
+    },
+    "steps_done": 6511,
+    "train_sec": 235.39860548374418,
+    "training_key": "adc739f4a6dc"
+  },
+  "provenance": {
+    "config": {
+      "arms": [
+        {
+          "embedding_dim": null,
+          "id": "bert-orig",
+          "tokenizer": "bert-orig"
+        },
+        {
+          "embedding_dim": null,
+          "id": "bpe-8k",
+          "tokenizer": "bpe-8k"
+        },
+        {
+          "embedding_dim": null,
+          "id": "bpe-16k",
+          "tokenizer": "bpe-16k"
+        },
+        {
+          "embedding_dim": 128,
+          "id": "factorized-bert-orig",
+          "tokenizer": "bert-orig"
+        },
+        {
+          "embedding_dim": null,
+          "id": "bert-trim-8k",
+          "tokenizer": "bert-trim-8k"
+        },
+        {
+          "embedding_dim": null,
+          "id": "bert-trim-16k",
+          "tokenizer": "bert-trim-16k"
+        }
+      ],
+      "backend": "torch",
+      "batch_bytes": 307300,
+      "budget_bytes": 2000000000,
+      "checkpoint_dir": "data/checkpoints",
+      "checkpoint_every_steps": 500,
+      "data_dir": "data",
+      "dry_run": {
+        "minutes": 10.0,
+        "timing_skip_steps": 5
+      },
+      "eval": {
+        "batch_seqs": 256,
+        "every_steps": 500,
+        "heldout_bytes": 10000000,
+        "seed": 1234
+      },
+      "keep_checkpoints": 2,
+      "log_every_steps": 50,
+      "max_micro_batch_seqs": 512,
+      "mlm": {
+        "mask_prob": 0.15,
+        "replace_mask": 0.8,
+        "replace_random": 0.1
+      },
+      "model": {
+        "hidden_dropout": 0.1,
+        "hidden_size": 384,
+        "initializer_range": 0.02,
+        "intermediate_size": 1536,
+        "layer_norm_eps": 1e-12,
+        "max_position_embeddings": 256,
+        "num_heads": 12,
+        "num_layers": 6,
+        "type_vocab_size": 2
+      },
+      "optim": {
+        "beta1": 0.9,
+        "beta2": 0.98,
+        "eps": 1e-06,
+        "grad_clip": 1.0,
+        "learning_rate": 0.0005,
+        "warmup_fraction": 0.06,
+        "weight_decay": 0.01
+      },
+      "pretok_batch_docs": 1000,
+      "pretok_dir": "data/pretok",
+      "seed": 0,
+      "seq_len": 256,
+      "special_tokens": [
+        "[PAD]",
+        "[UNK]",
+        "[CLS]",
+        "[SEP]",
+        "[MASK]"
+      ],
+      "tf32": true,
+      "tokenizer_dir": "artifacts/tokenizers",
+      "torch": {
+        "allow_tf32": true,
+        "amp_dtype": "bfloat16",
+        "compile": false,
+        "dataloader_pin_memory": true,
+        "device": "cuda"
+      }
+    },
+    "config_sha256": "701836b41b0614d7e72d3d0b03d0f29cd94a0b4ff47e6e47800603a61e5279c8",
+    "env": {},
+    "git_dirty": null,
+    "git_sha": "c60b7428c319b2156482a7a314f5e9df05422c75",
+    "git_sha_source": "REVISION",
+    "libraries": {
+      "datasets": "5.0.1",
+      "huggingface-hub": "1.31.0",
+      "leanvocab": "0.1.0",
+      "numpy": "2.4.6",
+      "pyarrow": "25.0.1",
+      "pydantic": "2.13.5",
+      "tokenization-scorer": "1.1.8",
+      "tokenizers": "0.23.2",
+      "torch": "2.14.0",
+      "transformers": "5.17.0"
+    },
+    "phase": "phase4",
+    "platform": "Linux-5.14.0-427.13.1.el9_4.x86_64-x86_64-with-glibc2.34",
+    "python": "3.11.18",
+    "run_id": "20261121T085941Z-701836b4-bert-trim-16k",
+    "seed": 0
+  }
+}

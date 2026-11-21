@@ -9,6 +9,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from leanvocab.pretrain.config import Phase4Config
 from leanvocab.pretrain.data import SpecialIds
 from leanvocab.pretrain.masking import num_predictions
 from tests.test_pretrain import _cfg, _tiny_tokenizer, _write_corpus
@@ -28,7 +29,7 @@ def _ids(vocab_size: int = 50) -> SpecialIds:
     return SpecialIds(pad=0, unk=1, cls=2, sep=3, mask=4, random_low=5, vocab_size=vocab_size)
 
 
-def _torch_cfg(tmp: Path, **overrides: object) -> object:
+def _torch_cfg(tmp: Path, **overrides: object) -> Phase4Config:
     cfg = _cfg(tmp, **overrides)
     return cfg.model_copy(
         update={
@@ -56,8 +57,8 @@ def test_mask_tokens_rules() -> None:
     assert k == 4
     tensor = torch.from_numpy(batch)
     generator = torch.Generator().manual_seed(0)
-    corrupted, positions, labels = mask_tokens(generator, tensor, ids, k, 0.8, 0.1)
-    corrupted, positions, labels = (t.numpy() for t in (corrupted, positions, labels))
+    out = mask_tokens(generator, tensor, ids, k, 0.8, 0.1)
+    corrupted, positions, labels = (np.asarray(t.numpy()) for t in out)
 
     assert positions.shape == (400, k)
     assert not np.isin(positions, [0, 10, 31]).any()
@@ -67,7 +68,7 @@ def test_mask_tokens_rules() -> None:
     np.put_along_axis(untouched, positions, False, axis=1)
     np.testing.assert_array_equal(corrupted[untouched], batch[untouched])
 
-    new = np.take_along_axis(corrupted, positions, axis=1)
+    new: np.ndarray = np.take_along_axis(corrupted, positions, axis=1)
     masked = (new == ids.mask).mean()
     kept = (new == labels).mean()
     assert 0.76 < masked < 0.84
@@ -140,11 +141,13 @@ def test_checkpoint_is_loadable_by_the_mlx_backend(corpus: Path) -> None:
     mlx_model = MlxBert(cfg.encoder_config(arm, tok_meta["vocab_size"]))
     path = corpus / "ckptC" / FINAL_DIR / MODEL_FILE
     mlx_model.load_weights(str(path))
-    saved = {k: np.array(v) for k, v in mx.load(str(path)).items()}
-    loaded = {k: np.array(v) for k, v in tree_flatten(mlx_model.parameters())}
-    assert saved.keys() == loaded.keys()
+    loaded = mx.load(str(path))
+    assert isinstance(loaded, dict)
+    saved = {k: np.array(v) for k, v in loaded.items()}
+    in_model = {k: np.array(v) for k, v in tree_flatten(mlx_model.parameters())}
+    assert saved.keys() == in_model.keys()
     for name in saved:
-        np.testing.assert_array_equal(saved[name], loaded[name], err_msg=name)
+        np.testing.assert_array_equal(saved[name], in_model[name], err_msg=name)
 
 
 def test_dry_run_reports_estimate(corpus: Path) -> None:

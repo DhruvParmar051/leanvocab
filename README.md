@@ -15,7 +15,7 @@ Everything is held fixed except the tokenizer: the same corpus, the same number 
 | 1 | Corpus: FineWeb-Edu `sample-10BT`, NFC-normalized, exact-deduped, sharded, frozen held-out split | done |
 | 2 | Train 12 tokenizers (BPE / Unigram / WordPiece at 8k/16k/32k, plus BERT vocab and trimmed BERT) | done |
 | 3 | Intrinsic evaluation (compression, fertility, Rényi efficiency, truncation, FLOPs, throughput) | done — [`reports/intrinsic.md`](reports/intrinsic.md) |
-| 4 | MLM pretraining of 6 arms, 2 GB of text each | 4 of 6 arms done on MLX; CUDA backend ready for the full set |
+| 4 | MLM pretraining of 6 arms, 2 GB of text each | done — all 6 arms on CUDA ([`reports/pretrain.md`](reports/pretrain.md)); 4-arm MLX pilot kept separately |
 | 5 | Contrastive fine-tuning for sentence embeddings | planned, next up |
 | 6 | MTEB English subset + latency, final report | planned |
 
@@ -27,23 +27,36 @@ Twelve tokenizers compared on compression, fertility, vocabulary use, truncation
 
 ### Phase 4 — MLM pretraining (2 GB of text per arm, one pass, seed 0)
 
-| Arm | Vocab | Params | Held-out bits/byte | vs control | MLM accuracy | Wall clock |
-|---|---:|---:|---:|---:|---:|---:|
-| `bpe-16k` | 16,000 | 16.89M (−25%) | **1.1613** | −0.032 (better) | 37.6% | 1.79 h |
-| `bert-orig` (control) | 30,522 | 22.47M | **1.1931** | — | 35.5% | 2.51 h |
-| `bpe-8k` | 8,000 | 13.82M (−38%) | **1.1992** | +0.006 | 38.1% | 1.70 h |
-| `factorized-bert-orig` | 30,522 | 14.64M (−35%) | **1.8467** | +0.654 (much worse) | 14.7% | 1.67 h |
+All six arms, trained on one H200 with the PyTorch backend — the single-framework set:
 
-Lower bits/byte is better. Each arm saw ~2.00e9 bytes of text in ~6,500 steps of ~307 kB.
+| Arm | Vocab | Params | Held-out bits/byte | vs control | MLM acc |
+|---|---:|---:|---:|---:|---:|
+| `bert-trim-16k` | 16,000 | 16.89M (−25%) | **1.1356** | −0.105 | 38.6% |
+| `bert-trim-8k` | 8,000 | 13.82M (−38%) | **1.1381** | −0.103 | 41.6% |
+| `bpe-16k` | 16,000 | 16.89M (−25%) | **1.1823** | −0.058 | 36.3% |
+| `bpe-8k` | 8,000 | 13.82M (−38%) | **1.2304** | −0.010 | 37.0% |
+| `bert-orig` (control) | 30,522 | 22.47M | **1.2407** | — | 33.2% |
+| `factorized-bert-orig` | 30,522 | 14.64M (−35%) | **1.8328** | +0.592 | 15.1% |
+
+Lower bits/byte is better; it is loss per byte of raw text, so arms with different
+vocabularies are comparable. Each arm took about 4 minutes (1.88M tokens/sec).
 
 Reading of these numbers:
 
-- A 16k BPE vocabulary **beat** the 30,522-vocab control on held-out bits per byte while using 25% fewer parameters and 29% less wall clock.
-- An 8k vocabulary landed within 0.006 bits/byte of the control — inside the likely seed-to-seed noise band, which has not yet been measured.
-- ALBERT-style embedding factorization **failed** under this shared recipe, so parameter savings from a smaller vocabulary are not interchangeable with savings from factorization.
-- Caveats: single seed, and bits per byte is not MTEB. Phases 5–6 are what actually test the claim, and they are still ahead.
+- **Every small-vocabulary arm beat the 30,522-token control.** The parameter saving came
+  with a gain rather than a cost.
+- **Trimming BERT's vocabulary beat retraining a tokenizer at the same size** — Baseline B
+  existed as a "just drop the rare tokens" control and turned out to be the strongest
+  family at both sizes.
+- **8k is as good as 16k here**, and has the best MLM accuracy of any arm.
+- **Embedding factorization (Baseline A) fails** by 0.59 bits/byte, on both backends.
+- Caveats: one seed, so the 0.010 gap between `bpe-8k` and the control is not separable
+  from noise; the seed spread is configured but unrun. bits/byte is also not MTEB — the
+  claim is about sentence embeddings, which is Phases 5–6.
 
-Queued next: the two remaining Phase 4 arms (`bert-trim-8k`, `bert-trim-16k`, ~3.5 h), then repeat seeds on the top arms, then Phase 5.
+An earlier 4-arm pilot on Apple silicon (MLX) is kept separate: the backends differ by
++0.021 to +0.048 bits/byte and swap the order of two arms, which bf16 was ruled out as the
+cause of. See [`reports/pretrain.md`](reports/pretrain.md) for both tables and the detail.
 
 ## Released artifacts
 
